@@ -1,12 +1,11 @@
-
 #include "Brique.h"
 
 
-Brique::Brique(sf::Vector2f position, sf::Vector2f dimension, sf::Color colori)
+Brique::Brique(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris)
 {
-	dim= dimension;
+	dim = dimension;
 	pos = position;
-	color = colori;
+	color = coloris;
 	tanBrick=dim.y / dim.x;
 }
 
