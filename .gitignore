@@ -41,3 +41,12 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+//Added by user
+brickBreak/Debug/*
+!brickBreak/Debug/sfml-audio-d-2.dll
+!brickBreak/Debug/sfml-graphics-d-2.dll
+!brickBreak/Debug/sfml-network-d-2.dll
+!brickBreak/Debug/sfml-system-d-2.dll
+!brickBreak/Debug/sfml-window-d-2.dll
+brickBreak/Release/*
