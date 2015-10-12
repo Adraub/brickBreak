@@ -1,7 +1,7 @@
 #include "Ball.h"
 
 
-Ball::Ball(sf::Vector2f position,int rayon, sf::Vector2f vitesse )
+Ball::Ball(sf::Vector2f position, int rayon, sf::Vector2f vitesse )
 {
 	radius=rayon;
 	speed=vitesse;
@@ -25,20 +25,15 @@ int Ball::isInsideScreen(sf::Vector2f& resolution)
 {
 	if (pos.x + radius * 2 >= resolution.x)
 	{
-		/*Ball on th left corner*/
+		/*Ball on the right corner*/
 		speed.x = -speed.x;
 	}
 	else if (pos.x <= 0)
 	{
-		/*ball on the right corner*/
+		/*ball on the left corner*/
 		speed.x = -speed.x;
 	}
-	if (pos.y + radius * 2 >= resolution.y)
-	{
-		/*ball above the window*/
-		speed.y = -speed.y;
-	}
-	else if (pos.y <= 0)
+	if (pos.y <= 0)
 	{
 		/*ball on the top of the window*/
 		speed.y = -speed.y;
@@ -103,7 +98,51 @@ int Ball::isColliding(class Brique& brick)
 	return 1;
 }
 
-int Ball::isColliding(class Ball & otherBall)
+int Ball::isColliding(class Bar& bar)
+{
+	if (bar.getPos().y <= (pos.y + 2 * radius) && pos.y <= (bar.getPos().y + bar.getDim().y))
+	{
+		/*ball inside horizontal limits of the bar*/
+		if (bar.getPos().x <= (pos.x + 2 * radius) && pos.x <= (bar.getPos().x + bar.getDim().x))
+		{
+			/*ball inside vertical limits of the bar*/
+			if (pos.y >= bar.getPos().y + (pos.x - bar.getPos().x)*bar.getTanBar())
+			{
+				if (pos.y < bar.getPos().y + bar.getDim().y - (pos.x - bar.getPos().x)*bar.getTanBar())
+				{
+					/*left position*/
+					if (speed.x > 0)
+					{
+						speed.x = -speed.x;
+					}
+				}
+			}
+			else
+			{
+				if (pos.y >= bar.getPos().y + bar.getDim().y - (pos.x - bar.getPos().x)*bar.getTanBar())
+				{
+					/*right position*/
+					if (speed.x < 0)
+					{
+						speed.x = -speed.x;
+					}
+				}
+				else
+				{
+					/*down position*/
+					if (speed.y > 0)
+					{
+						speed.y = -speed.y;
+					}
+				}
+			}
+
+		}
+	}
+	return 1;
+}
+
+int Ball::isColliding(class Ball& otherBall)
 {
 	sf::Vector2f diff = (*this).getPosition() - otherBall.getPosition();
 	double distance = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
