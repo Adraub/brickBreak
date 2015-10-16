@@ -7,7 +7,6 @@
 class Bar {
 public:
 	Bar(sf::Vector2f, sf::Vector2f, sf::Color);
-	~Bar();
 	int isInsideScreen(sf::Vector2f&);
 	sf::Vector2f getDim();
 	sf::Vector2f getPos();

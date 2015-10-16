@@ -1,17 +1,15 @@
 #include "Ball.h"
 
 
-Ball::Ball(sf::Vector2f position, int rayon, sf::Vector2f vitesse )
+Ball::Ball(sf::Vector2f position, int rayon, sf::Vector2f vitesse, sf::Color colori )
 {
 	radius=rayon;
 	speed=vitesse;
 	pos=position;
+	color = colori;
 }
 
 
-Ball::~Ball()
-{
-}
 
 int Ball::move(sf::Vector2f& resolution)
 {
@@ -50,9 +48,9 @@ int Ball::isColliding(class Brique& brick)
 		if (brick.getPos().x <= (pos.x + 2 * radius) && pos.x <= (brick.getPos().x + brick.getDim().x))
 		{
 			/*ball inside vertical limits of the brick*/
-			if (pos.y >= brick.getPos().y + (pos.x - brick.getPos().x)*brick.getTanBrique())
+			if (pos.y +radius >= brick.getPos().y + (pos.x+ radius- brick.getPos().x)*brick.getTanBrique())
 			{
-				if (pos.y >= brick.getPos().y + brick.getDim().y - (pos.x - brick.getPos().x)*brick.getTanBrique())
+				if (pos.y +radius >= brick.getPos().y + brick.getDim().y - (pos.x +radius - brick.getPos().x)*brick.getTanBrique())
 				{
 					/*Down position*/
 					if (speed.y < 0)
@@ -73,7 +71,7 @@ int Ball::isColliding(class Brique& brick)
 			}
 			else
 			{
-				if (pos.y >= brick.getPos().y + brick.getDim().y - (pos.x - brick.getPos().x)*brick.getTanBrique())
+				if (pos.y + radius >= brick.getPos().y + brick.getDim().y - (pos.x +radius- brick.getPos().x)*brick.getTanBrique())
 				{
 					/*right position*/
 					if (speed.x < 0)
@@ -84,7 +82,7 @@ int Ball::isColliding(class Brique& brick)
 				}
 				else
 				{
-					/*down position*/
+					/*Up position*/
 					if (speed.y > 0)
 					{
 						speed.y = -speed.y;
@@ -129,7 +127,7 @@ int Ball::isColliding(class Bar& bar)
 				}
 				else
 				{
-					/*down position*/
+					/*up position*/
 					if (speed.y > 0)
 					{
 						speed.y = -speed.y;
@@ -148,7 +146,7 @@ int Ball::isColliding(class Ball& otherBall)
 	double distance = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
 	diff.x /= distance;
 	diff.y /= distance;
-	if (distance < std::max((*this).getRadius(), otherBall.getRadius()))
+	if (distance <= (*this).getRadius()+ otherBall.getRadius())
 	{
 		/*Conservation of cinetic energy*/
 		double vitesse = pow(otherBall.getSpeed().x, 2) + pow(otherBall.getSpeed().y, 2)
@@ -175,6 +173,11 @@ sf::Vector2f Ball::getPosition() {
 sf::Vector2f Ball::getSpeed() {
 	return speed;
 
+}
+
+sf::Color Ball::getColor()
+{
+	return color;
 }
 
 int Ball::setSpeed(sf::Vector2f& vitesse) {
