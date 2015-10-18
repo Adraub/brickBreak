@@ -13,7 +13,7 @@ Bar::~Bar()
 {
 }
 
-sf::Vector2f Bar::getDim()
+sf::Vector2f Bar::getDim() const
 {
 	return dim;
 }

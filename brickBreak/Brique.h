@@ -8,11 +8,12 @@ class Brique {
 public:
 	Brique(sf::Vector2f, sf::Vector2f, sf::Color);
 	~Brique();
-	sf::Vector2f getDim();
-	sf::Vector2f getPos();
-	sf::Color getColor();
+	sf::Vector2f getDim() const;
+	sf::Vector2f getPos() const;
+	sf::Color getColor() const;
 	int onCollision();
-	double getTanBrique();
+	double getTanBrique() const;
+	bool isDestroyed();
 
 private:
 	sf::Vector2f pos;
@@ -20,7 +21,8 @@ private:
 	sf::Color color;
 	double tanBrick;
 	std::string texture;
-	int hits = 0;
+	int hits;
+	bool destroyed;
 
 };
 

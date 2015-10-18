@@ -93,10 +93,13 @@ int main()
 			window.draw(drawBall(balls[i]));
 			for (int j = 0; j < bricks.size(); j++)
 			{
-				window.draw(drawBrick(bricks[j]));
-				balls[i].isColliding(bricks[j]);
-				balls[i].isColliding(bar);
+				//detection of destroyed bricks
+				if (bricks[j].isDestroyed() == false) {
+					window.draw(drawBrick(bricks[j]));
+					balls[i].isColliding(bricks[j]);
+				}
 			}
+			balls[i].isColliding(bar);
 			balls[i].move(resolution);
 		}
 		

@@ -16,9 +16,9 @@ public:
 	int isColliding(class Brique&);
 	int isColliding(Ball& otherBall);
 	int isColliding(class Bar&);
-	int getRadius();
-	sf::Vector2f getPosition();
-	sf::Vector2f getSpeed();
+	int getRadius() const;
+	sf::Vector2f getPosition() const;
+	sf::Vector2f getSpeed() const;
 	int setSpeed(sf::Vector2f& vitesse);
 private:
 	int radius;

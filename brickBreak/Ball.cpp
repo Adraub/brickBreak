@@ -163,16 +163,16 @@ int Ball::isColliding(class Ball& otherBall)
 	return 1;
 }
 
-int Ball::getRadius() {
+int Ball::getRadius() const {
 	return radius;
 }
 
-sf::Vector2f Ball::getPosition() {
+sf::Vector2f Ball::getPosition() const {
 	return pos;
 
 }
 
-sf::Vector2f Ball::getSpeed() {
+sf::Vector2f Ball::getSpeed() const {
 	return speed;
 
 }
@@ -181,3 +181,4 @@ int Ball::setSpeed(sf::Vector2f& vitesse) {
 	speed = vitesse;
 	return 0;
 }
+
