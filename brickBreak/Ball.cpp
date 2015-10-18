@@ -104,9 +104,9 @@ int Ball::isColliding(class Bar& bar)
 		if (bar.getPos().x <= (pos.x + 2 * radius) && pos.x <= (bar.getPos().x + bar.getDim().x))
 		{
 			/*ball inside vertical limits of the bar*/
-			if (pos.y >= bar.getPos().y + (pos.x - bar.getPos().x)*bar.getTanBar())
+			if (pos.y + radius >= bar.getPos().y + (pos.x + radius - bar.getPos().x)*bar.getTanBar())
 			{
-				if (pos.y < bar.getPos().y + bar.getDim().y - (pos.x - bar.getPos().x)*bar.getTanBar())
+				if (pos.y + radius < bar.getPos().y + bar.getDim().y - (pos.x + radius - bar.getPos().x)*bar.getTanBar())
 				{
 					/*left position*/
 					if (speed.x > 0)
@@ -117,7 +117,7 @@ int Ball::isColliding(class Bar& bar)
 			}
 			else
 			{
-				if (pos.y >= bar.getPos().y + bar.getDim().y - (pos.x - bar.getPos().x)*bar.getTanBar())
+				if (pos.y + radius >= bar.getPos().y + bar.getDim().y - (pos.x + radius - bar.getPos().x)*bar.getTanBar())
 				{
 					/*right position*/
 					if (speed.x < 0)
@@ -149,14 +149,20 @@ int Ball::isColliding(class Ball& otherBall)
 	if (distance <= (*this).getRadius()+ otherBall.getRadius())
 	{
 		/*Conservation of cinetic energy*/
-		double vitesse = pow(otherBall.getSpeed().x, 2) + pow(otherBall.getSpeed().y, 2)
-			+ pow(speed.x, 2) + pow(speed.y, 2);
-		vitesse = sqrt(vitesse);
-		diff.x *= vitesse / sqrt(2);
-		diff.y *= vitesse / sqrt(2);
+		double energy = pow(otherBall.getRadius(),2)*(pow(otherBall.getSpeed().x, 2) + pow(otherBall.getSpeed().y, 2))
+			+ pow(radius, 2)*(pow(speed.x, 2) + pow(speed.y, 2));
+		/*Energy reparted equally between each balls*/
+		energy /= 2;
+		double vitesse= sqrt(energy / pow(otherBall.getRadius(), 2));
+		sf::Vector2f speed;
+		speed.x = diff.x * vitesse;
+		speed.y = diff.y * vitesse;
 		/*Balls are rejecting each other*/
-		otherBall.setSpeed(-diff);
-		(*this).setSpeed(diff);
+		otherBall.setSpeed(-speed);
+		vitesse = sqrt(energy / pow(radius, 2));
+		speed.x = diff.x * vitesse;
+		speed.y = diff.y * vitesse;
+		(*this).setSpeed(speed);
 	}
 	return 1;
 }

@@ -38,12 +38,12 @@ int main()
 	int keyboardSensibility(10);
 	sf::Time loopTime = sf::microseconds(16666);
 	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
-	balls.push_back(Ball(sf::Vector2f(100, 100), 20, standardBallSpeed, sf::Color::Yellow));
+	balls.push_back(Ball(sf::Vector2f(100, 100), 10, standardBallSpeed, sf::Color::Yellow));
 	balls.push_back(Ball(sf::Vector2f(200, 100), 20, standardBallSpeed, sf::Color::Red));
-	balls.push_back(Ball(sf::Vector2f(300, 100), 20, standardBallSpeed, sf::Color::Green));
-	balls.push_back(Ball(sf::Vector2f(400, 100), 20, standardBallSpeed, sf::Color::Magenta));
-	balls.push_back(Ball(sf::Vector2f(500, 100), 20, standardBallSpeed, sf::Color::Blue));
-	balls.push_back(Ball(sf::Vector2f(600, 100), 20, standardBallSpeed, sf::Color::Cyan));
+	balls.push_back(Ball(sf::Vector2f(300, 100), 30, standardBallSpeed, sf::Color::Green));
+	balls.push_back(Ball(sf::Vector2f(400, 100), 40, standardBallSpeed, sf::Color::Magenta));
+	balls.push_back(Ball(sf::Vector2f(500, 100), 25, standardBallSpeed, sf::Color::Blue));
+	balls.push_back(Ball(sf::Vector2f(600, 100), 15, standardBallSpeed, sf::Color::Cyan));
 	bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, resolution.y / 2), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(150, resolution.y / 2), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(170, 115), sf::Vector2f(200, 100), sf::Color::Yellow));
