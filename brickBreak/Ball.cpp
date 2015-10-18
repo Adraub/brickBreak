@@ -42,7 +42,7 @@ int Ball::isInsideScreen(sf::Vector2f& resolution)
 }
 
 
-int Ball::isColliding(class Brique& brick)
+int Ball::isColliding(class Brick& brick)
 {
 	if (brick.getPos().y <= (pos.y + 2 * radius) && pos.y <= (brick.getPos().y + brick.getDim().y))
 	{

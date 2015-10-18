@@ -1,13 +1,13 @@
-#ifndef DEF_BRIQUE
-#define DEF_BRIQUE
+#ifndef DEF_BRICK
+#define DEF_BRICK
 
 #include "Ball.h"
 #include <SFML/Graphics.hpp>
 
-class Brique {
+class Brick {
 public:
-	Brique(sf::Vector2f, sf::Vector2f, sf::Color);
-	~Brique();
+	Brick(sf::Vector2f, sf::Vector2f, sf::Color);
+	~Brick();
 	sf::Vector2f getDim() const;
 	sf::Vector2f getPos() const;
 	sf::Color getColor() const;
@@ -15,7 +15,7 @@ public:
 	double getTanBrique() const;
 	bool isDestroyed();
 
-private:
+protected:
 	sf::Vector2f pos;
 	sf::Vector2f dim;
 	sf::Color color;

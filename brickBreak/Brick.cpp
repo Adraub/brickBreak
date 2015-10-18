@@ -1,7 +1,7 @@
-#include "Brique.h"
+#include "Brick.h"
 
 
-Brique::Brique(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris)
+Brick::Brick(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris)
 {
 	dim = dimension;
 	pos = position;
@@ -12,26 +12,26 @@ Brique::Brique(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris)
 }
 
 
-Brique::~Brique()
+Brick::~Brick()
 {
 }
 
-sf::Vector2f Brique::getDim() const
+sf::Vector2f Brick::getDim() const
 {
 	return dim;
 }
 
-sf::Vector2f Brique::getPos() const
+sf::Vector2f Brick::getPos() const
 {
 	return pos;
 }
 
-sf::Color Brique::getColor() const
+sf::Color Brick::getColor() const
 {
 	return color;
 }
 
-int Brique::onCollision()
+int Brick::onCollision()
 {
 	hits--;
 	if (color == sf::Color::Yellow)
@@ -45,12 +45,12 @@ int Brique::onCollision()
 	return 0;
 }
 
-double Brique::getTanBrique() const
+double Brick::getTanBrique() const
 {
 	return tanBrick;
 }
 
-bool Brique::isDestroyed() 
+bool Brick::isDestroyed() 
 {
 	if (hits <= 0) {
 		destroyed = true;

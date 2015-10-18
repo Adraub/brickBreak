@@ -2,7 +2,7 @@
 #ifndef DEF_BALL
 #define DEF_BALL
 
-#include "Brique.h"
+#include "Brick.h"
 #include "bar.h"
 #include <SFML/Graphics.hpp>
 
@@ -13,7 +13,7 @@ public:
 	~Ball();
 	int move(sf::Vector2f&);
 	int isInsideScreen(sf::Vector2f&);
-	int isColliding(class Brique&);
+	int isColliding(class Brick&);
 	int isColliding(Ball& otherBall);
 	int isColliding(class Bar&);
 	int getRadius() const;
