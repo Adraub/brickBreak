@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "Ball.h"
 #include "Brique.h"
 #include "Ball.h"
@@ -30,29 +31,38 @@ sf::RectangleShape drawBar(Bar bar)
 
 int main()
 {
-	/*Size of the inside window*/
-	sf::Vector2f resolution(1024, 768);
+	/*Size of the space used to draw*/
+	sf::Vector2f resolution(1920, 1080);
+	/*Balls array*/
 	std::vector<Ball> balls;
+	/*Bricks array*/
 	std::vector<Brique> bricks;
+	/*default ball speed*/
 	sf::Vector2f standardBallSpeed(5, 5);
+	/*keyboard sensibility*/
 	int keyboardSensibility(10);
+	/*time between each graphical loop*/
 	sf::Time loopTime = sf::microseconds(16666);
+
 	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
 	balls.push_back(Ball(sf::Vector2f(100, 100), 10, standardBallSpeed, sf::Color::Yellow));
-	balls.push_back(Ball(sf::Vector2f(200, 100), 20, standardBallSpeed, sf::Color::Red));
+	balls.push_back(Ball(sf::Vector2f(250, 150), 20, standardBallSpeed, sf::Color::Red));
 	balls.push_back(Ball(sf::Vector2f(300, 100), 30, standardBallSpeed, sf::Color::Green));
 	balls.push_back(Ball(sf::Vector2f(400, 100), 40, standardBallSpeed, sf::Color::Magenta));
 	balls.push_back(Ball(sf::Vector2f(500, 100), 25, standardBallSpeed, sf::Color::Blue));
 	balls.push_back(Ball(sf::Vector2f(600, 100), 15, standardBallSpeed, sf::Color::Cyan));
 	bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, resolution.y / 2), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(150, resolution.y / 2), sf::Vector2f(200, 100), sf::Color::Yellow));
-	bricks.push_back(Brique(sf::Vector2f(170, 115), sf::Vector2f(200, 100), sf::Color::Yellow));
+	bricks.push_back(Brique(sf::Vector2f(300, 300), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
-	bricks.push_back(Brique(sf::Vector2f(800, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
-	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker", sf::Style::Close);
+	bricks.push_back(Brique(sf::Vector2f(650, 300), sf::Vector2f(200, 100), sf::Color::Yellow));
+	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker");
+	//fit window to user screen
+	window.setSize(sf::Vector2u(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height*0.90f));
 	// Limit the framerate to 60 frames per second
 	window.setFramerateLimit(60);
-
+	//hide the mouse
+	window.setMouseCursorVisible(false);
 	// program is running until window is closed
 	while (window.isOpen())
 	{
@@ -66,11 +76,20 @@ int main()
 			if (event.type == sf::Event::Closed || 
 				(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
 				window.close();
-
 			// capture mouse movement
-			if (event.type == sf::Event::MouseMoved)
+			else if (event.type == sf::Event::MouseMoved)
 			{
-				bar.setPosx(event.mouseMove.x - bar.getDim().x / 2);
+				//Convert window size to world size
+				sf::Vector2f mouse=window.mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y), window.getView());
+				bar.setPosx(mouse.x - bar.getDim().x / 2);
+			}
+			else if (event.type == sf::Event::Resized)
+			{
+				sf::View view(sf::FloatRect(-(event.size.width - resolution.x) / 2, -(event.size.height - resolution.y) / 2
+					, event.size.width, event.size.height));
+				float zoom = std::max(resolution.x/ event.size.width, resolution.y/ event.size.height);
+				view.zoom(zoom);
+				window.setView(view);
 			}
 		}
 
