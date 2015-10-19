@@ -1,8 +1,10 @@
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Ball.h"
 #include "Brique.h"
 #include "Ball.h"
+#include "Score.h"
 
 sf::RectangleShape drawBrick(Brique brique)
 {
@@ -31,9 +33,18 @@ sf::RectangleShape drawBar(Bar bar)
 
 int main()
 {
+<<<<<<< HEAD
+	// Initialisation du score
+	Score score(0, 0);
+	score.initialize();
+
+	/* Size of the inside window*/
+	sf::Vector2f resolution(1024, 768);
+=======
 	/*Size of the space used to draw*/
 	sf::Vector2f resolution(1920, 1080);
 	/*Balls array*/
+>>>>>>> refs/remotes/origin/master
 	std::vector<Ball> balls;
 	/*Bricks array*/
 	std::vector<Brique> bricks;
@@ -45,16 +56,29 @@ int main()
 	sf::Time loopTime = sf::microseconds(16666);
 
 	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
+<<<<<<< HEAD
+	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "My window");
+=======
 	balls.push_back(Ball(sf::Vector2f(100, 100), 10, standardBallSpeed, sf::Color::Yellow));
 	balls.push_back(Ball(sf::Vector2f(250, 150), 20, standardBallSpeed, sf::Color::Red));
 	balls.push_back(Ball(sf::Vector2f(300, 100), 30, standardBallSpeed, sf::Color::Green));
 	balls.push_back(Ball(sf::Vector2f(400, 100), 40, standardBallSpeed, sf::Color::Magenta));
 	balls.push_back(Ball(sf::Vector2f(500, 100), 25, standardBallSpeed, sf::Color::Blue));
 	balls.push_back(Ball(sf::Vector2f(600, 100), 15, standardBallSpeed, sf::Color::Cyan));
+>>>>>>> refs/remotes/origin/master
 	bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, resolution.y / 2), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(150, resolution.y / 2), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(300, 300), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
+<<<<<<< HEAD
+	bricks.push_back(Brique(sf::Vector2f(800, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
+	balls.push_back(Ball(sf::Vector2f(100, 100), 20, sf::Vector2f(1, 1)));
+	balls.push_back(Ball(sf::Vector2f(200, 100), 20, sf::Vector2f(1, 1)));
+	balls.push_back(Ball(sf::Vector2f(300, 100), 20, sf::Vector2f(1, 1)));
+	balls.push_back(Ball(sf::Vector2f(400, 100), 20, sf::Vector2f(1, 1)));
+	
+
+=======
 	bricks.push_back(Brique(sf::Vector2f(650, 300), sf::Vector2f(200, 100), sf::Color::Yellow));
 	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker");
 	//fit window to user screen
@@ -63,12 +87,30 @@ int main()
 	window.setFramerateLimit(60);
 	//hide the mouse
 	window.setMouseCursorVisible(false);
+>>>>>>> refs/remotes/origin/master
 	// program is running until window is closed
-	while (window.isOpen())
+	while (window.isOpen() && score.getScore()>0)
 	{
+<<<<<<< HEAD
+		if (balls.empty())
+		{
+			score.reduceScore();
+			if (score.getScore() < 0)
+			{
+				window.close();
+				std::cout << "You lose!";
+			}
+			balls.push_back(Ball(sf::Vector2f(100, 100), 20, sf::Vector2f(1, 1)));
+			balls.push_back(Ball(sf::Vector2f(200, 100), 20, sf::Vector2f(1, 1)));
+			balls.push_back(Ball(sf::Vector2f(300, 100), 20, sf::Vector2f(1, 1)));
+			balls.push_back(Ball(sf::Vector2f(400, 100), 20, sf::Vector2f(1, 1)));
+			
+		}
+=======
 		//launch timer
 		sf::Clock clock;
 
+>>>>>>> refs/remotes/origin/master
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -126,12 +168,23 @@ int main()
 			}
 			balls[i].isColliding(bar);
 			balls[i].move(resolution);
+			if (!balls[i].isInsideScreen(resolution))
+			{
+				balls.erase(balls.begin()+i);
+			}
 		}
+<<<<<<< HEAD
+		
+		// show score
+		window.draw(score.textScore(resolution));
+
+=======
 
 		// draw bar
 		window.draw(drawBar(bar));
 		
 		
+>>>>>>> refs/remotes/origin/master
 		// end of the draw frame
 		window.display();
 		sf::Time elapsed = clock.getElapsedTime();
