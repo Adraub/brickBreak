@@ -1,7 +1,9 @@
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Ball.h"
 #include "Brique.h"
 #include "Ball.h"
+#include "Score.h"
 
 sf::RectangleShape drawBrick(Brique brique)
 {
@@ -30,28 +32,44 @@ sf::RectangleShape drawBar(Bar bar)
 
 int main()
 {
-	/*Size of the inside window*/
+	// Initialisation du score
+	Score score(0, 0);
+	score.initialize();
+
+	/* Size of the inside window*/
 	sf::Vector2f resolution(1024, 768);
 	std::vector<Ball> balls;
 	std::vector<Brique> bricks;
 	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
-	balls.push_back(Ball(sf::Vector2f(100, 100), 20, sf::Vector2f(1, 1)));
-	balls.push_back(Ball(sf::Vector2f(200, 100), 20, sf::Vector2f(1, 1)));
-	balls.push_back(Ball(sf::Vector2f(300, 100), 20, sf::Vector2f(1, 1)));
-	balls.push_back(Ball(sf::Vector2f(400, 100), 20, sf::Vector2f(1, 1)));
-	balls.push_back(Ball(sf::Vector2f(500, 100), 20, sf::Vector2f(1, 1)));
-	balls.push_back(Ball(sf::Vector2f(600, 100), 20, sf::Vector2f(1, 1)));
+	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "My window");
 	bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, resolution.y / 2), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(150, resolution.y / 2), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(170, 115), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(800, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
-	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "My window");
+	balls.push_back(Ball(sf::Vector2f(100, 100), 20, sf::Vector2f(1, 1)));
+	balls.push_back(Ball(sf::Vector2f(200, 100), 20, sf::Vector2f(1, 1)));
+	balls.push_back(Ball(sf::Vector2f(300, 100), 20, sf::Vector2f(1, 1)));
+	balls.push_back(Ball(sf::Vector2f(400, 100), 20, sf::Vector2f(1, 1)));
+	
 
 	// program is running until window is closed
-	while (window.isOpen())
+	while (window.isOpen() && score.getScore()>0)
 	{
-		
+		if (balls.empty())
+		{
+			score.reduceScore();
+			if (score.getScore() < 0)
+			{
+				window.close();
+				std::cout << "You lose!";
+			}
+			balls.push_back(Ball(sf::Vector2f(100, 100), 20, sf::Vector2f(1, 1)));
+			balls.push_back(Ball(sf::Vector2f(200, 100), 20, sf::Vector2f(1, 1)));
+			balls.push_back(Ball(sf::Vector2f(300, 100), 20, sf::Vector2f(1, 1)));
+			balls.push_back(Ball(sf::Vector2f(400, 100), 20, sf::Vector2f(1, 1)));
+			
+		}
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -98,10 +116,15 @@ int main()
 				balls[i].isColliding(bar);
 			}
 			balls[i].move(resolution);
+			if (!balls[i].isInsideScreen(resolution))
+			{
+				balls.erase(balls.begin()+i);
+			}
 		}
 		
-		
-		
+		// show score
+		window.draw(score.textScore(resolution));
+
 		// end of the draw frame
 		window.display();
 		sf::sleep(sf::milliseconds(1));

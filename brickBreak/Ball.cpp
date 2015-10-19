@@ -15,14 +15,22 @@ Ball::~Ball()
 
 int Ball::move(sf::Vector2f& resolution)
 {
-	isInsideScreen(resolution);
 	pos += speed;
 	return 1;
 }
 
 
-int Ball::isInsideScreen(sf::Vector2f& resolution) 
+bool Ball::isInsideScreen(sf::Vector2f& resolution) 
 {
+	if (pos.y + radius * 2 > resolution.y)
+	{
+		return false;
+	}
+	else if (pos.y <= 0)
+	{
+		/*ball on the top of the window*/
+		speed.y = -speed.y;
+	}
 	if (pos.x + radius * 2 >= resolution.x)
 	{
 		/*Ball on the right corner*/
@@ -33,12 +41,7 @@ int Ball::isInsideScreen(sf::Vector2f& resolution)
 		/*ball on the left corner*/
 		speed.x = -speed.x;
 	}
-	if (pos.y <= 0)
-	{
-		/*ball on the top of the window*/
-		speed.y = -speed.y;
-	}
-	return 1;
+	return true;
 }
 
 
