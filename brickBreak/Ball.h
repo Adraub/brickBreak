@@ -9,8 +9,7 @@
 class Ball
 {
 public:
-	Ball(sf::Vector2f, int, sf::Vector2f);
-	~Ball();
+	Ball(sf::Vector2f, int, sf::Vector2f, sf::Color);
 	int move(sf::Vector2f&);
 	bool isInsideScreen(sf::Vector2f&);
 	int isColliding(class Brique&);
@@ -20,12 +19,17 @@ public:
 	sf::Vector2f getPosition();
 	sf::Vector2f getSpeed();
 	int setSpeed(sf::Vector2f& vitesse);
+<<<<<<< HEAD
 
+=======
+	sf::Color getColor();
+>>>>>>> refs/remotes/origin/master
 private:
 	int radius;
 	sf::Vector2f speed;
 	sf::Vector2f pos;
 	double spin = 0;
+	sf::Color color;
 };
 
 #endif

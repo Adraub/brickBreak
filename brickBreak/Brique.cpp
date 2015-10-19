@@ -10,9 +10,6 @@ Brique::Brique(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris)
 }
 
 
-Brique::~Brique()
-{
-}
 
 sf::Vector2f Brique::getDim()
 {

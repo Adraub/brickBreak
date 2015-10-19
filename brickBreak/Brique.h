@@ -7,7 +7,6 @@
 class Brique {
 public:
 	Brique(sf::Vector2f, sf::Vector2f, sf::Color);
-	~Brique();
 	sf::Vector2f getDim();
 	sf::Vector2f getPos();
 	sf::Color getColor();

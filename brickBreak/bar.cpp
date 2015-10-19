@@ -9,9 +9,6 @@ Bar::Bar(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris)
 }
 
 
-Bar::~Bar()
-{
-}
 
 sf::Vector2f Bar::getDim()
 {
