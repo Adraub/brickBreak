@@ -11,7 +11,7 @@ class Ball
 public:
 	Ball(sf::Vector2f, int, sf::Vector2f, sf::Color);
 	int move(sf::Vector2f&);
-	int isInsideScreen(sf::Vector2f&);
+	bool isInsideScreen(sf::Vector2f&);
 	int isColliding(class Brique&);
 	int isColliding(Ball& otherBall);
 	int isColliding(class Bar&);
@@ -20,6 +20,7 @@ public:
 	sf::Vector2f getSpeed();
 	int setSpeed(sf::Vector2f& vitesse);
 	sf::Color getColor();
+
 private:
 	int radius;
 	sf::Vector2f speed;

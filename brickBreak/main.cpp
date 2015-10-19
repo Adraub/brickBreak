@@ -3,6 +3,7 @@
 #include "Ball.h"
 #include "Brique.h"
 #include "Ball.h"
+#include "Score.h"
 
 sf::RectangleShape drawBrick(Brique brique)
 {
@@ -31,6 +32,10 @@ sf::RectangleShape drawBar(Bar bar)
 
 int main()
 {
+	// Initialisation du score
+	Score score(0, 0);
+	score.initialize();
+	
 	/*Size of the space used to draw*/
 	sf::Vector2f resolution(1920, 1080);
 	/*Balls array*/
@@ -45,6 +50,7 @@ int main()
 	sf::Time loopTime = sf::microseconds(16666);
 
 	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
+	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker"); 
 	balls.push_back(Ball(sf::Vector2f(100, 100), 10, standardBallSpeed, sf::Color::Yellow));
 	balls.push_back(Ball(sf::Vector2f(250, 150), 20, standardBallSpeed, sf::Color::Red));
 	balls.push_back(Ball(sf::Vector2f(300, 100), 30, standardBallSpeed, sf::Color::Green));
@@ -56,16 +62,39 @@ int main()
 	bricks.push_back(Brique(sf::Vector2f(300, 300), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(650, 300), sf::Vector2f(200, 100), sf::Color::Yellow));
-	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker");
+	
 	//fit window to user screen
 	window.setSize(sf::Vector2u(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height*0.90f));
 	// Limit the framerate to 60 frames per second
 	window.setFramerateLimit(60);
 	//hide the mouse
 	window.setMouseCursorVisible(false);
+
 	// program is running until window is closed
 	while (window.isOpen())
 	{
+		// test null score
+		if (score.getScore() == 0)
+		{
+			window.close();
+		}
+
+		// test to reduce score 
+		if (balls.empty())
+		{
+			score.reduceScore();
+			if (score.getScore() < 0)
+			{
+				window.close();
+			}
+			balls.push_back(Ball(sf::Vector2f(100, 100), 10, standardBallSpeed, sf::Color::Yellow));
+			balls.push_back(Ball(sf::Vector2f(250, 150), 20, standardBallSpeed, sf::Color::Red));
+			balls.push_back(Ball(sf::Vector2f(300, 100), 30, standardBallSpeed, sf::Color::Green));
+			balls.push_back(Ball(sf::Vector2f(400, 100), 40, standardBallSpeed, sf::Color::Magenta));
+			balls.push_back(Ball(sf::Vector2f(500, 100), 25, standardBallSpeed, sf::Color::Blue));
+			balls.push_back(Ball(sf::Vector2f(600, 100), 15, standardBallSpeed, sf::Color::Cyan));
+		}
+
 		//launch timer
 		sf::Clock clock;
 
@@ -126,11 +155,17 @@ int main()
 			}
 			balls[i].isColliding(bar);
 			balls[i].move(resolution);
+			if (!balls[i].isInsideScreen(resolution))
+			{
+				balls.erase(balls.begin() + i);
+			}
 		}
 
 		// draw bar
 		window.draw(drawBar(bar));
-		
+
+		// show score
+		window.draw(score.textScore(resolution));		
 		
 		// end of the draw frame
 		window.display();
