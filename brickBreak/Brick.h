@@ -2,6 +2,7 @@
 #define DEF_BRICK
 
 #include "Ball.h"
+#include "Bar.h"
 #include <SFML/Graphics.hpp>
 
 class Brick {
@@ -13,7 +14,7 @@ public:
 	sf::Color getColor() const;
 	int onCollision();
 	double getTanBrique() const;
-	bool isDestroyed();
+	virtual bool isDestroyed();
 
 protected:
 	sf::Vector2f pos;
@@ -25,5 +26,31 @@ protected:
 	bool destroyed;
 
 };
+
+
+class ClassicBrick : public Brick {
+public:
+	ClassicBrick(sf::Vector2f, sf::Vector2f, sf::Color);
+	~ClassicBrick();
+};
+
+
+class StrongBrick : public Brick {
+public:
+	StrongBrick(sf::Vector2f, sf::Vector2f, sf::Color, int);
+	~StrongBrick();
+};
+
+
+class BallBrick : public Brick {
+public:
+	BallBrick(sf::Vector2f, sf::Vector2f, sf::Color, std::vector<Ball>&);
+	~BallBrick();
+	virtual bool BallBrick::isDestroyed();
+
+protected:
+	std::vector<Ball> *myBall;
+};
+
 
 #endif

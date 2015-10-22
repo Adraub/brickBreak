@@ -2,7 +2,6 @@
 #ifndef DEF_BALL
 #define DEF_BALL
 
-#include "Brick.h"
 #include "bar.h"
 #include <SFML/Graphics.hpp>
 
@@ -20,7 +19,7 @@ public:
 	sf::Vector2f getPosition() const;
 	sf::Vector2f getSpeed() const;
 	int setSpeed(sf::Vector2f& vitesse);
-private:
+protected:
 	int radius;
 	sf::Vector2f speed;
 	sf::Vector2f pos;

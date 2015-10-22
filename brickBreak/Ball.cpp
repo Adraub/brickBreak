@@ -1,4 +1,6 @@
 #include "Ball.h"
+#include "Brick.h"
+#include "Ball.h"
 
 
 Ball::Ball(sf::Vector2f position, int rayon, sf::Vector2f vitesse )

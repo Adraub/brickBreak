@@ -3,6 +3,7 @@
 #include "Brick.h"
 #include "Ball.h"
 
+
 sf::RectangleShape drawBrick(Brick brique)
 {
 	sf::RectangleShape brick(brique.getDim());
@@ -30,19 +31,35 @@ sf::RectangleShape drawBar(Bar bar)
 
 int main()
 {
+	int cpt_h = 0, cpt_v = 0;
 	/*Size of the inside window*/
 	sf::Vector2f resolution(1024, 768);
-	std::vector<Ball*> myBalls;
+
+	//creation of object vectors
+	std::vector<Ball> myBalls;
 	std::vector<Brick*> myBricks;
+	int test[50] = { 0 };
+
+	//creation of the bar
 	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
-	myBalls.push_back(new Ball(sf::Vector2f(100, 100), 20, sf::Vector2f(1, 1)));
+
+	//creation of the bricks
+	for (cpt_v=0; cpt_v < 5; cpt_v++) {
+		for (cpt_h=0; cpt_h < 10; cpt_h++) {
+			myBricks.push_back(new BallBrick(sf::Vector2f(200 + 2*cpt_h * 60, 150 + 2*cpt_v * 30), sf::Vector2f(50, 20), sf::Color::Yellow, myBalls));
+			//myBricks.push_back(new StrongBrick(sf::Vector2f(200 + (2 * cpt_h + 1) * 60, 150 + (2 * cpt_v + 1) * 30), sf::Vector2f(50, 20), sf::Color::Yellow, 3));
+			//myBricks.push_back(new BallBrick(sf::Vector2f(200 + (2*cpt_h+1) * 60, 150 + (2*cpt_v+1) * 30), sf::Vector2f(50, 20), sf::Color::Yellow,myBalls));
+		}
+	}
+	myBalls.push_back(Ball(sf::Vector2f(100, 100), 10, sf::Vector2f(1,1)));
+
 	//balls.push_back(Ball(sf::Vector2f(200, 100), 20, sf::Vector2f(1, 1)));
 	//balls.push_back(Ball(sf::Vector2f(300, 100), 20, sf::Vector2f(1, 1)));
 	//balls.push_back(Ball(sf::Vector2f(400, 100), 20, sf::Vector2f(1, 1)));
 	//balls.push_back(Ball(sf::Vector2f(500, 100), 20, sf::Vector2f(1, 1)));
 	//balls.push_back(Ball(sf::Vector2f(600, 100), 20, sf::Vector2f(1, 1)));
-	myBricks.push_back(new Brick(sf::Vector2f(resolution.x / 2, resolution.y / 2), sf::Vector2f(200, 100), sf::Color::Yellow));
-	//bricks.push_back(Brique(sf::Vector2f(150, resolution.y / 2), sf::Vector2f(200, 100), sf::Color::Yellow));
+	////myBricks.push_back(new ClassicBrick(sf::Vector2f(resolution.x / 2, resolution.y / 2), sf::Vector2f(20, 10), sf::Color::Yellow));
+	////myBricks.push_back(new StrongBrick(sf::Vector2f(150, resolution.y / 2), sf::Vector2f(20, 10), sf::Color::Yellow,5));
 	//bricks.push_back(Brique(sf::Vector2f(170, 115), sf::Vector2f(200, 100), sf::Color::Yellow));
 	//bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
 	//bricks.push_back(Brique(sf::Vector2f(800, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
@@ -90,18 +107,19 @@ int main()
 		// draw frame
 		for (int i = 0; i < myBalls.size(); i++)
 		{
-			window.draw(drawBall(*myBalls[i]));
+			window.draw(drawBall(myBalls[i]));
 			for (int j = 0; j < myBricks.size(); j++)
 			{
+				window.draw(drawBrick(*myBricks[j]));
+				myBalls[i].isColliding(*myBricks[j]);
 				//detection of destroyed bricks
-				if (myBricks[j]->isDestroyed() == false) {
-					window.draw(drawBrick(*myBricks[j]));
-					myBalls[i]->isColliding(*myBricks[j]);
+				if (myBricks[j]->isDestroyed() == true) {
+					myBricks.erase(myBricks.begin()+j);
 				}
 			}
 			//balls movement
-			myBalls[i]->isColliding(bar);
-			myBalls[i]->move(resolution);
+			myBalls[i].isColliding(bar);
+			myBalls[i].move(resolution);
 		}
 				
 		// end of the draw frame
