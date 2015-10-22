@@ -9,6 +9,7 @@ class Brick {
 public:
 	Brick(sf::Vector2f, sf::Vector2f, sf::Color);
 	~Brick();
+	virtual void draw(sf::RenderWindow&);
 	sf::Vector2f getDim() const;
 	sf::Vector2f getPos() const;
 	sf::Color getColor() const;
@@ -39,6 +40,7 @@ class StrongBrick : public Brick {
 public:
 	StrongBrick(sf::Vector2f, sf::Vector2f, sf::Color, int);
 	~StrongBrick();
+	virtual void draw(sf::RenderWindow&);
 };
 
 
@@ -46,6 +48,7 @@ class BallBrick : public Brick {
 public:
 	BallBrick(sf::Vector2f, sf::Vector2f, sf::Color, std::vector<Ball>&);
 	~BallBrick();
+	virtual void draw(sf::RenderWindow&);
 	virtual bool BallBrick::isDestroyed();
 
 protected:

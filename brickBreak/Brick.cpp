@@ -17,6 +17,14 @@ Brick::~Brick()
 {
 }
 
+void Brick::draw(sf::RenderWindow& window)
+{
+	sf::RectangleShape brick(dim);
+	brick.setPosition(pos);
+	brick.setFillColor(color);
+	window.draw(brick);
+}
+
 sf::Vector2f Brick::getDim() const
 {
 	return dim;
@@ -84,6 +92,18 @@ StrongBrick::~StrongBrick()
 {
 
 }
+
+void StrongBrick::draw(sf::RenderWindow& window)
+{
+	sf::RectangleShape brick1(dim);
+	brick1.setPosition(pos);
+	brick1.setFillColor(sf::Color::White);
+	window.draw(brick1);
+	sf::RectangleShape brick2(sf::Vector2f(dim.x-6,dim.y-6));
+	brick2.setPosition(sf::Vector2f(pos.x + 3, pos.y + 3));
+	brick2.setFillColor(color);
+	window.draw(brick2);
+}
 //end class StrongBrick//
 
 
@@ -92,7 +112,7 @@ StrongBrick::~StrongBrick()
 BallBrick::BallBrick(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, std::vector<Ball>& myBalls) : Brick(position, dimension, coloris)
 {	
 	myBall = &myBalls;
-	hits = 2;
+	hits = 1;
 }
 
 BallBrick::~BallBrick()
@@ -100,11 +120,20 @@ BallBrick::~BallBrick()
 	
 }
 
+void BallBrick::draw(sf::RenderWindow& window)
+{
+	Brick::draw(window);
+	sf::CircleShape trappedBall(10);
+	trappedBall.setPosition(sf::Vector2f((pos.x+dim.x/2)-10, (pos.y+dim.y/2)-10));
+	trappedBall.setFillColor(sf::Color::Red);
+	window.draw(trappedBall);
+}
+
 bool BallBrick::isDestroyed()
 {
 	Brick::isDestroyed();
 	if (destroyed) {
-		myBall->push_back(Ball(pos, 10, sf::Vector2f(-1, 1)));
+		myBall->push_back(Ball(sf::Vector2f((pos.x + dim.x / 2) - 10, (pos.y + dim.y / 2) - 10), 10, sf::Vector2f(-1, 1)));
 	}
 	return destroyed;
 }

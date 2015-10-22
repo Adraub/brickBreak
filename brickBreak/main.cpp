@@ -45,30 +45,28 @@ int main()
 
 	//creation of the bricks
 	for (cpt_v=0; cpt_v < 5; cpt_v++) {
-		for (cpt_h=0; cpt_h < 10; cpt_h++) {
-			myBricks.push_back(new BallBrick(sf::Vector2f(200 + 2*cpt_h * 60, 150 + 2*cpt_v * 30), sf::Vector2f(50, 20), sf::Color::Yellow, myBalls));
-			//myBricks.push_back(new StrongBrick(sf::Vector2f(200 + (2 * cpt_h + 1) * 60, 150 + (2 * cpt_v + 1) * 30), sf::Vector2f(50, 20), sf::Color::Yellow, 3));
-			//myBricks.push_back(new BallBrick(sf::Vector2f(200 + (2*cpt_h+1) * 60, 150 + (2*cpt_v+1) * 30), sf::Vector2f(50, 20), sf::Color::Yellow,myBalls));
+		for (cpt_h=0; cpt_h < 6; cpt_h++) {
+			myBricks.push_back(new ClassicBrick(sf::Vector2f(200 + 2*cpt_h * 60, 150 + cpt_v * 30), sf::Vector2f(50, 20), sf::Color::Yellow));
+			if (cpt_h < 5) {
+				if (cpt_v == 0 || cpt_v == 2 || cpt_v == 4) {
+					myBricks.push_back(new StrongBrick(sf::Vector2f(200 + (2 * cpt_h + 1) * 60, 150 + cpt_v * 30), sf::Vector2f(50, 20), sf::Color::Yellow, 3));
+				}
+				else {
+					myBricks.push_back(new BallBrick(sf::Vector2f(200 + (2 * cpt_h + 1) * 60, 150 + cpt_v * 30), sf::Vector2f(50, 20), sf::Color::Yellow, myBalls));
+				}
+			}
 		}
 	}
+
+	//creation of the ball
 	myBalls.push_back(Ball(sf::Vector2f(100, 100), 10, sf::Vector2f(1,1)));
 
-	//balls.push_back(Ball(sf::Vector2f(200, 100), 20, sf::Vector2f(1, 1)));
-	//balls.push_back(Ball(sf::Vector2f(300, 100), 20, sf::Vector2f(1, 1)));
-	//balls.push_back(Ball(sf::Vector2f(400, 100), 20, sf::Vector2f(1, 1)));
-	//balls.push_back(Ball(sf::Vector2f(500, 100), 20, sf::Vector2f(1, 1)));
-	//balls.push_back(Ball(sf::Vector2f(600, 100), 20, sf::Vector2f(1, 1)));
-	////myBricks.push_back(new ClassicBrick(sf::Vector2f(resolution.x / 2, resolution.y / 2), sf::Vector2f(20, 10), sf::Color::Yellow));
-	////myBricks.push_back(new StrongBrick(sf::Vector2f(150, resolution.y / 2), sf::Vector2f(20, 10), sf::Color::Yellow,5));
-	//bricks.push_back(Brique(sf::Vector2f(170, 115), sf::Vector2f(200, 100), sf::Color::Yellow));
-	//bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
-	//bricks.push_back(Brique(sf::Vector2f(800, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
+	//creation of the window
 	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "My window");
 
 	// program is running until window is closed
 	while (window.isOpen())
 	{
-		
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -107,11 +105,16 @@ int main()
 		// draw frame
 		for (int i = 0; i < myBalls.size(); i++)
 		{
+			//draw the balls
 			window.draw(drawBall(myBalls[i]));
 			for (int j = 0; j < myBricks.size(); j++)
 			{
-				window.draw(drawBrick(*myBricks[j]));
+				//draw the balls
+				myBricks[j]->draw(window);
+
+				//detection of collisions
 				myBalls[i].isColliding(*myBricks[j]);
+
 				//detection of destroyed bricks
 				if (myBricks[j]->isDestroyed() == true) {
 					myBricks.erase(myBricks.begin()+j);
