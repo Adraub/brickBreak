@@ -133,7 +133,27 @@ int Ball::isColliding(class Bar& bar)
 					/*up position*/
 					if (speed.y > 0)
 					{
-						speed.y = -speed.y;
+						double constantSpeedAdjust(1);
+						double coeff(1);
+						double midBar = bar.getPos().x + bar.getDim().x / 2;
+						double xToCenter = midBar-pos.x;
+						double realSpeed = sqrt(speed.x*speed.x + speed.y*speed.y); // to be kept constant
+
+						speed.y = -speed.y; //the rebound itself
+
+						if (speed.x * xToCenter > 0) //  = cases where ball moves from left to right and bounces on left side or from right to left and on right side
+						{
+							speed.y -= abs(xToCenter)*0.12;
+						}
+						else if (speed.x * xToCenter < 0)
+						{
+							if (speed.x>0) speed.x += abs(xToCenter)*0.12;
+							else speed.x -= abs(xToCenter)*0.12;
+						}
+						else {}
+						constantSpeedAdjust = realSpeed / (sqrt(speed.x*speed.x + speed.y*speed.y));
+						speed.x = constantSpeedAdjust*speed.x;
+						speed.y = constantSpeedAdjust*speed.y;
 					}
 				}
 			}
