@@ -20,7 +20,7 @@ int Ball::move(sf::Vector2f& resolution)
 
 bool Ball::isInsideScreen(sf::Vector2f& resolution) 
 {
-	if (pos.y + radius * 2 > resolution.y)
+	if (pos.y > resolution.y)
 	{
 		return false;
 	}

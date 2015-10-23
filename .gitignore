@@ -50,3 +50,5 @@ brickBreak/Debug/*
 !brickBreak/Debug/sfml-system-d-2.dll
 !brickBreak/Debug/sfml-window-d-2.dll
 brickBreak/Release/*
+brickBreak/.vs/brickBreak/v14/.suo
+brickBreak/brickBreak.sdf

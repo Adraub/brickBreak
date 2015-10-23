@@ -15,8 +15,8 @@ public:
 	sf::Text textScore(sf::Vector2f&);
 
 private:
-	int init;
-	int score;
+	unsigned int init;
+	unsigned int score;
 	sf::Font* font;
 };
 

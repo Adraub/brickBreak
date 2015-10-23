@@ -50,7 +50,7 @@ int main()
 	sf::Time loopTime = sf::microseconds(16666);
 
 	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
-	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker"); 
+	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker", sf::Style::Fullscreen);
 	balls.push_back(Ball(sf::Vector2f(100, 100), 10, standardBallSpeed, sf::Color::Yellow));
 	balls.push_back(Ball(sf::Vector2f(250, 150), 20, standardBallSpeed, sf::Color::Red));
 	balls.push_back(Ball(sf::Vector2f(300, 100), 30, standardBallSpeed, sf::Color::Green));
@@ -63,16 +63,17 @@ int main()
 	bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
 	bricks.push_back(Brique(sf::Vector2f(650, 300), sf::Vector2f(200, 100), sf::Color::Yellow));
 	
-	//fit window to user screen
-	window.setSize(sf::Vector2u(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height*0.90f));
-	// Limit the framerate to 60 frames per second
-	window.setFramerateLimit(60);
+	//force rendering to screen framerate
+	window.setVerticalSyncEnabled(true);
 	//hide the mouse
 	window.setMouseCursorVisible(false);
 
 	// program is running until window is closed
 	while (window.isOpen())
 	{
+		//launch timer / needs to be at the beginning of the loop!!
+		sf::Clock clock;
+
 		// test null score
 		if (score.getScore() == 0)
 		{
@@ -95,8 +96,7 @@ int main()
 			balls.push_back(Ball(sf::Vector2f(600, 100), 15, standardBallSpeed, sf::Color::Cyan));
 		}
 
-		//launch timer
-		sf::Clock clock;
+		
 
 		sf::Event event;
 		while (window.pollEvent(event))

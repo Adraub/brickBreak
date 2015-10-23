@@ -15,12 +15,11 @@ Score::Score(int initial, int current)
 
 int Score::initialize()
 {
-	int initial = 0;
-	while (initial <= 0)
-	{
-		std::cout << "Please enter a valid number of HP:\n>";
-		std::cin >> initial;
-	}
+
+	unsigned int initial = 0;
+	std::cout << "Please enter a valid number of HP:\n>";
+	std::cin >> initial;
+	std::cin.clear();
 	init = initial;
 	score = initial;
 	return 1;
