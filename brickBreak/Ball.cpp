@@ -1,7 +1,7 @@
 #include "Ball.h"
 
 
-Ball::Ball(sf::Vector2f position, int rayon, sf::Vector2f vitesse, sf::Color colori )
+Ball::Ball(sf::Vector2f position, float rayon, sf::Vector2f vitesse, sf::Color colori )
 {
 	radius=rayon;
 	speed=vitesse;
@@ -43,7 +43,7 @@ bool Ball::isInsideScreen(sf::Vector2f& resolution)
 }
 
 
-int Ball::isColliding(class Brique& brick)
+int Ball::isColliding(class Brick& brick)
 {
 	if (brick.getPos().y <= (pos.y + 2 * radius) && pos.y <= (brick.getPos().y + brick.getDim().y))
 	{
@@ -133,22 +133,22 @@ int Ball::isColliding(class Bar& bar)
 					/*up position*/
 					if (speed.y > 0)
 					{
-						double constantSpeedAdjust(1);
-						double coeff(1);
-						double midBar = bar.getPos().x + bar.getDim().x / 2;
-						double xToCenter = midBar-pos.x;
-						double realSpeed = sqrt(speed.x*speed.x + speed.y*speed.y); // to be kept constant
+						float constantSpeedAdjust(1);
+						float coeff(1);
+						float midBar = bar.getPos().x + bar.getDim().x / 2;
+						float xToCenter = midBar-pos.x;
+						float realSpeed = sqrt(speed.x*speed.x + speed.y*speed.y); // to be kept constant
 
 						speed.y = -speed.y; //the rebound itself
 
 						if (speed.x * xToCenter > 0) //  = cases where ball moves from left to right and bounces on left side or from right to left and on right side
 						{
-							speed.y -= abs(xToCenter)*0.12;
+							speed.y -= abs(xToCenter)*0.12f;
 						}
 						else if (speed.x * xToCenter < 0)
 						{
-							if (speed.x>0) speed.x += abs(xToCenter)*0.12;
-							else speed.x -= abs(xToCenter)*0.12;
+							if (speed.x>0) speed.x += abs(xToCenter)*0.12f;
+							else speed.x -= abs(xToCenter)*0.12f;
 						}
 						else {}
 						constantSpeedAdjust = realSpeed / (sqrt(speed.x*speed.x + speed.y*speed.y));
@@ -166,17 +166,17 @@ int Ball::isColliding(class Bar& bar)
 int Ball::isColliding(class Ball& otherBall)
 {
 	sf::Vector2f diff = (*this).getPosition() - otherBall.getPosition();
-	double distance = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
+	float distance = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
 	diff.x /= distance;
 	diff.y /= distance;
 	if (distance <= (*this).getRadius()+ otherBall.getRadius())
 	{
 		/*Conservation of cinetic energy*/
-		double energy = pow(otherBall.getRadius(),2)*(pow(otherBall.getSpeed().x, 2) + pow(otherBall.getSpeed().y, 2))
+		float energy = pow(otherBall.getRadius(),2)*(pow(otherBall.getSpeed().x, 2) + pow(otherBall.getSpeed().y, 2))
 			+ pow(radius, 2)*(pow(speed.x, 2) + pow(speed.y, 2));
 		/*Energy reparted equally between each balls*/
 		energy /= 2;
-		double vitesse= sqrt(energy / pow(otherBall.getRadius(), 2));
+		float vitesse= sqrt(energy / pow(otherBall.getRadius(), 2));
 		sf::Vector2f speed;
 		speed.x = diff.x * vitesse;
 		speed.y = diff.y * vitesse;
@@ -190,16 +190,16 @@ int Ball::isColliding(class Ball& otherBall)
 	return 1;
 }
 
-int Ball::getRadius() {
+float Ball::getRadius() const {
 	return radius;
 }
 
-sf::Vector2f Ball::getPosition() {
+sf::Vector2f Ball::getPosition() const {
 	return pos;
 
 }
 
-sf::Vector2f Ball::getSpeed() {
+sf::Vector2f Ball::getSpeed() const {
 	return speed;
 
 }

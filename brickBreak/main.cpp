@@ -1,11 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Ball.h"
-#include "Brique.h"
-#include "Ball.h"
 #include "Score.h"
 
-sf::RectangleShape drawBrick(Brique brique)
+sf::RectangleShape drawBrick(Brick brique)
 {
 	sf::RectangleShape brick(brique.getDim());
 	brick.setPosition(brique.getPos());
@@ -36,12 +34,15 @@ int main()
 	Score score(0, 0);
 	score.initialize();
 	
+	float cpt_h = 0, cpt_v = 0;
+	
 	/*Size of the space used to draw*/
 	sf::Vector2f resolution(1920, 1080);
 	/*Balls array*/
-	std::vector<Ball> balls;
+	std::vector<Ball> myBalls;
 	/*Bricks array*/
-	std::vector<Brique> bricks;
+	std::vector<Brick*> myBricks;
+	int test[50] = { 0 };
 	/*default ball speed*/
 	sf::Vector2f standardBallSpeed(5, 5);
 	/*keyboard sensibility*/
@@ -51,17 +52,23 @@ int main()
 
 	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
 	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker", sf::Style::Fullscreen);
-	balls.push_back(Ball(sf::Vector2f(100, 100), 10, standardBallSpeed, sf::Color::Yellow));
-	balls.push_back(Ball(sf::Vector2f(250, 150), 20, standardBallSpeed, sf::Color::Red));
-	balls.push_back(Ball(sf::Vector2f(300, 100), 30, standardBallSpeed, sf::Color::Green));
-	balls.push_back(Ball(sf::Vector2f(400, 100), 40, standardBallSpeed, sf::Color::Magenta));
-	balls.push_back(Ball(sf::Vector2f(500, 100), 25, standardBallSpeed, sf::Color::Blue));
-	balls.push_back(Ball(sf::Vector2f(600, 100), 15, standardBallSpeed, sf::Color::Cyan));
-	bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, resolution.y / 2), sf::Vector2f(200, 100), sf::Color::Yellow));
-	bricks.push_back(Brique(sf::Vector2f(150, resolution.y / 2), sf::Vector2f(200, 100), sf::Color::Yellow));
-	bricks.push_back(Brique(sf::Vector2f(300, 300), sf::Vector2f(200, 100), sf::Color::Yellow));
-	bricks.push_back(Brique(sf::Vector2f(resolution.x / 2, 100), sf::Vector2f(200, 100), sf::Color::Yellow));
-	bricks.push_back(Brique(sf::Vector2f(650, 300), sf::Vector2f(200, 100), sf::Color::Yellow));
+	//creation of the bricks
+	for (cpt_v=0; cpt_v < 5; cpt_v++) {
+		for (cpt_h=0; cpt_h < 6; cpt_h++) {
+			myBricks.push_back(new ClassicBrick(sf::Vector2f(300 + 2*cpt_h * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+			if (cpt_h < 5) {
+				if (cpt_v == 0 || cpt_v == 2 || cpt_v == 4) {
+					myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow, 3));
+				}
+				else {
+					//myBricks.push_back(new BallBrick(sf::Vector2f(200 + (2 * cpt_h + 1) * 60, 150 + cpt_v * 30), sf::Vector2f(50, 20), sf::Color::Yellow, myBalls));
+				}
+			}
+		}
+	}
+	
+	//creation of the ball
+	myBalls.push_back(Ball(sf::Vector2f(100, 100), 10, sf::Vector2f(10,10), sf::Color::Red));
 	
 	//force rendering to screen framerate
 	window.setVerticalSyncEnabled(true);
@@ -81,19 +88,19 @@ int main()
 		}
 
 		// test to reduce score 
-		if (balls.empty())
+		if (myBalls.empty())
 		{
 			score.reduceScore();
 			if (score.getScore() < 0)
 			{
 				window.close();
 			}
-			balls.push_back(Ball(sf::Vector2f(100, 100), 10, standardBallSpeed, sf::Color::Yellow));
-			balls.push_back(Ball(sf::Vector2f(250, 150), 20, standardBallSpeed, sf::Color::Red));
-			balls.push_back(Ball(sf::Vector2f(300, 100), 30, standardBallSpeed, sf::Color::Green));
-			balls.push_back(Ball(sf::Vector2f(400, 100), 40, standardBallSpeed, sf::Color::Magenta));
-			balls.push_back(Ball(sf::Vector2f(500, 100), 25, standardBallSpeed, sf::Color::Blue));
-			balls.push_back(Ball(sf::Vector2f(600, 100), 15, standardBallSpeed, sf::Color::Cyan));
+			myBalls.push_back(Ball(sf::Vector2f(100, 100), 10, standardBallSpeed, sf::Color::Yellow));
+			myBalls.push_back(Ball(sf::Vector2f(250, 150), 20, standardBallSpeed, sf::Color::Red));
+			myBalls.push_back(Ball(sf::Vector2f(300, 100), 30, standardBallSpeed, sf::Color::Green));
+			myBalls.push_back(Ball(sf::Vector2f(400, 100), 40, standardBallSpeed, sf::Color::Magenta));
+			myBalls.push_back(Ball(sf::Vector2f(500, 100), 25, standardBallSpeed, sf::Color::Blue));
+			myBalls.push_back(Ball(sf::Vector2f(600, 100), 15, standardBallSpeed, sf::Color::Cyan));
 		}
 
 		
@@ -114,8 +121,8 @@ int main()
 			}
 			else if (event.type == sf::Event::Resized)
 			{
-				sf::View view(sf::FloatRect(-(event.size.width - resolution.x) / 2, -(event.size.height - resolution.y) / 2
-					, event.size.width, event.size.height));
+				sf::View view(sf::FloatRect(-(event.size.width - resolution.x) / 2.0f, -(event.size.height - resolution.y) / 2.0f
+					, (float)event.size.width, (float)event.size.height));
 				float zoom = std::max(resolution.x/ event.size.width, resolution.y/ event.size.height);
 				view.zoom(zoom);
 				window.setView(view);
@@ -141,23 +148,32 @@ int main()
 	
 
 		// draw frame
-		for (int i = 0; i < balls.size(); i++)
+		for (unsigned int i = 0; i < myBalls.size(); i++)
 		{
-			window.draw(drawBall(balls[i]));
-			for (int j = 0; j < bricks.size(); j++)
+			//draw the balls
+			window.draw(drawBall(myBalls[i]));
+			for (unsigned int j = 0; j < myBricks.size(); j++)
 			{
-				window.draw(drawBrick(bricks[j]));
-				balls[i].isColliding(bricks[j]);
+				//draw the balls
+				myBricks[j]->draw(window);
+
+				//detection of collisions
+				myBalls[i].isColliding(*myBricks[j]);
+
+				//detection of destroyed bricks
+				if (myBricks[j]->isDestroyed() == true) {
+					myBricks.erase(myBricks.begin()+j);
+				}
 			}
-			for (int k = 1; i+k < balls.size(); k++)
+			for (unsigned int k = 1; i+k < myBalls.size(); k++)
 			{
-				balls[i].isColliding(balls[k+i]);
+				myBalls[i].isColliding(myBalls[k+i]);
 			}
-			balls[i].isColliding(bar);
-			balls[i].move(resolution);
-			if (!balls[i].isInsideScreen(resolution))
+			myBalls[i].isColliding(bar);
+			myBalls[i].move(resolution);
+			if (!myBalls[i].isInsideScreen(resolution))
 			{
-				balls.erase(balls.begin() + i);
+				myBalls.erase(myBalls.begin() + i);
 			}
 		}
 

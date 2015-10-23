@@ -1,6 +1,5 @@
 #include "Score.h"
-#include <iostream>
-#include <sstream>
+
 
 Score::Score(int initial, int current)
 {

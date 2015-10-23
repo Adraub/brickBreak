@@ -1,7 +1,8 @@
 #ifndef DEF_SCORE
 #define DEF_SCORE
 
-#include "ball.h"
+#include <iostream>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 
 class Score
