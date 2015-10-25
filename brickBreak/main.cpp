@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "bar.h"
 #include "Ball.h"
+#include "Brick.h"
 #include "Score.h"
 
 sf::RectangleShape drawBrick(Brick brique)
@@ -37,7 +39,7 @@ int main()
 	float cpt_h = 0, cpt_v = 0;
 	
 	/*Size of the space used to draw*/
-	sf::Vector2f resolution(1920, 1080);
+	sf::Vector2f resolution(1920,1080);
 	/*Balls array*/
 	std::vector<Ball> myBalls;
 	/*Bricks array*/
@@ -51,7 +53,7 @@ int main()
 	sf::Time loopTime = sf::microseconds(16666);
 
 	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
-	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker", sf::Style::Fullscreen);
+	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker", sf::Style::None);
 	//creation of the bricks
 	for (cpt_v=0; cpt_v < 5; cpt_v++) {
 		for (cpt_h=0; cpt_h < 6; cpt_h++) {
@@ -59,9 +61,8 @@ int main()
 			if (cpt_h < 5) {
 				if (cpt_v == 0 || cpt_v == 2 || cpt_v == 4) {
 					myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow, 3));
-				}
-				else {
-					//myBricks.push_back(new BallBrick(sf::Vector2f(200 + (2 * cpt_h + 1) * 60, 150 + cpt_v * 30), sf::Vector2f(50, 20), sf::Color::Yellow, myBalls));
+				}else {
+					myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow, myBalls));
 				}
 			}
 		}

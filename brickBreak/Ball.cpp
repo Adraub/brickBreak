@@ -1,5 +1,5 @@
 #include "Ball.h"
-
+#include "Brick.h"
 
 Ball::Ball(sf::Vector2f position, float rayon, sf::Vector2f vitesse, sf::Color colori )
 {

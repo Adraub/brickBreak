@@ -1,8 +1,6 @@
-
 #ifndef DEF_BALL
 #define DEF_BALL
 
-#include "Brick.h"
 #include "bar.h"
 #include <SFML/Graphics.hpp>
 

@@ -1,10 +1,9 @@
 #ifndef DEF_BRICK
 #define DEF_BRICK
 
-#ifndef DEF_BALL
 #include "Ball.h"
-#endif
 #include <SFML/Graphics.hpp>
+
 
 class Brick {
 public:
@@ -42,15 +41,15 @@ public:
 };
 
 
-//class BallBrick : public Brick {
-//public:
-//	BallBrick(sf::Vector2f, sf::Vector2f, sf::Color, std::vector<Ball>&);
-//	virtual void draw(sf::RenderWindow&);
-//	virtual bool BallBrick::isDestroyed();
-//
-//protected:
-//	std::vector<Ball>* myBall;
-//};
+class BallBrick : public Brick {
+public:
+	BallBrick(sf::Vector2f, sf::Vector2f, sf::Color, std::vector<Ball>&);
+	virtual void draw(sf::RenderWindow&);
+	virtual bool BallBrick::isDestroyed();
+
+protected:
+	std::vector<Ball>* myBall;
+};
 
 
 #endif

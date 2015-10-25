@@ -1,3 +1,4 @@
+#include "Ball.h"
 #include "Brick.h"
 
 //class Brick//
@@ -95,28 +96,28 @@ void StrongBrick::draw(sf::RenderWindow& window)
 
 //class BallBrick//
 
-//BallBrick::BallBrick(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, std::vector<Ball>& myBalls) : Brick(position, dimension, coloris)
-//{	
-//	myBall = &myBalls;
-//	hits = 1;
-//}
+BallBrick::BallBrick(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, std::vector<Ball>& myBalls) : Brick(position, dimension, coloris)
+{	
+	myBall = &myBalls;
+	hits = 1;
+}
 
 
-//void BallBrick::draw(sf::RenderWindow& window)
-//{
-//	Brick::draw(window);
-//	sf::CircleShape trappedBall(10);
-//	trappedBall.setPosition(sf::Vector2f((pos.x+dim.x/2)-10, (pos.y+dim.y/2)-10));
-//	trappedBall.setFillColor(sf::Color::Red);
-//	window.draw(trappedBall);
-//}
+void BallBrick::draw(sf::RenderWindow& window)
+{
+	Brick::draw(window);
+	sf::CircleShape trappedBall(10);
+	trappedBall.setPosition(sf::Vector2f((pos.x+dim.x/2)-10, (pos.y+dim.y/2)-10));
+	trappedBall.setFillColor(sf::Color::Red);
+	window.draw(trappedBall);
+}
 
-//bool BallBrick::isDestroyed()
-//{
-//	Brick::isDestroyed();
-//	if (destroyed) {
-//		myBall->push_back(Ball(sf::Vector2f((pos.x + dim.x / 2) - 10, (pos.y + dim.y / 2) - 10), 10, sf::Vector2f(-1, 1),sf::Color::Red));
-//	}
-//	return destroyed;
-//}
+bool BallBrick::isDestroyed()
+{
+	Brick::isDestroyed();
+	if (destroyed) {
+		myBall->push_back(Ball(sf::Vector2f((pos.x + dim.x / 2) - 10, (pos.y + dim.y / 2) - 10), 10, sf::Vector2f(-1, 1),sf::Color::Red));
+	}
+	return destroyed;
+}
 //end class BallBrick//

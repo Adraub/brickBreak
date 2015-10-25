@@ -1,7 +1,6 @@
 #ifndef DEF_BAR
 #define DEF_BAR
 
-
 #include <SFML/Graphics.hpp>
 
 class Bar {
