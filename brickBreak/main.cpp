@@ -53,7 +53,7 @@ int main()
 	sf::Time loopTime = sf::microseconds(16666);
 
 	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
-	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker", sf::Style::None);
+	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker", sf::Style::Fullscreen);
 	//creation of the bricks
 	for (cpt_v=0; cpt_v < 5; cpt_v++) {
 		for (cpt_h=0; cpt_h < 6; cpt_h++) {
@@ -67,7 +67,14 @@ int main()
 			}
 		}
 	}
-	
+	float ratio = 0.95f;
+	//fit window to user screen
+	if (sf::VideoMode::getDesktopMode().width == 1920)
+	{
+		ratio = 0.955f;
+	}
+	window.setSize(sf::Vector2u(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height*ratio));
+
 	//creation of the ball
 	myBalls.push_back(Ball(sf::Vector2f(100, 100), 10, sf::Vector2f(10,10), sf::Color::Red));
 	
