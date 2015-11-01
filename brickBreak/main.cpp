@@ -4,6 +4,7 @@
 #include "Ball.h"
 #include "Brick.h"
 #include "Score.h"
+#include "BallsHandler.h"
 
 sf::RectangleShape drawBrick(Brick brique)
 {
@@ -36,22 +37,24 @@ int main()
 	Score score(0, 0);
 	score.initialize();
 	
+	sf::Texture texture;
+	texture.loadFromFile("wallpaper.jpg");
+
 	float cpt_h = 0, cpt_v = 0;
 	
 	/*Size of the space used to draw*/
 	sf::Vector2f resolution(1920,1080);
-	/*Balls array*/
-	std::vector<Ball> myBalls;
 	/*Bricks array*/
 	std::vector<Brick*> myBricks;
 	int test[50] = { 0 };
-	/*default ball speed*/
-	sf::Vector2f standardBallSpeed(5, 5);
+	
 	/*keyboard sensibility*/
 	int keyboardSensibility(10);
 	/*time between each graphical loop*/
 	sf::Time loopTime = sf::microseconds(16666);
-
+	BallsHandler balls;
+	//creation of the ball
+	balls.newBall(sf::Vector2f(100, 100), 10, sf::Color::Red);
 	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
 	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker", sf::Style::Fullscreen);
 	//creation of the bricks
@@ -62,7 +65,7 @@ int main()
 				if (cpt_v == 0 || cpt_v == 2 || cpt_v == 4) {
 					myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow, 3));
 				}else {
-					myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow, myBalls));
+					myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow, balls));
 				}
 			}
 		}
@@ -75,8 +78,7 @@ int main()
 	}
 	window.setSize(sf::Vector2u(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height*ratio));
 
-	//creation of the ball
-	myBalls.push_back(Ball(sf::Vector2f(100, 100), 10, sf::Vector2f(10,10), sf::Color::Red));
+	
 	
 	//force rendering to screen framerate
 	window.setVerticalSyncEnabled(true);
@@ -96,19 +98,19 @@ int main()
 		}
 
 		// test to reduce score 
-		if (myBalls.empty())
+		if (balls.aliveBalls()==0)
 		{
 			score.reduceScore();
 			if (score.getScore() < 0)
 			{
 				window.close();
 			}
-			myBalls.push_back(Ball(sf::Vector2f(100, 100), 10, standardBallSpeed, sf::Color::Yellow));
-			myBalls.push_back(Ball(sf::Vector2f(250, 150), 20, standardBallSpeed, sf::Color::Red));
-			myBalls.push_back(Ball(sf::Vector2f(300, 100), 30, standardBallSpeed, sf::Color::Green));
-			myBalls.push_back(Ball(sf::Vector2f(400, 100), 40, standardBallSpeed, sf::Color::Magenta));
-			myBalls.push_back(Ball(sf::Vector2f(500, 100), 25, standardBallSpeed, sf::Color::Blue));
-			myBalls.push_back(Ball(sf::Vector2f(600, 100), 15, standardBallSpeed, sf::Color::Cyan));
+			balls.newBall(sf::Vector2f(100, 100), 10, sf::Color::Yellow);
+			balls.newBall(sf::Vector2f(250, 150), 20, sf::Color::Red);
+			balls.newBall(sf::Vector2f(300, 100), 30, sf::Color::Green);
+			balls.newBall(sf::Vector2f(400, 100), 40, sf::Color::Magenta);
+			balls.newBall(sf::Vector2f(500, 100), 25, sf::Color::Blue);
+			balls.newBall(sf::Vector2f(600, 100), 15, sf::Color::Cyan);
 		}
 
 		
@@ -152,36 +154,34 @@ int main()
 		bar.isInsideScreen(resolution);
 
 		// color window in black
-		window.clear(sf::Color::Black);
-	
+		window.clear();
+
+		//Draw background wallpaper
+		sf::Vector2f size = sf::Vector2f(1920, 1920*texture.getSize().y/ texture.getSize().x);
+		sf::RectangleShape wallpaper(size);
+		wallpaper.setTexture(&texture);
+		wallpaper.setOutlineThickness(50);
+		wallpaper.setOutlineColor(sf::Color(44, 135, 190));
+		window.draw(wallpaper);
+		
+		
+		balls.move(resolution, bar, myBricks);
 
 		// draw frame
-		for (unsigned int i = 0; i < myBalls.size(); i++)
+		for (unsigned int i = 0; i < balls.aliveBalls(); i++)
 		{
 			//draw the balls
-			window.draw(drawBall(myBalls[i]));
+			window.draw(drawBall(balls.getBalls()[i]));
 			for (unsigned int j = 0; j < myBricks.size(); j++)
 			{
 				//draw the balls
 				myBricks[j]->draw(window);
 
-				//detection of collisions
-				myBalls[i].isColliding(*myBricks[j]);
 
 				//detection of destroyed bricks
 				if (myBricks[j]->isDestroyed() == true) {
 					myBricks.erase(myBricks.begin()+j);
 				}
-			}
-			for (unsigned int k = 1; i+k < myBalls.size(); k++)
-			{
-				myBalls[i].isColliding(myBalls[k+i]);
-			}
-			myBalls[i].isColliding(bar);
-			myBalls[i].move(resolution);
-			if (!myBalls[i].isInsideScreen(resolution))
-			{
-				myBalls.erase(myBalls.begin() + i);
 			}
 		}
 

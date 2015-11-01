@@ -157,9 +157,11 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="BallsHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="BallsHandler.h" />
     <ClInclude Include="bar.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Score.h" />
