@@ -97,7 +97,7 @@ void StrongBrick::draw(sf::RenderWindow& window)
 
 //class BallBrick//
 
-BallBrick::BallBrick(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, std::vector<Ball>& myBalls) : Brick(position, dimension, coloris)
+BallBrick::BallBrick(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, BallsHandler& myBalls) : Brick(position, dimension, coloris)
 {	
 	myBall = &myBalls;
 	hits = 1;
@@ -117,7 +117,8 @@ bool BallBrick::isDestroyed()
 {
 	Brick::isDestroyed();
 	if (destroyed) {
-		myBall->push_back(Ball(sf::Vector2f((pos.x + dim.x / 2) - 10, (pos.y + dim.y / 2) - 10), 10, sf::Vector2f(-1, 1), sf::Color::Red));
+		//myBall->push_back(Ball(sf::Vector2f((pos.x + dim.x / 2) - 10, (pos.y + dim.y / 2) - 10), 10, sf::Vector2f(-1, 1), sf::Color::Red));
+		myBall->newBall(sf::Vector2f((pos.x + dim.x / 2) - 10, (pos.y + dim.y / 2) - 10), 10, sf::Color::Red);
 	}
 	return destroyed;
 }

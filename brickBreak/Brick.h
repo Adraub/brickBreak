@@ -44,12 +44,12 @@ public:
 
 class BallBrick : public Brick {
 public:
-	BallBrick(sf::Vector2f, sf::Vector2f, sf::Color, std::vector<Ball>&);
+	BallBrick(sf::Vector2f, sf::Vector2f, sf::Color, BallsHandler&);
 	virtual void draw(sf::RenderWindow&);
 	virtual bool BallBrick::isDestroyed();
 
 protected:
-	std::vector<Ball>* myBall;
+	BallsHandler* myBall;
 };
 
 
