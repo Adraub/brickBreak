@@ -44,7 +44,7 @@ public:
 
 class BallBrick : public Brick {
 public:
-	BallBrick(sf::Vector2f, sf::Vector2f, sf::Color, std::vector<Ball>&);
+	BallBrick(sf::Vector2f, sf::Vector2f, sf::Color, std::vector<Ball>*);
 	virtual void draw(sf::RenderWindow&);
 	virtual bool BallBrick::isDestroyed();
 

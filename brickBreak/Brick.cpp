@@ -97,9 +97,9 @@ void StrongBrick::draw(sf::RenderWindow& window)
 
 //class BallBrick//
 
-BallBrick::BallBrick(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, std::vector<Ball>& myBalls) : Brick(position, dimension, coloris)
+BallBrick::BallBrick(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, std::vector<Ball>* myBalls) : Brick(position, dimension, coloris)
 {	
-	myBall = &myBalls;
+	myBall = myBalls;
 	hits = 1;
 }
 

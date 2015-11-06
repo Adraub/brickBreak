@@ -13,7 +13,7 @@ public:
 	int ballsMove(sf::Vector2f&);
 	int newBall(sf::Vector2f, float , sf::Color );
 	int aliveBalls();
-	std::vector<Ball> getBalls();
+	std::vector<Ball>* getBalls();
 private:
 	std::vector<Ball> myBalls; /*Balls array*/
 	sf::Vector2f standardBallSpeed;/*default ball speed*/

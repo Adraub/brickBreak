@@ -171,7 +171,7 @@ int main()
 		for (unsigned int i = 0; i < balls.aliveBalls(); i++)
 		{
 			//draw the balls
-			window.draw(drawBall(balls.getBalls()[i]));
+			window.draw(drawBall((*(balls.getBalls()))[i]));
 			for (unsigned int j = 0; j < myBricks.size(); j++)
 			{
 				//draw the balls

@@ -76,7 +76,7 @@ int BallsHandler::aliveBalls()
 
 }
 
-std::vector<Ball> BallsHandler::getBalls()
+std::vector<Ball>* BallsHandler::getBalls()
 {
-	return myBalls;
+	return &myBalls;
 }
