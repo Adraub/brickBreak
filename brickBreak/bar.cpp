@@ -50,3 +50,11 @@ int Bar::setPosx(float posx)
 	pos.x = posx;
 	return 1;
 }
+
+void Bar::draw(sf::RenderWindow& window)
+{
+	sf::RectangleShape barShape(getDim());
+	barShape.setPosition(getPos());
+	barShape.setFillColor(getColor());
+	window.draw(barShape);
+}

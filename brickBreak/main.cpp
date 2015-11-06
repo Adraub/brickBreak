@@ -6,29 +6,9 @@
 #include "Score.h"
 #include "BallsHandler.h"
 
-sf::RectangleShape drawBrick(Brick brique)
-{
-	sf::RectangleShape brick(brique.getDim());
-	brick.setPosition(brique.getPos());
-	brick.setFillColor(brique.getColor());
-	return brick;
-}
 
-sf::CircleShape drawBall(Ball ball)
-{
-	sf::CircleShape ballShape(ball.getRadius());
-	ballShape.setPosition(ball.getPosition());
-	ballShape.setFillColor(ball.getColor());
-	return ballShape;
-}
 
-sf::RectangleShape drawBar(Bar bar)
-{
-	sf::RectangleShape barShape(bar.getDim());
-	barShape.setPosition(bar.getPos());
-	barShape.setFillColor(bar.getColor());
-	return barShape;
-}
+
 
 
 int main()
@@ -46,7 +26,6 @@ int main()
 	sf::Vector2f resolution(1920,1080);
 	/*Bricks array*/
 	std::vector<Brick*> myBricks;
-	int test[50] = { 0 };
 	
 	/*keyboard sensibility*/
 	int keyboardSensibility(10);
@@ -56,7 +35,7 @@ int main()
 	//creation of the ball
 	balls.newBall(sf::Vector2f(100, 100), 10, sf::Color::Red);
 	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
-	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Awesome brick breaker", sf::Style::Fullscreen);
+	sf::RenderWindow window(sf::VideoMode((unsigned int)resolution.x, (unsigned int)resolution.y), "Awesome brick breaker", sf::Style::Fullscreen);
 	//creation of the bricks
 	for (cpt_v=0; cpt_v < 5; cpt_v++) {
 		for (cpt_h=0; cpt_h < 6; cpt_h++) {
@@ -76,7 +55,7 @@ int main()
 	{
 		ratio = 0.955f;
 	}
-	window.setSize(sf::Vector2u(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height*ratio));
+	window.setSize(sf::Vector2u(sf::VideoMode::getDesktopMode().width, (unsigned int)(sf::VideoMode::getDesktopMode().height*ratio)));
 
 	
 	
@@ -157,7 +136,7 @@ int main()
 		window.clear();
 
 		//Draw background wallpaper
-		sf::Vector2f size = sf::Vector2f(1920, 1920*texture.getSize().y/ texture.getSize().x);
+		sf::Vector2f size = sf::Vector2f(1920, (float)(1920*texture.getSize().y/ texture.getSize().x));
 		sf::RectangleShape wallpaper(size);
 		wallpaper.setTexture(&texture);
 		wallpaper.setOutlineThickness(50);
@@ -168,25 +147,22 @@ int main()
 		balls.move(resolution, bar, myBricks);
 
 		// draw frame
-		for (unsigned int i = 0; i < balls.aliveBalls(); i++)
+		
+		for (unsigned int j = 0; j < myBricks.size(); j++)
 		{
 			//draw the balls
-			window.draw(drawBall((*(balls.getBalls()))[i]));
-			for (unsigned int j = 0; j < myBricks.size(); j++)
+			myBricks[j]->draw(window);
+		
+			//detection of destroyed bricks
+			if (myBricks[j]->isDestroyed() == true) 
 			{
-				//draw the balls
-				myBricks[j]->draw(window);
-
-
-				//detection of destroyed bricks
-				if (myBricks[j]->isDestroyed() == true) {
-					myBricks.erase(myBricks.begin()+j);
-				}
+				myBricks.erase(myBricks.begin()+j);
 			}
 		}
 
 		// draw bar
-		window.draw(drawBar(bar));
+		bar.draw(window);
+		balls.draw(window);
 
 		// show score
 		window.draw(score.textScore(resolution));		

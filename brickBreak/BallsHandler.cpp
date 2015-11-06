@@ -80,3 +80,16 @@ std::vector<Ball>* BallsHandler::getBalls()
 {
 	return &myBalls;
 }
+
+void BallsHandler::draw(sf::RenderWindow& window)
+{
+	for (unsigned int i = 0; i < aliveBalls(); i++)
+	{
+		//draw the balls
+
+		sf::CircleShape ballShape(myBalls[i].getRadius());
+		ballShape.setPosition(myBalls[i].getPosition());
+		ballShape.setFillColor(myBalls[i].getColor());
+		window.draw(ballShape);
+	}
+}

@@ -117,7 +117,7 @@ bool BallBrick::isDestroyed()
 {
 	Brick::isDestroyed();
 	if (destroyed) {
-		myBall->push_back(Ball(sf::Vector2f((pos.x + dim.x / 2) - 10, (pos.y + dim.y / 2) - 10), 10, sf::Vector2f(-1, 1), sf::Color::Red));
+		myBall->push_back(Ball(sf::Vector2f((pos.x + dim.x / 2) - 10, (pos.y + dim.y / 2) - 10), 10, sf::Vector2f(7, 7), sf::Color::Red));
 	}
 	return destroyed;
 }

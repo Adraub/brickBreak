@@ -12,6 +12,7 @@ public:
 	sf::Color getColor();
 	double getTanBar();
 	int setPosx(float);
+	void draw(sf::RenderWindow&);
 
 private:
 	sf::Vector2f pos;

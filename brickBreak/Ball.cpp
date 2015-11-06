@@ -165,11 +165,11 @@ int Ball::isColliding(class Bar& bar)
 
 int Ball::isColliding(class Ball& otherBall)
 {
-	sf::Vector2f diff = (*this).getPosition() - otherBall.getPosition();
+	sf::Vector2f diff = this->getPosition() - otherBall.getPosition();
 	float distance = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
 	diff.x /= distance;
 	diff.y /= distance;
-	if (distance <= (*this).getRadius()+ otherBall.getRadius())
+	if (distance <= this->getRadius()+ otherBall.getRadius())
 	{
 		/*Conservation of cinetic energy*/
 		float energy = pow(otherBall.getRadius(),2)*(pow(otherBall.getSpeed().x, 2) + pow(otherBall.getSpeed().y, 2))
@@ -185,7 +185,7 @@ int Ball::isColliding(class Ball& otherBall)
 		vitesse = sqrt(energy / pow(radius, 2));
 		speed.x = diff.x * vitesse;
 		speed.y = diff.y * vitesse;
-		(*this).setSpeed(speed);
+		this->setSpeed(speed);
 	}
 	return 1;
 }
