@@ -28,13 +28,15 @@ int main()
 	std::vector<Brick*> myBricks;
 	
 	/*keyboard sensibility*/
-	int keyboardSensibility(10);
+	int keyboardSensibility(20);
 	/*time between each graphical loop*/
 	sf::Time loopTime = sf::microseconds(16666);
+	//creation of the object BallsHandler
 	BallsHandler balls;
-	//creation of the ball
-	balls.newBall(sf::Vector2f(100, 100), 10, sf::Color::Red);
-	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
+	//creation of the bar
+	Bar bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red, false);
+	bar.addBall();
+	//creation of the window
 	sf::RenderWindow window(sf::VideoMode((unsigned int)resolution.x, (unsigned int)resolution.y), "Awesome brick breaker", sf::Style::Fullscreen);
 	//creation of the bricks
 	for (cpt_v=0; cpt_v < 5; cpt_v++) {
@@ -77,22 +79,16 @@ int main()
 		}
 
 		// test to reduce score 
-		if (balls.aliveBalls()==0)
+		if (balls.aliveBalls()==0 && !bar.isBall())
 		{
 			score.reduceScore();
 			if (score.getScore() < 0)
 			{
 				window.close();
 			}
-			balls.newBall(sf::Vector2f(100, 100), 10, sf::Color::Yellow);
-			balls.newBall(sf::Vector2f(250, 150), 20, sf::Color::Red);
-			balls.newBall(sf::Vector2f(300, 100), 30, sf::Color::Green);
-			balls.newBall(sf::Vector2f(400, 100), 40, sf::Color::Magenta);
-			balls.newBall(sf::Vector2f(500, 100), 25, sf::Color::Blue);
-			balls.newBall(sf::Vector2f(600, 100), 15, sf::Color::Cyan);
+			bar.addBall();
 		}
-
-		
+				
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -127,6 +123,12 @@ int main()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
 			bar.setPosx(bar.getPos().x + keyboardSensibility);
+		}
+
+		// launch ball in bar
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && bar.isBall())
+		{
+			balls.launchBall(bar);
 		}
 
 		//check bar position
