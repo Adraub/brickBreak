@@ -1,11 +1,12 @@
 #include "bar.h"
 
-Bar::Bar(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris)
+Bar::Bar(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, bool isball)
 {
 	dim = dimension;
 	pos = position;
 	color = coloris;
 	tanBar = dim.y / dim.x;
+	ball = isball;
 }
 
 
@@ -57,4 +58,29 @@ void Bar::draw(sf::RenderWindow& window)
 	barShape.setPosition(getPos());
 	barShape.setFillColor(getColor());
 	window.draw(barShape);
+	if (isBall())
+	{
+		sf::Vector2f posBall = sf::Vector2f(pos.x + dim.x/2, pos.y - 20);
+		sf::CircleShape ballShape(10);
+		ballShape.setPosition(posBall);
+		ballShape.setFillColor(sf::Color::Red);
+		window.draw(ballShape);
+	}
 }
+
+bool Bar::isBall()
+{
+	return ball;
+}
+
+void Bar::addBall()
+{
+	ball = true;
+}
+
+void Bar::launchedBall()
+{
+	ball = false;
+}
+
+
