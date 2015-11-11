@@ -76,6 +76,14 @@ int BallsHandler::aliveBalls()
 
 }
 
+int BallsHandler::launchBall(Bar& bar)
+{
+	sf::Vector2f posBall = sf::Vector2f(bar.getPos().x + bar.getDim().x / 2, bar.getPos().y - 10);
+	newBall(posBall, 10, sf::Color::Red);
+	bar.launchedBall();
+	return 1;
+}
+
 std::vector<Ball>* BallsHandler::getBalls()
 {
 	return &myBalls;

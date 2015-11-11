@@ -47,7 +47,9 @@ sf::Text Score::textScore(sf::Vector2f& resolution)
 	convert << "HP: " << score;
 	text.setFont(*font);
 	text.setString(convert.str());
-	text.setCharacterSize(24);
+	text.setCharacterSize(38);
+	text.setStyle(sf::Text::Bold);
 	text.setColor(sf::Color::Red);
+	text.setPosition(sf::Vector2f(20, 5));
 	return text;
 }
