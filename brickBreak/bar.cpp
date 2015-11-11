@@ -1,14 +1,10 @@
 #include "bar.h"
 
-<<<<<<< HEAD
 Bar::Bar()
 {
 }
 
-Bar::Bar(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris)
-=======
 Bar::Bar(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, bool isball)
->>>>>>> origin/master
 {
 	dim = dimension;
 	pos = position;
@@ -68,7 +64,7 @@ void Bar::draw(sf::RenderWindow& window)
 	window.draw(barShape);
 	if (isBall())
 	{
-		sf::Vector2f posBall = sf::Vector2f(pos.x + dim.x/2, pos.y - 20);
+		sf::Vector2f posBall = sf::Vector2f(pos.x , pos.y - 20);
 		sf::CircleShape ballShape(10);
 		ballShape.setPosition(posBall);
 		ballShape.setFillColor(sf::Color::Red);

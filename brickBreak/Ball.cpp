@@ -150,7 +150,6 @@ int Ball::isColliding(class Bar& bar)
 							if (speed.x>0) speed.x += abs(xToCenter)*0.12f;
 							else speed.x -= abs(xToCenter)*0.12f;
 						}
-						else {}
 						constantSpeedAdjust = realSpeed / (sqrt(speed.x*speed.x + speed.y*speed.y));
 						speed.x = constantSpeedAdjust*speed.x;
 						speed.y = constantSpeedAdjust*speed.y;

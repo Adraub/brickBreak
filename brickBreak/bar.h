@@ -5,12 +5,8 @@
 
 class Bar {
 public:
-<<<<<<< HEAD
 	Bar();
-	Bar(sf::Vector2f, sf::Vector2f, sf::Color);
-=======
 	Bar(sf::Vector2f, sf::Vector2f, sf::Color, bool);
->>>>>>> origin/master
 	int isInsideScreen(sf::Vector2f&);
 	sf::Vector2f getDim() const;
 	sf::Vector2f getPos();

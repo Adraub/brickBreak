@@ -16,6 +16,8 @@ private:
 	std::vector<Brick*> myBricks;
 	BallsHandler balls= BallsHandler();
 	Bar bar;
+	/*keyboard sensibility*/
+	int keyboardSensibility;
 };
 
 #endif

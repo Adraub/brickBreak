@@ -3,10 +3,13 @@
 //class Brick//
 Level::Level(sf::Vector2f resolution)
 {
+
+	/*keyboard sensibility*/
+	keyboardSensibility=20;
 	float cpt_h = 0, cpt_v = 0;
 	//creation of the ball
-	balls.newBall(sf::Vector2f(100, 100), 10, sf::Color::Red);
-	bar=Bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red);
+	bar=Bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red,false);
+	bar.addBall();
 	//creation of the bricks
 	for (cpt_v = 0; cpt_v < 5; cpt_v++) {
 		for (cpt_h = 0; cpt_h < 6; cpt_h++) {
@@ -25,20 +28,31 @@ Level::Level(sf::Vector2f resolution)
 
 void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Score& score)
 {
+
+	// keyboard direction action
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		setBarPosition(getBarPosition() - keyboardSensibility);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		setBarPosition(getBarPosition() + keyboardSensibility);
+	}
+
+	// launch ball in bar
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && bar.isBall())
+	{
+		balls.launchBall(bar);
+	}
 	// test to reduce score 
-	if (balls.aliveBalls() == 0)
+	if (balls.aliveBalls() == 0 && !bar.isBall())
 	{
 		score.reduceScore();
 		if (score.getScore() < 0)
 		{
 			window.close();
 		}
-		balls.newBall(sf::Vector2f(100, 100), 10, sf::Color::Yellow);
-		balls.newBall(sf::Vector2f(250, 150), 20, sf::Color::Red);
-		balls.newBall(sf::Vector2f(300, 100), 30, sf::Color::Green);
-		balls.newBall(sf::Vector2f(400, 100), 40, sf::Color::Magenta);
-		balls.newBall(sf::Vector2f(500, 100), 25, sf::Color::Blue);
-		balls.newBall(sf::Vector2f(600, 100), 15, sf::Color::Cyan);
+		bar.addBall();
 	}
 	//check bar position
 	bar.isInsideScreen(resolution);

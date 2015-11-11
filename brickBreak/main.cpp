@@ -27,8 +27,6 @@ int main()
 	sf::Vector2f resolution(1920,1080);
 	
 	
-	/*keyboard sensibility*/
-	int keyboardSensibility(10);
 	/*time between each graphical loop*/
 	sf::Time loopTime = sf::microseconds(16666);
 	
@@ -92,16 +90,6 @@ int main()
 			}
 		}
 
-		// keyboard direction action
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			level.setBarPosition(level.getBarPosition() - keyboardSensibility);
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			level.setBarPosition(level.getBarPosition() + keyboardSensibility);
-		}
 
 
 		// color window in black
