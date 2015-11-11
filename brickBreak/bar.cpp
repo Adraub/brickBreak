@@ -1,5 +1,9 @@
 #include "bar.h"
 
+Bar::Bar()
+{
+}
+
 Bar::Bar(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris)
 {
 	dim = dimension;
@@ -17,15 +21,15 @@ sf::Vector2f Bar::getDim() const
 
 int Bar::isInsideScreen(sf::Vector2f& resolution)
 {
-	if (pos.x + dim.x > resolution.x)
+	if (pos.x + dim.x/2 > resolution.x)
 	{
 		// bar on the right of the window
-		pos.x = resolution.x - dim.x;
+		pos.x = resolution.x - dim.x / 2;
 	}
-	if (pos.x < 0)
+	if (pos.x - dim.x / 2 < 0)
 	{
 		// bar on the left of the window
-		pos.x = 0;
+		pos.x = dim.x / 2;
 	}
 	return 1;
 }
@@ -54,7 +58,7 @@ int Bar::setPosx(float posx)
 void Bar::draw(sf::RenderWindow& window)
 {
 	sf::RectangleShape barShape(getDim());
-	barShape.setPosition(getPos());
+	barShape.setPosition(pos-sf::Vector2f(getDim().x / 2.0f,0.0f));
 	barShape.setFillColor(getColor());
 	window.draw(barShape);
 }
