@@ -104,12 +104,12 @@ int Ball::isColliding(class Bar& bar)
 	if (bar.getPos().y <= (pos.y + 2 * radius) && pos.y <= (bar.getPos().y + bar.getDim().y))
 	{
 		/*ball inside horizontal limits of the bar*/
-		if (bar.getPos().x - bar.getDim().x / 2 <= (pos.x + 2 * radius) && pos.x <= (bar.getPos().x + bar.getDim().x/2))
+		if (bar.getPos().x <= (pos.x + 2 * radius) && pos.x <= (bar.getPos().x + bar.getDim().x))
 		{
 			/*ball inside vertical limits of the bar*/
-			if (pos.y + radius >= bar.getPos().y + (pos.x + radius - bar.getPos().x + bar.getDim().x / 2)*bar.getTanBar())
+			if (pos.y + radius >= bar.getPos().y + (pos.x + radius - bar.getPos().x)*bar.getTanBar())
 			{
-				if (pos.y + radius < bar.getPos().y + bar.getDim().y - (pos.x + radius - bar.getPos().x + bar.getDim().x / 2)*bar.getTanBar())
+				if (pos.y + radius < bar.getPos().y + bar.getDim().y - (pos.x + radius - bar.getPos().x)*bar.getTanBar())
 				{
 					/*left position*/
 					if (speed.x > 0)
@@ -120,7 +120,7 @@ int Ball::isColliding(class Bar& bar)
 			}
 			else
 			{
-				if (pos.y + radius >= bar.getPos().y + bar.getDim().y - (pos.x + radius - bar.getPos().x + bar.getDim().x / 2)*bar.getTanBar())
+				if (pos.y + radius >= bar.getPos().y + bar.getDim().y - (pos.x + radius - bar.getPos().x)*bar.getTanBar())
 				{
 					/*right position*/
 					if (speed.x < 0)
@@ -133,26 +133,7 @@ int Ball::isColliding(class Bar& bar)
 					/*up position*/
 					if (speed.y > 0)
 					{
-						float constantSpeedAdjust(1);
-						float coeff(1);
-						float midBar = bar.getPos().x ;
-						float xToCenter = midBar-pos.x;
-						float realSpeed = sqrt(speed.x*speed.x + speed.y*speed.y); // to be kept constant
-
-						speed.y = -speed.y; //the rebound itself
-
-						if (speed.x * xToCenter > 0) //  = cases where ball moves from left to right and bounces on left side or from right to left and on right side
-						{
-							speed.y -= abs(xToCenter)*0.12f;
-						}
-						else if (speed.x * xToCenter < 0)
-						{
-							if (speed.x>0) speed.x += abs(xToCenter)*0.12f;
-							else speed.x -= abs(xToCenter)*0.12f;
-						}
-						constantSpeedAdjust = realSpeed / (sqrt(speed.x*speed.x + speed.y*speed.y));
-						speed.x = constantSpeedAdjust*speed.x;
-						speed.y = constantSpeedAdjust*speed.y;
+						bar.upCollision(speed, getPosition());
 					}
 				}
 			}

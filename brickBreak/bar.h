@@ -17,6 +17,7 @@ public:
 	void addBall();
 	void launchedBall();
 	bool isBall();
+	int Bar::upCollision(sf::Vector2f&, sf::Vector2f&);
 
 private:
 	sf::Vector2f pos;
