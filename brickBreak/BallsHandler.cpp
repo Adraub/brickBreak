@@ -79,7 +79,7 @@ int BallsHandler::aliveBalls()
 int BallsHandler::launchBall(Bar& bar)
 {
 	float radius = 10;
-	sf::Vector2f posBall = sf::Vector2f(bar.getPos().x -radius, bar.getPos().y - 10);
+	sf::Vector2f posBall = sf::Vector2f(bar.getPos().x, bar.getPos().y-radius);
 	newBall(posBall, radius, sf::Color::Red);
 	bar.launchedBall();
 	return 1;
