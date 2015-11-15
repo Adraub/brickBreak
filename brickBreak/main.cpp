@@ -1,11 +1,11 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include "bar.h"
 #include "Ball.h"
 #include "Brick.h"
 #include "Score.h"
 #include "Level.h"
 #include "BallsHandler.h"
+#include "Menu.h"
 
 
 
@@ -14,57 +14,41 @@
 
 int main()
 {
-	// Initialisation du score
 	Score score(0, 0);
 	score.initialize();
 	
 	sf::Texture texture;
 	texture.loadFromFile("wallpaper.jpg");
 
-	
-	
 	/*Size of the space used to draw*/
 	sf::Vector2f resolution(1920,1080);
 	
-	
-	/*time between each graphical loop*/
-	sf::Time loopTime = sf::microseconds(16666);
-	
-	
-	sf::RenderWindow window(sf::VideoMode((unsigned int)resolution.x, (unsigned int)resolution.y), "Awesome brick breaker", sf::Style::Fullscreen);
-	
-	float ratio = 0.95f;
-	//fit window to user screen
+	/*handle windows task bar*/
+	float ratio;
 	if (sf::VideoMode::getDesktopMode().width == 1920)
 	{
 		ratio = 0.955f;
 	}
+	else {
+		ratio = 0.95f;
+	}
+	sf::RenderWindow window(sf::VideoMode((unsigned int)resolution.x, (unsigned int)resolution.y), "Awesome brick breaker", sf::Style::Fullscreen);
 	window.setSize(sf::Vector2u(sf::VideoMode::getDesktopMode().width, (unsigned int)(sf::VideoMode::getDesktopMode().height*ratio)));
-
-	
-	
 	//force rendering to screen framerate
 	window.setVerticalSyncEnabled(true);
 	//hide the mouse
 	window.setMouseCursorVisible(false);
+	Menu menu;
 
-	Level level(resolution);
-
-	// program is running until window is closed
+	Level level(resolution, 2);
+	/*time between each graphical loop*/
+	sf::Time loopTime = sf::microseconds(16666);
+	/*Graphical loop*/
 	while (window.isOpen())
 	{
 		//launch timer / needs to be at the beginning of the loop!!
 		sf::Clock clock;
 
-		// test null score
-		if (score.getScore() == 0)
-		{
-			window.close();
-		}
-
-		
-
-		
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -91,26 +75,27 @@ int main()
 		}
 
 
-
-		// color window in black
-		window.clear();
-
 		//Draw background wallpaper
 		sf::Vector2f size = sf::Vector2f(1920, (float)(1920*texture.getSize().y/ texture.getSize().x));
 		sf::RectangleShape wallpaper(size);
 		wallpaper.setTexture(&texture);
-		wallpaper.setOutlineThickness(50);
+		wallpaper.setOutlineThickness(45);
 		wallpaper.setOutlineColor(sf::Color(44, 135, 190));
 		window.draw(wallpaper);
 
-		level.forward(resolution, window, score);
-		
+		/*Select level and then play!*/
+		if (!menu.isChoiceMade())
+		{
+			menu.draw(window, resolution);
+			if (menu.isChoiceMade())
+			{
+				level= Level (resolution, menu.getSelectedItem());
+			}
+		}
+		else {
+			level.forward(resolution, window, score);
+		}
 
-		
-
-		// show score
-		window.draw(score.textScore(resolution));		
-		
 		// end of the draw frame
 		window.display();
 		sf::Time elapsed = clock.getElapsedTime();
@@ -121,6 +106,5 @@ int main()
 		}
 
 	}
-
 	return 0;
 }

@@ -15,10 +15,7 @@ Score::Score(int initial, int current)
 int Score::initialize()
 {
 
-	unsigned int initial = 0;
-	std::cout << "Please enter a valid number of HP:\n>";
-	std::cin >> initial;
-	std::cin.clear();
+	unsigned int initial = 3;
 	init = initial;
 	score = initial;
 	return 1;

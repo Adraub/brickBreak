@@ -6,10 +6,11 @@
 class Level
 {
 public:
-	Level(sf::Vector2f);
+	Level(sf::Vector2f, int);
 	void forward(sf::Vector2f,sf::RenderWindow&, Score&);
 	void setBarPosition(float);
 	float getBarPosition();
+	void createBricks(int level);
 
 private:
 	/*Bricks array*/
