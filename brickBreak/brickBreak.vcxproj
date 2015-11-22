@@ -156,7 +156,6 @@
     <ClCompile Include="BallBrick.cpp" />
     <ClCompile Include="bar.cpp" />
     <ClCompile Include="Brick.cpp" />
-    <ClCompile Include="ClassicBrick.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -170,7 +169,6 @@
     <ClInclude Include="BallsHandler.h" />
     <ClInclude Include="bar.h" />
     <ClInclude Include="Brick.h" />
-    <ClInclude Include="ClassicBrick.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Score.h" />

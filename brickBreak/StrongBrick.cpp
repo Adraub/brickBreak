@@ -1,6 +1,5 @@
 #include "StrongBrick.h"
 
-//class StrongBrick//
 StrongBrick::StrongBrick(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, int nb_hits) : Brick(position, dimension, coloris)
 {
 	hits = nb_hits;
@@ -18,4 +17,3 @@ void StrongBrick::draw(sf::RenderWindow& window)
 	brick2.setFillColor(color);
 	window.draw(brick2);
 }
-//end class StrongBrick//

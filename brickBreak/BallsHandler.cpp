@@ -3,7 +3,7 @@
 
 BallsHandler::BallsHandler()
 {
-	standardBallSpeed= sf::Vector2f(0, -7);
+	standardBallSpeed= sf::Vector2f(0, -9);
 }
 
 int BallsHandler::move(sf::Vector2f& resolution, Bar& bar, std::vector<Brick*>& myBricks)

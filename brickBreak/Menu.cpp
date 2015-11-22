@@ -75,7 +75,7 @@ void Menu::draw(sf::RenderWindow& window, sf::Vector2f& resolution)
 		sf::FloatRect textRect = text.getLocalBounds();
 		text.setOrigin(textRect.left + textRect.width / 2.0f,
 			textRect.top + textRect.height / 2.0f);
-		text.setPosition(sf::Vector2f(resolution.x / 2, resolution.y / 2-300+150*i));
+		text.setPosition(sf::Vector2f(resolution.x / 2, resolution.y / 2-200+150*i));
 		window.draw(text);
 	}
 	

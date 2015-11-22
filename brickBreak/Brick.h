@@ -23,8 +23,8 @@ protected:
 	sf::Color color;
 	double tanBrick;
 	std::string texture;
-	int hits;
-	bool destroyed;
+	int hits=1;
+	bool destroyed = false;
 
 };
 
