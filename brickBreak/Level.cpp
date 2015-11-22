@@ -54,7 +54,7 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Score& sc
 	for (unsigned int j = 0; j < myBricks.size(); j++)
 	{
 		//detection of destroyed bricks
-		if (myBricks[j]->isDestroyed())
+		if (myBricks[j]->isDestroyed(balls.getBalls()))
 		{
 			myBricks.erase(myBricks.begin() + j);
 		}
@@ -96,7 +96,7 @@ void Level::createBricks(int level)
 						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow, 3));
 					}
 					else {
-						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow, balls.getBalls()));
+						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
 					}
 				}
 			}
@@ -107,7 +107,7 @@ void Level::createBricks(int level)
 				myBricks.push_back(new ClassicBrick(sf::Vector2f(300 + 2 * cpt_h * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
 				if (cpt_h < 5) {
 					if (cpt_v == 0 || cpt_v == 2 || cpt_v == 4) {
-						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow, balls.getBalls()));
+						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
 					}
 					else {
 						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow, 3));

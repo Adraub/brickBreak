@@ -16,7 +16,7 @@ public:
 	int newBall(sf::Vector2f, float , sf::Color );
 	int aliveBalls();
 	int launchBall(Bar&);
-	std::vector<Ball>* getBalls();
+	std::vector<Ball>& getBalls();
 	void draw(sf::RenderWindow&);
 
 private:

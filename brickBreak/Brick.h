@@ -15,7 +15,7 @@ public:
 	sf::Color getColor() const;
 	int onCollision();
 	double getTanBrique() const;
-	virtual bool isDestroyed();
+	virtual bool isDestroyed(std::vector<Ball>&);
 
 protected:
 	sf::Vector2f pos;
@@ -29,28 +29,8 @@ protected:
 };
 
 
-class ClassicBrick : public Brick {
-public:
-	ClassicBrick(sf::Vector2f, sf::Vector2f, sf::Color);
-};
 
 
-class StrongBrick : public Brick {
-public:
-	StrongBrick(sf::Vector2f, sf::Vector2f, sf::Color, int);
-	virtual void draw(sf::RenderWindow&);
-};
-
-
-class BallBrick : public Brick {
-public:
-	BallBrick(sf::Vector2f, sf::Vector2f, sf::Color, std::vector<Ball>*);
-	virtual void draw(sf::RenderWindow&);
-	virtual bool BallBrick::isDestroyed();
-
-protected:
-	std::vector<Ball>* myBall;
-};
 
 
 #endif

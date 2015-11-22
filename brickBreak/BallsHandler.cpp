@@ -85,9 +85,9 @@ int BallsHandler::launchBall(Bar& bar)
 	return 1;
 }
 
-std::vector<Ball>* BallsHandler::getBalls()
+std::vector<Ball>& BallsHandler::getBalls()
 {
-	return &myBalls;
+	return myBalls;
 }
 
 void BallsHandler::draw(sf::RenderWindow& window)

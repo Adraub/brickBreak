@@ -58,7 +58,8 @@ int main()
 				(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
 				window.close();
 			// capture mouse movement
-			else if (event.type == sf::Event::MouseMoved)
+			else if (event.type == sf::Event::MouseMoved && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
+				&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
 				//Convert window size to world size
 				sf::Vector2f mouse=window.mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y), window.getView());

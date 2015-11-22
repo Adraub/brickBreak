@@ -153,22 +153,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="BallBrick.cpp" />
     <ClCompile Include="bar.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="ClassicBrick.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="BallsHandler.cpp" />
+    <ClCompile Include="StrongBrick.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="BallBrick.h" />
     <ClInclude Include="BallsHandler.h" />
     <ClInclude Include="bar.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="ClassicBrick.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="StrongBrick.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

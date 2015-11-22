@@ -2,6 +2,9 @@
 #define DEF_LEVEL
 #include "BallsHandler.h"
 #include "Score.h"
+#include "ClassicBrick.h"
+#include "StrongBrick.h"
+#include "BallBrick.h"
 
 class Level
 {
