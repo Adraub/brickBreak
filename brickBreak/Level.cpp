@@ -14,10 +14,47 @@ Level::Level(sf::Vector2f resolution, int number)
 
 void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Score& score)
 {
-
 	// test null score
-	if (score.getScore() == 0 || myBricks.size() == 0)
+	if (score.getScore() == 0)
 	{
+		sf::Font* font = new sf::Font;
+		if (!(*font).loadFromFile("arial.ttf"))
+		{
+			std::puts("error loading font\n");
+		}
+		sf::Text text("Game Over", *font);
+		text.setCharacterSize(100);
+		text.setStyle(sf::Text::Bold);
+		text.setColor(sf::Color::Red);
+		sf::FloatRect rect = text.getGlobalBounds();
+		text.setPosition(sf::Vector2f(window.getSize().x/2 - rect.width/2, window.getSize().y/2 - rect.height/2));
+		sf::Time t1 = sf::seconds(2);
+		window.clear();
+		window.draw(text);
+		window.display();
+		sf::sleep(t1);
+		window.close();
+	}
+
+	// test null bricks
+	if (myBricks.size() == 0)
+	{
+		sf::Font* font = new sf::Font;
+		if (!(*font).loadFromFile("arial.ttf"))
+		{
+			std::puts("error loading font\n");
+		}
+		sf::Text text("You won!", *font);
+		text.setCharacterSize(100);
+		text.setStyle(sf::Text::Bold);
+		text.setColor(sf::Color::Red);
+		sf::FloatRect rect = text.getGlobalBounds();
+		text.setPosition(sf::Vector2f(window.getSize().x / 2 - rect.width / 2, window.getSize().y / 2 - rect.height / 2));
+		sf::Time t1 = sf::seconds(2);
+		window.clear();
+		window.draw(text);
+		window.display();
+		sf::sleep(t1);
 		window.close();
 	}
 
