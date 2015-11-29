@@ -9,7 +9,6 @@ Bar::Bar(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, bool 
 	dim = dimension;
 	pos = position;
 	color = coloris;
-	tanBar = dim.y / dim.x;
 	ball = isball;
 }
 
@@ -35,19 +34,15 @@ int Bar::isInsideScreen(sf::Vector2f& resolution)
 	return 1;
 }
 
-sf::Vector2f Bar::getPos()
+sf::Vector2f Bar::getPos() const
 {
 	return pos;
 }
 
-sf::Color Bar::getColor()
-{
-	return color;
-}
 
-double Bar::getTanBar()
+double Bar::getTanBar() const
 {
-	return tanBar;
+	return dim.y / dim.x;
 }
 
 int Bar::setPosx(float posx)
@@ -60,7 +55,7 @@ void Bar::draw(sf::RenderWindow& window)
 {
 	sf::RectangleShape barShape(getDim());
 	barShape.setPosition(pos-sf::Vector2f(getDim().x / 2.0f,0.0f));
-	barShape.setFillColor(getColor());
+	barShape.setFillColor(color);
 	window.draw(barShape);
 	if (isBall())
 	{

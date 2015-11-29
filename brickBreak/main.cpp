@@ -40,15 +40,12 @@ int main()
 	window.setMouseCursorVisible(false);
 	Menu menu;
 
-	Level level(resolution, 2);
+	Level level(resolution, 2, score);
 	/*time between each graphical loop*/
 	sf::Time loopTime = sf::microseconds(16666);
 	/*Graphical loop*/
 	while (window.isOpen())
 	{
-		//launch timer / needs to be at the beginning of the loop!!
-		sf::Clock clock;
-
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -90,21 +87,15 @@ int main()
 			menu.draw(window, resolution);
 			if (menu.isChoiceMade())
 			{
-				level= Level (resolution, menu.getSelectedItem());
+				level= Level (resolution, menu.getSelectedItem(),score);
 			}
 		}
 		else {
-			level.forward(resolution, window, score);
+			level.forward(resolution, window);
 		}
 
 		// end of the draw frame
 		window.display();
-		sf::Time elapsed = clock.getElapsedTime();
-		//framerate 60 hertz
-		if (elapsed.asMicroseconds() < loopTime.asMicroseconds())
-		{
-			sf::sleep(loopTime - elapsed);
-		}
 
 	}
 	return 0;

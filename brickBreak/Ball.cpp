@@ -51,9 +51,9 @@ int Ball::isColliding(class Brick& brick)
 		if (brick.getPos().x <= (pos.x + 2 * radius) && pos.x <= (brick.getPos().x + brick.getDim().x))
 		{
 			/*ball inside vertical limits of the brick*/
-			if (pos.y +radius >= brick.getPos().y + (pos.x+ radius- brick.getPos().x)*brick.getTanBrique())
+			if (pos.y +radius >= brick.getPos().y + (pos.x+ radius- brick.getPos().x)*brick.getTanBrick())
 			{
-				if (pos.y +radius >= brick.getPos().y + brick.getDim().y - (pos.x +radius - brick.getPos().x)*brick.getTanBrique())
+				if (pos.y +radius >= brick.getPos().y + brick.getDim().y - (pos.x +radius - brick.getPos().x)*brick.getTanBrick())
 				{
 					/*Down position*/
 					if (speed.y < 0)
@@ -74,7 +74,7 @@ int Ball::isColliding(class Brick& brick)
 			}
 			else
 			{
-				if (pos.y + radius >= brick.getPos().y + brick.getDim().y - (pos.x +radius- brick.getPos().x)*brick.getTanBrique())
+				if (pos.y + radius >= brick.getPos().y + brick.getDim().y - (pos.x +radius- brick.getPos().x)*brick.getTanBrick())
 				{
 					/*right position*/
 					if (speed.x < 0)

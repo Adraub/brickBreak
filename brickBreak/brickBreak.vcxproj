@@ -154,7 +154,7 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="BallBrick.cpp" />
-    <ClCompile Include="bar.cpp" />
+    <ClCompile Include="Bar.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
@@ -167,7 +167,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="BallBrick.h" />
     <ClInclude Include="BallsHandler.h" />
-    <ClInclude Include="bar.h" />
+    <ClInclude Include="Bar.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Menu.h" />

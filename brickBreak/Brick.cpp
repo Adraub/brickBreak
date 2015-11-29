@@ -8,7 +8,6 @@ Brick::Brick(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris)
 	dim = dimension;
 	pos = position;
 	color = coloris;
-	tanBrick=dim.y / dim.x;
 }
 
 
@@ -53,15 +52,12 @@ int Brick::onCollision()
 	return 0;
 }
 
-double Brick::getTanBrique() const
+double Brick::getTanBrick() const
 {
-	return tanBrick;
+	return dim.y / dim.x;
 }
 
 bool Brick::isDestroyed(std::vector<Ball>&)
 {
-	if (hits == 0) {
-		destroyed = true;
-	}
-	return destroyed;
+	return hits == 0;
 }

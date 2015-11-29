@@ -9,9 +9,8 @@ public:
 	Bar(sf::Vector2f, sf::Vector2f, sf::Color, bool);
 	int isInsideScreen(sf::Vector2f&);
 	sf::Vector2f getDim() const;
-	sf::Vector2f getPos();
-	sf::Color getColor();
-	double getTanBar();
+	sf::Vector2f getPos() const;
+	double getTanBar() const;
 	int setPosx(float);
 	void draw(sf::RenderWindow&);
 	void addBall();
@@ -23,7 +22,6 @@ private:
 	sf::Vector2f pos;
 	sf::Vector2f dim;
 	sf::Color color;
-	double tanBar;
 	bool ball;
 
 };

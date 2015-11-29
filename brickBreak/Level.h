@@ -8,17 +8,21 @@
 class Level
 {
 public:
-	Level(sf::Vector2f, int);
-	void forward(sf::Vector2f,sf::RenderWindow&, Score&);
+	Level(sf::Vector2f, int, Score&);
+	void forward(sf::Vector2f,sf::RenderWindow&);
 	void setBarPosition(float);
 	float getBarPosition();
 	void createBricks(int level);
+	void deleteDestroyedBricks();
+	void drawComponents(sf::RenderWindow&, sf::Vector2f&);
+	bool isOver();
 
 private:
 	/*Bricks array*/
 	std::vector<Brick*> myBricks;
 	BallsHandler balls= BallsHandler();
 	Bar bar;
+	Score score;
 	/*keyboard sensibility*/
 	int keyboardSensibility;
 };
