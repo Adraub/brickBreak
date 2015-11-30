@@ -45,10 +45,10 @@ void Score::draw(sf::Vector2f& resolution, sf::RenderWindow& window)
 {
 	sf::Text text;
 	std::stringstream convert;
-	convert << "Lifes: " << score;
+	convert << "Lives: " << score;
 	text.setFont(*font);
 	text.setString(convert.str());
-	text.setCharacterSize(30);
+	text.setCharacterSize(36);
 	text.setStyle(sf::Text::Bold);
 	text.setColor(sf::Color::White);
 	text.setPosition(resolution-sf::Vector2f(150, resolution.y+5));

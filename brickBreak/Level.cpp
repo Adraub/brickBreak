@@ -16,7 +16,7 @@ Level::Level(sf::Vector2f resolution, int number, Score& scoring)
 void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window)
 {
 	// test null score
-	if (score.getScore() == 0 || isOver())
+	if (score.getScore() == 0)
 	{
 		sf::Font* font = new sf::Font;
 		if (!(*font).loadFromFile("arial.ttf"))
@@ -38,7 +38,7 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window)
 	}
 
 	// test null bricks
-	if (myBricks.size() == 0)
+	if (isOver())
 	{
 		sf::Font* font = new sf::Font;
 		if (!(*font).loadFromFile("arial.ttf"))
