@@ -1,21 +1,22 @@
 #include "Level.h"
 
 //class Brick//
-Level::Level(sf::Vector2f resolution, int number)
+Level::Level(sf::Vector2f resolution, int number, Score& scoring)
 {
 
 	/*keyboard sensibility*/
 	keyboardSensibility=20;
 	//creation of the ball
-	bar=Bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 35), sf::Color::Red,false);
+	bar=Bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 25), sf::Color::Red,false);
 	bar.addBall();
 	createBricks(number);
+	score = scoring;
 }
 
-void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Score& score)
+void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window)
 {
 	// test null score
-	if (score.getScore() == 0)
+	if (score.getScore() == 0 || isOver())
 	{
 		sf::Font* font = new sf::Font;
 		if (!(*font).loadFromFile("arial.ttf"))
@@ -88,24 +89,9 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Score& sc
 
 	balls.move(resolution, bar, myBricks);
 
-	for (unsigned int j = 0; j < myBricks.size(); j++)
-	{
-		//detection of destroyed bricks
-		if (myBricks[j]->isDestroyed(balls.getBalls()))
-		{
-			myBricks.erase(myBricks.begin() + j);
-		}
-		//draw the balls
-		if (j < myBricks.size())
-		{
-			myBricks[j]->draw(window);
-		}
-	}
+	deleteDestroyedBricks();
+	drawComponents(window, resolution);
 
-	bar.draw(window);
-	balls.draw(window);
-	// show score
-	window.draw(score.textScore(resolution));
 }
 
 void Level::setBarPosition(float barpos)
@@ -155,6 +141,37 @@ void Level::createBricks(int level)
 		}
 	}
 	
+}
+
+void Level::deleteDestroyedBricks()
+{
+	for (unsigned int j = 0; j < myBricks.size(); j++)
+	{
+		//detection of destroyed bricks
+		if (myBricks[j]->isDestroyed(balls.getBalls()))
+		{
+			myBricks.erase(myBricks.begin() + j);
+		}
+	}
+}
+
+void Level::drawComponents(sf::RenderWindow& window, sf::Vector2f& resolution)
+{
+
+	// show score
+	score.draw(resolution, window);
+	bar.draw(window);
+	balls.draw(window);
+	for (unsigned int j = 0; j < myBricks.size(); j++)
+	{
+		myBricks[j]->draw(window);
+	}
+}
+
+bool Level::isOver()
+{
+
+	return myBricks.size() == 0;
 }
 
 

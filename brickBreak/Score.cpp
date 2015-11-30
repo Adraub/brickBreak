@@ -1,5 +1,9 @@
 #include "Score.h"
 
+Score::Score()
+{
+
+}
 
 Score::Score(int initial, int current)
 {
@@ -37,16 +41,16 @@ int Score::getInit()
 	return init;
 }
 
-sf::Text Score::textScore(sf::Vector2f& resolution)
+void Score::draw(sf::Vector2f& resolution, sf::RenderWindow& window)
 {
 	sf::Text text;
 	std::stringstream convert;
-	convert << "HP: " << score;
+	convert << "Lifes: " << score;
 	text.setFont(*font);
 	text.setString(convert.str());
-	text.setCharacterSize(38);
+	text.setCharacterSize(30);
 	text.setStyle(sf::Text::Bold);
-	text.setColor(sf::Color::Red);
-	text.setPosition(sf::Vector2f(20, 5));
-	return text;
+	text.setColor(sf::Color::White);
+	text.setPosition(resolution-sf::Vector2f(150, resolution.y+5));
+	window.draw(text);
 }
