@@ -61,3 +61,8 @@ bool Brick::isDestroyed(std::vector<Ball>&)
 {
 	return hits == 0;
 }
+
+int Brick::getHits()
+{
+	return hits;
+}
