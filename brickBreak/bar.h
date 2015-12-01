@@ -18,13 +18,13 @@ public:
 	void launchedBall();
 	bool isBall();
 	int Bar::upCollision(sf::Vector2f&, sf::Vector2f&);
-
+	int posArrayPushBack(float);
 private:
 	sf::Vector2f pos;
 	sf::Vector2f dim;
 	sf::Color color;
 	bool ball;
-
+	std::vector<float> posArray;
 };
 
 #endif

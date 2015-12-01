@@ -12,7 +12,7 @@ public:
 	Level(sf::Vector2f, int, Score&);
 	void forward(sf::Vector2f,sf::RenderWindow&, Menu&);
 	void setBarPosition(float);
-	void Level::setBarPositionY(float);
+	void setBarPositionY(float);
 	float getBarPosition();
 	float getBarPositionY();
 	void createBricks(int level);
@@ -21,6 +21,7 @@ public:
 	bool isOver();
 	void finishLevel();
 	bool isFinished();
+	void posArrayBarAdd(float);
 
 private:
 	// Bricks array

@@ -231,4 +231,7 @@ bool Level::isFinished()
 {
 	return levelFinished;
 }
-
+void Level::posArrayBarAdd(float posy)
+{
+	bar.posArrayPushBack(posy);
+}

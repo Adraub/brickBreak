@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "bar.h"
+#include "Bar.h"
 #include "Ball.h"
 #include "Brick.h"
 #include "Score.h"
@@ -73,11 +73,13 @@ int main()
 			else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::V))&&(loop==0))
 			{
 				level.setBarPositionY(level.getBarPositionY() + 15);
+				level.posArrayBarAdd(1);
 				loop = 1;
 			}
 			else if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::V)))
 			{
 				level.setBarPositionY(resolution.y-35);
+				level.posArrayBarAdd(0);
 				loop = 0;
 			}
 		}
