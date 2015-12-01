@@ -13,7 +13,7 @@ Level::Level(sf::Vector2f resolution, int number, Score& scoring)
 	score = scoring;
 }
 
-void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window)
+void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& menu)
 {
 	// test null score
 	if (score.getScore() == 0)
@@ -34,7 +34,7 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window)
 		window.draw(text);
 		window.display();
 		sf::sleep(t1);
-		window.close();
+		menu.setNewLevel();
 	}
 
 	// test null bricks
@@ -56,7 +56,7 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window)
 		window.draw(text);
 		window.display();
 		sf::sleep(t1);
-		window.close();
+		menu.setNewLevel();
 	}
 
 	// keyboard direction action

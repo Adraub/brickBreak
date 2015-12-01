@@ -4,12 +4,13 @@
 #include "Score.h"
 #include "StrongBrick.h"
 #include "BallBrick.h"
+#include "Menu.h"
 
 class Level
 {
 public:
 	Level(sf::Vector2f, int, Score&);
-	void forward(sf::Vector2f,sf::RenderWindow&);
+	void forward(sf::Vector2f,sf::RenderWindow&, Menu&);
 	void setBarPosition(float);
 	float getBarPosition();
 	void createBricks(int level);

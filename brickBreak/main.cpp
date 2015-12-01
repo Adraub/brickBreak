@@ -87,11 +87,18 @@ int main()
 			menu.draw(window, resolution);
 			if (menu.isChoiceMade())
 			{
-				level= Level (resolution, menu.getSelectedItem(),score);
+				if (menu.getSelectedItem() == 3)
+				{
+					window.close();
+				}
+				else
+				{
+					level = Level(resolution, menu.getSelectedItem(), score);
+				}
 			}
 		}
 		else {
-			level.forward(resolution, window);
+			level.forward(resolution, window, menu);
 		}
 
 		// end of the draw frame
