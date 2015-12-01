@@ -12,7 +12,9 @@ public:
 	Level(sf::Vector2f, int, Score&);
 	void forward(sf::Vector2f,sf::RenderWindow&, Menu&);
 	void setBarPosition(float);
+	void Level::setBarPositionY(float);
 	float getBarPosition();
+	float getBarPositionY();
 	void createBricks(int level);
 	void deleteDestroyedBricks();
 	void drawComponents(sf::RenderWindow&, sf::Vector2f&);

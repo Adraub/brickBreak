@@ -12,6 +12,7 @@ public:
 	sf::Vector2f getPos() const;
 	double getTanBar() const;
 	int setPosx(float);
+	int setPosy(float);
 	void draw(sf::RenderWindow&);
 	void addBall();
 	void launchedBall();

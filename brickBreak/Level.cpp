@@ -74,7 +74,7 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& men
 		// launch ball in bar
 		balls.launchBall(bar);
 	}
-	
+
 	// test to reduce score 
 	if (balls.aliveBalls() == 0 && !bar.isBall())
 	{
@@ -100,9 +100,19 @@ void Level::setBarPosition(float barpos)
 	bar.setPosx(barpos);
 }
 
+void Level::setBarPositionY(float barpos)
+{
+	bar.setPosy(barpos);
+}
+
 float Level::getBarPosition()
 {
 	return bar.getPos().x;
+}
+
+float Level::getBarPositionY()
+{
+	return bar.getPos().y;
 }
 
 void Level::createBricks(int level)

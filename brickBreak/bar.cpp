@@ -1,4 +1,4 @@
-#include "bar.h"
+#include "Ball.h"
 
 Bar::Bar()
 {
@@ -49,6 +49,13 @@ int Bar::setPosx(float posx)
 {
 	pos.x = posx;
 	return 1;
+}
+
+int Bar::setPosy(float posy)
+{
+	pos.y = posy;
+	return 1;
+
 }
 
 void Bar::draw(sf::RenderWindow& window)
@@ -121,3 +128,4 @@ int Bar::upCollision(sf::Vector2f& speed, sf::Vector2f& ballPos)
 	speed.y = constantSpeedAdjust*speed.y;
 	return 1;
 }
+

@@ -6,7 +6,7 @@
 #include "Level.h"
 #include "BallsHandler.h"
 #include "Menu.h"
-
+#include <windows.h>
 
 
 
@@ -16,7 +16,7 @@ int main()
 {
 	Score score(0, 0);
 	score.initialize();
-	
+	int loop(0);
 	sf::Texture texture;
 	texture.loadFromFile("wallpaper.jpg");
 
@@ -69,6 +69,16 @@ int main()
 				float zoom = std::max(resolution.x/ event.size.width, resolution.y/ event.size.height);
 				view.zoom(zoom);
 				window.setView(view);
+			}
+			else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::V))&&(loop==0))
+			{
+				level.setBarPositionY(level.getBarPositionY() + 15);
+				loop = 1;
+			}
+			else if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::V)))
+			{
+				level.setBarPositionY(resolution.y-35);
+				loop = 0;
 			}
 		}
 
