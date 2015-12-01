@@ -97,7 +97,13 @@ int main()
 				}
 			}
 		}
-		else {
+		else if (level.isFinished())
+		{
+			level.~Level();
+			menu.setNewLevel();
+		}
+		else
+		{
 			level.forward(resolution, window, menu);
 		}
 

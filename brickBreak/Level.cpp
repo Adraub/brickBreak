@@ -11,6 +11,7 @@ Level::Level(sf::Vector2f resolution, int number, Score& scoring)
 	bar.addBall();
 	createBricks(number);
 	score = scoring;
+	levelFinished = false;
 }
 
 void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& menu)
@@ -34,7 +35,7 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& men
 		window.draw(text);
 		window.display();
 		sf::sleep(t1);
-		menu.setNewLevel();
+		finishLevel();
 	}
 
 	// test null bricks
@@ -56,7 +57,7 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& men
 		window.draw(text);
 		window.display();
 		sf::sleep(t1);
-		menu.setNewLevel();
+		finishLevel();
 	}
 
 	// keyboard direction action
@@ -107,40 +108,70 @@ float Level::getBarPosition()
 void Level::createBricks(int level)
 {
 
-	float cpt_h = 0, cpt_v = 0;
-	//creation of the bricks
+	float cpt_x = 0, cpt_y = 0;
+	//creation of the bricks depending on the level selected
 	if (level == 0)
 	{
-		for (cpt_v = 0; cpt_v < 5; cpt_v++) {
-			for (cpt_h = 0; cpt_h < 6; cpt_h++) {
-				myBricks.push_back(new Brick(sf::Vector2f(300 + 2 * cpt_h * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
-				if (cpt_h < 5) {
-					if (cpt_v == 0 || cpt_v == 2 || cpt_v == 4) {
-						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Transparent, -1));
+		for (cpt_y = 0; cpt_y < 5; cpt_y++) {
+			for (cpt_x = 0; cpt_x < 6; cpt_x++) {
+				myBricks.push_back(new Brick(sf::Vector2f(300 + 2 * cpt_x * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+				if (cpt_x < 5) {
+					if (cpt_y == 0 || cpt_y == 2 || cpt_y == 4) {
+						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
 					}
 					else {
-						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
-					}
-				}
-			}
-		}
-	}else{
-		for (cpt_v = 0; cpt_v < 5; cpt_v++) {
-			for (cpt_h = 0; cpt_h < 6; cpt_h++) {
-				myBricks.push_back(new Brick(sf::Vector2f(300 + 2 * cpt_h * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
-				if (cpt_h < 5) {
-					if (cpt_v == 0 || cpt_v == 2 || cpt_v == 4) {
-						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
-					}
-					else {
-						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow, 3));
-						
+						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow, 3));
+
 					}
 				}
 			}
 		}
 	}
-	
+	else if (level==1)
+	{
+		for (cpt_y = 0; cpt_y < 5; cpt_y++) {
+			for (cpt_x = 0; cpt_x < 6; cpt_x++) {
+				myBricks.push_back(new Brick(sf::Vector2f(300 + 2 * cpt_x * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+				if (cpt_x < 5) {
+					if (cpt_y == 0 || cpt_y == 2 || cpt_y == 4) {
+						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Transparent, -1));
+					}
+					else {
+						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		for (cpt_y = 0; cpt_y < 5; cpt_y++) {
+			for (cpt_x = 0; cpt_x < 6; cpt_x++) {
+				if (cpt_y == 0 || cpt_y == 2 || cpt_y == 4)
+				{
+					myBricks.push_back(new Brick(sf::Vector2f(300 + 2 * cpt_x * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+				}
+				else
+				{
+					myBricks.push_back(new StrongBrick(sf::Vector2f(300 + 2 * cpt_x * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow, 3));
+				}
+				if (cpt_x < 5) {
+					if (cpt_y == 0 || cpt_y == 2 || cpt_y == 4)
+					{
+						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Transparent, -1));
+					}
+					else if (cpt_x == 0 || cpt_x == 2 || cpt_x == 4)
+					{
+						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+					}
+					else
+					{
+						myBricks.push_back(new Brick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+					}
+				}
+			}
+		}
+	}
 }
 
 void Level::deleteDestroyedBricks()
@@ -181,4 +212,13 @@ bool Level::isOver()
 	return nbToDestroy == 0;
 }
 
+void Level::finishLevel()
+{
+	levelFinished = true;
+}
+
+bool Level::isFinished()
+{
+	return levelFinished;
+}
 
