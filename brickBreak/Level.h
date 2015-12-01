@@ -17,15 +17,19 @@ public:
 	void deleteDestroyedBricks();
 	void drawComponents(sf::RenderWindow&, sf::Vector2f&);
 	bool isOver();
+	void finishLevel();
+	bool isFinished();
 
 private:
-	/*Bricks array*/
+	// Bricks array
 	std::vector<Brick*> myBricks;
 	BallsHandler balls= BallsHandler();
 	Bar bar;
 	Score score;
-	/*keyboard sensibility*/
+	// Keyboard sensibility
 	int keyboardSensibility;
+	// Level status
+	bool levelFinished;
 };
 
 #endif

@@ -11,6 +11,7 @@ Level::Level(sf::Vector2f resolution, int number, Score& scoring)
 	bar.addBall();
 	createBricks(number);
 	score = scoring;
+	levelFinished = false;
 }
 
 void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& menu)
@@ -34,7 +35,7 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& men
 		window.draw(text);
 		window.display();
 		sf::sleep(t1);
-		menu.setNewLevel();
+		finishLevel();
 	}
 
 	// test null bricks
@@ -56,7 +57,7 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& men
 		window.draw(text);
 		window.display();
 		sf::sleep(t1);
-		menu.setNewLevel();
+		finishLevel();
 	}
 
 	// keyboard direction action
@@ -211,4 +212,13 @@ bool Level::isOver()
 	return nbToDestroy == 0;
 }
 
+void Level::finishLevel()
+{
+	levelFinished = true;
+}
+
+bool Level::isFinished()
+{
+	return levelFinished;
+}
 
