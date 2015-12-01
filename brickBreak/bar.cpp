@@ -54,9 +54,15 @@ int Bar::setPosx(float posx)
 void Bar::draw(sf::RenderWindow& window)
 {
 	sf::RectangleShape barShape(getDim());
+	sf::RectangleShape barLeftEdge(sf::Vector2f(1.0f*getDim().x / 8.0f, getDim().y));
+	sf::RectangleShape barRightEdge(sf::Vector2f(1.0f*getDim().x / 8.0f, getDim().y));
 	barShape.setPosition(pos-sf::Vector2f(getDim().x / 2.0f,0.0f));
 	barShape.setFillColor(color);
+	barLeftEdge.setPosition(pos - sf::Vector2f(getDim().x / 2.0f, 0.0f));
+	barRightEdge.setPosition(pos + sf::Vector2f(getDim().x / 2.0f, 0.0f)- sf::Vector2f(1.0f*getDim().x / 8.0f, 0.0f));
 	window.draw(barShape);
+	window.draw(barLeftEdge);
+	window.draw(barRightEdge);
 	if (isBall())
 	{
 		sf::Vector2f posBall = sf::Vector2f(pos.x , pos.y - 20);
@@ -86,16 +92,19 @@ void Bar::launchedBall()
 int Bar::upCollision(sf::Vector2f& speed, sf::Vector2f& ballPos)
 {
 	double constantSpeedAdjust(1);
-	double coeff(1);
-	double midBar = getPos().x;
-	double xToCenter = midBar - ballPos.x;
+	double xToCenter = getPos().x - ballPos.x;
 	double realSpeed = sqrt(speed.x*speed.x + speed.y*speed.y); // to be kept constant
 	double diffractionRate(0.08);
 	speed.y = -speed.y; //the rebound itself
 
 	if (speed.x * xToCenter > 0) //  = cases where ball moves from left to right and bounces on left side or from right to left and on right side
 	{
-		speed.y -= abs(xToCenter)*diffractionRate;
+		if (abs(xToCenter) >= (3*getDim().x/8))
+		{
+			speed.x = -speed.x;
+		}
+		else speed.y -= abs(xToCenter)*diffractionRate;
+
 	}
 	else if (speed.x * xToCenter < 0)
 	{
