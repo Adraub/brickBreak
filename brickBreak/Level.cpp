@@ -170,8 +170,15 @@ void Level::drawComponents(sf::RenderWindow& window, sf::Vector2f& resolution)
 
 bool Level::isOver()
 {
-
-	return myBricks.size() == 0;
+	unsigned int nbToDestroy=0;
+	for (unsigned int i = 0; i < myBricks.size(); i++)
+	{
+		if (myBricks[i]->getHits() > 0)
+		{
+			nbToDestroy++;
+		}
+	}
+	return nbToDestroy == 0;
 }
 
 

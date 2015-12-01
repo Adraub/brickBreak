@@ -16,6 +16,7 @@ public:
 	int onCollision();
 	double getTanBrick() const;
 	virtual bool isDestroyed(std::vector<Ball>&);
+	int getHits();
 
 protected:
 	sf::Vector2f pos;
