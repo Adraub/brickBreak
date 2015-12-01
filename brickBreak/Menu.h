@@ -9,6 +9,7 @@ public:
 	void forward(sf::RenderWindow&);
 	void draw(sf::RenderWindow&, sf::Vector2f&);
 	bool isChoiceMade();
+	void setNewLevel();
 	unsigned int getSelectedItem();
 private:
 	std::vector<std::string> items;

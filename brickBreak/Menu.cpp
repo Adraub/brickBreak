@@ -90,3 +90,8 @@ unsigned int Menu::getSelectedItem()
 {
 	return selectedItem;
 }
+
+void Menu::setNewLevel()
+{
+	choiceMade = false;
+}
