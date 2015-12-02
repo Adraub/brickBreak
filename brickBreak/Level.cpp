@@ -235,3 +235,8 @@ void Level::posArrayBarAdd(float posy)
 {
 	bar.posArrayPushBack(posy);
 }
+
+std::vector<int> Level::getPosArrayBar()
+{
+	return bar.getPosArray();
+}

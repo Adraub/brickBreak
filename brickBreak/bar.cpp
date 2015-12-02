@@ -102,9 +102,9 @@ int Bar::upCollision(sf::Vector2f& speed, sf::Vector2f& ballPos)
 	double xToCenter = getPos().x - ballPos.x;
 	double realSpeed = sqrt(speed.x*speed.x + speed.y*speed.y); // to be kept constant
 	double diffractionRate(0.08);
-	double speedBoostCoef(2);
+	double speedBoostCoef(1.4);
 	speed.y = -speed.y; //the rebound itself
-	if (std::find(posArray.begin(), posArray.end(), 1) != posArray.end())
+	if (std::find(posArray.begin(), posArray.end(), 1) != posArray.end()) // if there is a 1 in posArray, it means that V was pressed in the previous 166660 millisec
 	{
 		if (speed.x * xToCenter > 0) //  = cases where ball moves from left to right and bounces on left side or from right to left and on right side
 		{
@@ -159,9 +159,14 @@ int Bar::upCollision(sf::Vector2f& speed, sf::Vector2f& ballPos)
 }
 
 
-int Bar::posArrayPushBack(float pos)
+int Bar::posArrayPushBack(int pos)
 {
 	Bar::posArray.push_back(pos); // push back before erase so that we don't loop on less than 10 elements
 	Bar::posArray.erase(posArray.begin());
 	return 1;
+}
+
+std::vector<int> Bar::getPosArray()
+{
+	return posArray;
 }

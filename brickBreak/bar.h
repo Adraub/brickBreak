@@ -18,13 +18,14 @@ public:
 	void launchedBall();
 	bool isBall();
 	int Bar::upCollision(sf::Vector2f&, sf::Vector2f&);
-	int posArrayPushBack(float);
+	std::vector<int> getPosArray();
+	int posArrayPushBack(int); 
 private:
 	sf::Vector2f pos;
 	sf::Vector2f dim;
 	sf::Color color;
 	bool ball;
-	std::vector<float> posArray;
+	std::vector<int> posArray; // posArray stores a value at every loop of the main graphical loop. It stores 1 if the bar is below Oy (because player pressed V) and 0 otherwise
 };
 
 #endif
