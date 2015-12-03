@@ -57,7 +57,7 @@ double Brick::getTanBrick() const
 	return dim.y / dim.x;
 }
 
-bool Brick::isDestroyed(std::vector<Ball>&)
+bool Brick::isDestroyed(std::vector<Ball>&, std::vector<Particle>&)
 {
 	return hits == 0;
 }

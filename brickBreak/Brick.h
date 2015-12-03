@@ -2,6 +2,7 @@
 #define DEF_BRICK
 
 #include "Ball.h"
+#include "Particle.h"
 #include "BallsHandler.h"
 #include <SFML/Graphics.hpp>
 
@@ -15,7 +16,7 @@ public:
 	sf::Color getColor() const;
 	int onCollision();
 	double getTanBrick() const;
-	virtual bool isDestroyed(std::vector<Ball>&);
+	virtual bool isDestroyed(std::vector<Ball>&, std::vector<class Particle>&);
 	int getHits();
 
 protected:

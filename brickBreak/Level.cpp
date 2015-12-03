@@ -1,4 +1,5 @@
 #include "Level.h"
+#include "BonusBrick.h"
 
 //class Brick//
 Level::Level(sf::Vector2f resolution, int number, Score& scoring)
@@ -84,10 +85,18 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& men
 		}
 		bar.addBall();
 	}
+	//check destroyed particles
+	Level::checkParticleStates();
+
 	//check bar position
 	bar.isInsideScreen(resolution);
 
+	//update mouvements
 	balls.move(resolution, bar, myBricks);
+	for (unsigned int i = 0; i < myParticles.size(); i++)
+	{
+		myParticles[i].move(resolution);
+	}
 
 	deleteDestroyedBricks();
 	drawComponents(window, resolution);
@@ -130,7 +139,7 @@ void Level::createBricks(int level)
 				myBricks.push_back(new Brick(sf::Vector2f(300 + 2 * cpt_h * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
 				if (cpt_h < 5) {
 					if (cpt_v == 0 || cpt_v == 2 || cpt_v == 4) {
-						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+						myBricks.push_back(new BonusBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
 					}
 					else {
 						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_h + 1) * 120, 200 + cpt_v * 60), sf::Vector2f(100, 40), sf::Color::Yellow, 3));
@@ -148,7 +157,7 @@ void Level::deleteDestroyedBricks()
 	for (unsigned int j = 0; j < myBricks.size(); j++)
 	{
 		//detection of destroyed bricks
-		if (myBricks[j]->isDestroyed(balls.getBalls()))
+		if (myBricks[j]->isDestroyed(balls.getBalls(),myParticles))
 		{
 			myBricks.erase(myBricks.begin() + j);
 		}
@@ -166,6 +175,10 @@ void Level::drawComponents(sf::RenderWindow& window, sf::Vector2f& resolution)
 	{
 		myBricks[j]->draw(window);
 	}
+	for (unsigned int i = 0; i < myParticles.size(); i++)
+	{
+		myParticles[i].draw(window);
+	}
 }
 
 bool Level::isOver()
@@ -181,4 +194,22 @@ bool Level::isOver()
 	return nbToDestroy == 0;
 }
 
+int Level::checkParticleStates()
+{
+	for (unsigned int i = 0; i < myParticles.size(); i++)
+	{
+		if (myParticles[i].isLost())
+		{
+			myParticles.erase(myParticles.begin() + i);
+		}
+		else {
+			if (myParticles[i].isColliding(bar))
+			{
+				myParticles[i].giveBonus(balls,bar,score);
+				myParticles.erase(myParticles.begin() + i);
+			}
+		}
+	}
+	return 1;
+}
 
