@@ -31,6 +31,12 @@ int Score::reduceScore()
 	return 1;
 }
 
+int Score::increaseScore()
+{
+	++score;
+	return 1;
+}
+
 int Score::getScore()
 {
 	return score;

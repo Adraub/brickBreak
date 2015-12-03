@@ -12,6 +12,7 @@ public:
 	Score(int, int);
 	int initialize();
 	int reduceScore();
+	int increaseScore();
 	int getScore();
 	int getInit();
 	void draw(sf::Vector2f&, sf::RenderWindow&);

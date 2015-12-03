@@ -5,6 +5,7 @@
 #include "StrongBrick.h"
 #include "BallBrick.h"
 #include "Menu.h"
+#include "Particle.h"
 
 class Level
 {
@@ -19,11 +20,13 @@ public:
 	bool isOver();
 	void finishLevel();
 	bool isFinished();
+	int checkParticleStates();
 
 private:
 	// Bricks array
 	std::vector<Brick*> myBricks;
 	BallsHandler balls= BallsHandler();
+	std::vector<Particle> myParticles;
 	Bar bar;
 	Score score;
 	// Keyboard sensibility

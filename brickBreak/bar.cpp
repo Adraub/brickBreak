@@ -51,6 +51,14 @@ int Bar::setPosx(float posx)
 	return 1;
 }
 
+
+int Bar::setDim(sf::Vector2f newdim)
+{
+	dim = newdim;
+	return 1;
+}
+
+
 void Bar::draw(sf::RenderWindow& window)
 {
 	sf::RectangleShape barShape(getDim());
