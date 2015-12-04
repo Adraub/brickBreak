@@ -34,7 +34,7 @@ sf::Color Brick::getColor() const
 	return color;
 }
 
-int Brick::onCollision()
+void Brick::onCollision()
 {
 	if (hits > 0)
 	{
@@ -49,10 +49,9 @@ int Brick::onCollision()
 		}
 	}
 	
-	return 0;
 }
 
-double Brick::getTanBrick() const
+float Brick::getTanBrick() const
 {
 	return dim.y / dim.x;
 }

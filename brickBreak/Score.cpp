@@ -5,9 +5,8 @@ Score::Score()
 
 }
 
-Score::Score(int initial, int current)
+Score::Score(int current)
 {
-	init = initial;
 	score = current;
 	font = new sf::Font;
 	if (!(*font).loadFromFile("arial.ttf"))
@@ -18,9 +17,7 @@ Score::Score(int initial, int current)
 
 int Score::initialize()
 {
-
 	unsigned int initial = 3;
-	init = initial;
 	score = initial;
 	return 1;
 }
@@ -28,13 +25,13 @@ int Score::initialize()
 int Score::reduceScore()
 {
 	--score;
-	return 1;
+	return score;
 }
 
 int Score::increaseScore()
 {
 	++score;
-	return 1;
+	return score;
 }
 
 int Score::getScore()
@@ -42,10 +39,6 @@ int Score::getScore()
 	return score;
 }
 
-int Score::getInit()
-{
-	return init;
-}
 
 void Score::draw(sf::Vector2f& resolution, sf::RenderWindow& window)
 {

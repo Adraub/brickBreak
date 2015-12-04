@@ -14,7 +14,7 @@
 
 int main()
 {
-	Score score(0, 0);
+	Score score(0);
 	score.initialize();
 	
 	sf::Texture texture;

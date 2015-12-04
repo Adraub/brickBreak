@@ -8,14 +8,14 @@ class BallsHandler
 {
 public:
 	BallsHandler();
-	int move(sf::Vector2f&, Bar&, std::vector<Brick*>& );
-	int ballsCollision();
-	int barCollision(Bar&);
-	int bricksCollision(std::vector<Brick*>&);
-	int ballsMove(sf::Vector2f&);
+	void move(sf::Vector2f&, Bar&, std::vector<Brick*>& );
+	void ballsCollision();
+	void barCollision(Bar&);
+	void bricksCollision(std::vector<Brick*>&);
+	void ballsMove(sf::Vector2f&);
 	int newBall(sf::Vector2f, float , sf::Color );
 	int aliveBalls();
-	int launchBall(Bar&);
+	void launchBall(Bar&);
 	std::vector<Ball>& getBalls();
 	void draw(sf::RenderWindow&);
 

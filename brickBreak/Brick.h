@@ -14,8 +14,8 @@ public:
 	sf::Vector2f getDim() const;
 	sf::Vector2f getPos() const;
 	sf::Color getColor() const;
-	int onCollision();
-	double getTanBrick() const;
+	void onCollision();
+	float getTanBrick() const;
 	virtual bool isDestroyed(std::vector<Ball>&, std::vector<class Particle>&);
 	int getHits();
 
@@ -23,7 +23,6 @@ protected:
 	sf::Vector2f pos;
 	sf::Vector2f dim;
 	sf::Color color;
-	std::string texture;
 	int hits=1;
 
 };

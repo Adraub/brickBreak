@@ -11,10 +11,9 @@ Ball::Ball(sf::Vector2f position, float rayon, sf::Vector2f vitesse, sf::Color c
 
 
 
-int Ball::move(sf::Vector2f& resolution)
+void Ball::move(sf::Vector2f& resolution)
 {
 	pos += speed;
-	return 1;
 }
 
 
@@ -22,28 +21,29 @@ bool Ball::isInsideScreen(sf::Vector2f& resolution)
 {
 	if (pos.y > resolution.y)
 	{
+		/*ball is out of the screen, at the bottom*/
 		return false;
 	}
 	else if (pos.y <= 0)
 	{
-		/*ball on the top of the window*/
+		/*ball reflected on the top of the window*/
 		speed.y = -speed.y;
 	}
 	if (pos.x + radius * 2 >= resolution.x)
 	{
-		/*Ball on the right corner*/
+		/*Ball reflected on the right corner*/
 		speed.x = -speed.x;
 	}
 	else if (pos.x <= 0)
 	{
-		/*ball on the left corner*/
+		/*ball reflected on the left corner*/
 		speed.x = -speed.x;
 	}
 	return true;
 }
 
 
-int Ball::isColliding(class Brick& brick)
+bool Ball::isColliding(class Brick& brick)
 {
 	if (brick.getPos().y <= (pos.y + 2 * radius) && pos.y <= (brick.getPos().y + brick.getDim().y))
 	{
@@ -60,6 +60,7 @@ int Ball::isColliding(class Brick& brick)
 					{
 						speed.y = -speed.y;
 						brick.onCollision();
+						return true;
 					}
 				}
 				else
@@ -69,6 +70,7 @@ int Ball::isColliding(class Brick& brick)
 					{
 						speed.x = -speed.x;
 						brick.onCollision();
+						return true;
 					}
 				}
 			}
@@ -81,6 +83,7 @@ int Ball::isColliding(class Brick& brick)
 					{
 						speed.x = -speed.x;
 						brick.onCollision();
+						return true;
 					}
 				}
 				else
@@ -90,16 +93,17 @@ int Ball::isColliding(class Brick& brick)
 					{
 						speed.y = -speed.y;
 						brick.onCollision();
+						return true;
 					}
 				}
 			}
 
 		}
 	}
-	return 1;
+	return false;
 }
 
-int Ball::isColliding(class Bar& bar)
+bool Ball::isColliding(class Bar& bar)
 {
 	if (bar.getPos().y <= (pos.y + 2 * radius) && pos.y <= (bar.getPos().y + bar.getDim().y))
 	{
@@ -140,10 +144,10 @@ int Ball::isColliding(class Bar& bar)
 
 		}
 	}
-	return 1;
+	return false;
 }
 
-int Ball::isColliding(class Ball& otherBall)
+bool Ball::isColliding(class Ball& otherBall)
 {
 	sf::Vector2f diff = this->getPosition() - otherBall.getPosition();
 	float distance = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
@@ -166,8 +170,9 @@ int Ball::isColliding(class Ball& otherBall)
 		speed.x = diff.x * vitesse;
 		speed.y = diff.y * vitesse;
 		this->setSpeed(speed);
+		return true;
 	}
-	return 1;
+	return false;
 }
 
 float Ball::getRadius() const {
@@ -184,12 +189,16 @@ sf::Vector2f Ball::getSpeed() const {
 
 }
 
-sf::Color Ball::getColor()
+sf::Color Ball::getColor() const
 {
 	return color;
 }
 
-int Ball::setSpeed(sf::Vector2f& vitesse) {
-	speed = vitesse;
-	return 0;
+bool Ball::setSpeed(sf::Vector2f& vitesse) {
+  if (pow(vitesse.x, 2) + pow(vitesse.y, 2) < pow(maxSpeed.x, 2) + pow(maxSpeed.y, 2))
+  {
+  	speed = vitesse;
+  	return true;
+  }
+  return false;
 }
