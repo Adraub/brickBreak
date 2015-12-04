@@ -7,7 +7,6 @@
 #include "BallsHandler.h"
 #include "Menu.h"
 #include <windows.h>
-#include <iostream>
 
 
 
@@ -31,7 +30,7 @@ int main()
 	else {
 		ratio = 0.95f;
 	}
-	sf::RenderWindow window(sf::VideoMode((unsigned int)resolution.x, (unsigned int)resolution.y), "Awesome brick breaker");
+	sf::RenderWindow window(sf::VideoMode((unsigned int)resolution.x, (unsigned int)resolution.y), "Awesome brick breaker",sf::Style::Fullscreen);
 	window.setSize(sf::Vector2u(sf::VideoMode::getDesktopMode().width, (unsigned int)(sf::VideoMode::getDesktopMode().height*ratio)));
 	//force rendering to screen framerate
 	window.setVerticalSyncEnabled(true);
@@ -47,19 +46,6 @@ int main()
 	{
 
 		sf::Event event;
-
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::V)) && (loop == 0)) // /!\ will not work if in pollEvent loop because has to refresh every 16 ms independently of any event
-					{
-						level.setBarPositionY(level.getBarPositionY() + 15);
-						level.posArrayBarAdd(1);
-						loop = 1;
-					}
-		else if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::V))) // /!\ will not work if in pollEvent loop because has to refresh every 16 ms independently of any event
-					{
-						level.setBarPositionY(resolution.y - 35);
-						level.posArrayBarAdd(0);
-						loop = 0;
-					}
 
 		while (window.pollEvent(event))
 		{

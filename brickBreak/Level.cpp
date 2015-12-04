@@ -85,6 +85,20 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& men
 		}
 		bar.addBall();
 	}
+	// implement the V bounce
+	int loop(0);
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::V)) && (loop == 0)) // /!\ will not work if in pollEvent loop because has to refresh every 16 ms independently of any event
+	{
+		while (getBarPositionY() <= resolution.y -15) setBarPositionY(getBarPositionY() + 1);
+		posArrayBarAdd(1);
+		loop = 1;
+	}
+	else if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::V))) // /!\ will not work if in pollEvent loop because has to refresh every 16 ms independently of any event
+	{
+		setBarPositionY(resolution.y - 35);
+		posArrayBarAdd(0);
+		loop = 0;
+	}
 	//check bar position
 	bar.isInsideScreen(resolution);
 
