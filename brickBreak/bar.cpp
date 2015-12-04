@@ -9,7 +9,6 @@ Bar::Bar(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, bool 
 	dim = dimension;
 	pos = position;
 	color = coloris;
-	tanBar = dim.y / dim.x;
 	ball = isball;
 }
 
@@ -35,19 +34,15 @@ int Bar::isInsideScreen(sf::Vector2f& resolution)
 	return 1;
 }
 
-sf::Vector2f Bar::getPos()
+sf::Vector2f Bar::getPos() const
 {
 	return pos;
 }
 
-sf::Color Bar::getColor()
-{
-	return color;
-}
 
-double Bar::getTanBar()
+double Bar::getTanBar() const
 {
-	return tanBar;
+	return dim.y / dim.x;
 }
 
 int Bar::setPosx(float posx)
@@ -56,12 +51,26 @@ int Bar::setPosx(float posx)
 	return 1;
 }
 
+
+int Bar::setDim(sf::Vector2f newdim)
+{
+	dim = newdim;
+	return 1;
+}
+
+
 void Bar::draw(sf::RenderWindow& window)
 {
 	sf::RectangleShape barShape(getDim());
+	sf::RectangleShape barLeftEdge(sf::Vector2f(1.0f*getDim().x / 8.0f, getDim().y));
+	sf::RectangleShape barRightEdge(sf::Vector2f(1.0f*getDim().x / 8.0f, getDim().y));
 	barShape.setPosition(pos-sf::Vector2f(getDim().x / 2.0f,0.0f));
-	barShape.setFillColor(getColor());
+	barShape.setFillColor(color);
+	barLeftEdge.setPosition(pos - sf::Vector2f(getDim().x / 2.0f, 0.0f));
+	barRightEdge.setPosition(pos + sf::Vector2f(getDim().x / 2.0f, 0.0f)- sf::Vector2f(1.0f*getDim().x / 8.0f, 0.0f));
 	window.draw(barShape);
+	window.draw(barLeftEdge);
+	window.draw(barRightEdge);
 	if (isBall())
 	{
 		sf::Vector2f posBall = sf::Vector2f(pos.x , pos.y - 20);
@@ -91,16 +100,19 @@ void Bar::launchedBall()
 int Bar::upCollision(sf::Vector2f& speed, sf::Vector2f& ballPos)
 {
 	double constantSpeedAdjust(1);
-	double coeff(1);
-	double midBar = getPos().x;
-	double xToCenter = midBar - ballPos.x;
+	double xToCenter = getPos().x - ballPos.x;
 	double realSpeed = sqrt(speed.x*speed.x + speed.y*speed.y); // to be kept constant
 	double diffractionRate(0.08);
 	speed.y = -speed.y; //the rebound itself
 
 	if (speed.x * xToCenter > 0) //  = cases where ball moves from left to right and bounces on left side or from right to left and on right side
 	{
-		speed.y -= abs(xToCenter)*diffractionRate;
+		if (abs(xToCenter) >= (3*getDim().x/8))
+		{
+			speed.x = -speed.x;
+		}
+		else speed.y -= abs(xToCenter)*diffractionRate;
+
 	}
 	else if (speed.x * xToCenter < 0)
 	{

@@ -55,7 +55,7 @@ void Menu::draw(sf::RenderWindow& window, sf::Vector2f& resolution)
 	text.setString(convert.str());
 	text.setCharacterSize(60);
 	text.setStyle(sf::Text::Bold);
-	text.setColor(sf::Color::Blue);
+	text.setColor(sf::Color::White);
 	sf::FloatRect textRect = text.getLocalBounds();
 	text.setOrigin(textRect.left + textRect.width / 2.0f,
 		textRect.top + textRect.height / 2.0f);
@@ -71,7 +71,7 @@ void Menu::draw(sf::RenderWindow& window, sf::Vector2f& resolution)
 		text.setString(convert.str());
 		text.setCharacterSize(38);
 		text.setStyle(sf::Text::Bold);
-		text.setColor((i==selectedItem)? sf::Color::Red : sf::Color::Blue);
+		text.setColor((i==selectedItem)? sf::Color::Red : sf::Color::White);
 		sf::FloatRect textRect = text.getLocalBounds();
 		text.setOrigin(textRect.left + textRect.width / 2.0f,
 			textRect.top + textRect.height / 2.0f);
@@ -89,4 +89,9 @@ bool Menu::isChoiceMade()
 unsigned int Menu::getSelectedItem()
 {
 	return selectedItem;
+}
+
+void Menu::setNewLevel()
+{
+	choiceMade = false;
 }

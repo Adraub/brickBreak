@@ -8,12 +8,14 @@
 class Score
 {
 public:
+	Score();
 	Score(int, int);
 	int initialize();
 	int reduceScore();
+	int increaseScore();
 	int getScore();
 	int getInit();
-	sf::Text textScore(sf::Vector2f&);
+	void draw(sf::Vector2f&, sf::RenderWindow&);
 
 private:
 	unsigned int init;
