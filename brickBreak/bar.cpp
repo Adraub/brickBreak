@@ -40,7 +40,7 @@ sf::Vector2f Bar::getPos() const
 }
 
 
-double Bar::getTanBar() const
+float Bar::getTanBar() const
 {
 	return dim.y / dim.x;
 }
@@ -98,13 +98,13 @@ void Bar::launchedBall()
 
 int Bar::upCollision(sf::Vector2f& speed, sf::Vector2f& ballPos)
 {
-	double constantSpeedAdjust(1);
-	double xToCenter = getPos().x - ballPos.x;
-	double realSpeed = sqrt(speed.x*speed.x + speed.y*speed.y); // to be kept constant
-	double diffractionRate(0.08);
-	double speedBoostCoef(1.4);
+	float constantSpeedAdjust(1);
+	float xToCenter = getPos().x - ballPos.x;
+	float realSpeed = sqrt(speed.x*speed.x + speed.y*speed.y); // to be kept constant
+	float diffractionRate(0.08f);
+	float speedBoostCoef(1.4f);
 	speed.y = -speed.y; //the rebound itself
-	if (std::find(posArray.begin(), posArray.end(), 1) != posArray.end()) // if there is a 1 in posArray, it means that V was pressed in the previous 166660 millisec
+	if ((std::find(posArray.begin(), posArray.end(), 1) != posArray.end()) && (realSpeed < 13)) // if there is a 1 in posArray, it means that V was pressed in the previous 166660 millisec
 	{
 		if (speed.x * xToCenter > 0) //  = cases where ball moves from left to right and bounces on left side or from right to left and on right side
 		{

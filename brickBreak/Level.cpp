@@ -87,13 +87,15 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& men
 	}
 	// implement the V bounce
 	int loop(0);
-	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::V)) && (loop == 0)) // /!\ will not work if in pollEvent loop because has to refresh every 16 ms independently of any event
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::V)) && (loop == 0)) 
 	{
-		while (getBarPositionY() <= resolution.y -15) setBarPositionY(getBarPositionY() + 1);
+		Bar bar1 = Bar(sf::Vector2f((resolution.x-350) / 2, resolution.y - 100), sf::Vector2f(350, 25), sf::Color::Red, false);
+		bar1.draw(window);
+		if (getBarPositionY() <= resolution.y -15) setBarPositionY(getBarPositionY() + 15);
 		posArrayBarAdd(1);
 		loop = 1;
 	}
-	else if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::V))) // /!\ will not work if in pollEvent loop because has to refresh every 16 ms independently of any event
+	else if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::V))) 
 	{
 		setBarPositionY(resolution.y - 35);
 		posArrayBarAdd(0);
@@ -248,9 +250,4 @@ bool Level::isFinished()
 void Level::posArrayBarAdd(float posy)
 {
 	bar.posArrayPushBack(posy);
-}
-
-std::vector<int> Level::getPosArrayBar()
-{
-	return bar.getPosArray();
 }
