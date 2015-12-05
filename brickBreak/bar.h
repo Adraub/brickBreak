@@ -10,7 +10,7 @@ public:
 	int isInsideScreen(sf::Vector2f&);
 	sf::Vector2f getDim() const;
 	sf::Vector2f getPos() const;
-	float getTanBar() const;
+	double getTanBar() const;
 	int setPosx(float);
 	int setPosy(float);
 	void draw(sf::RenderWindow&);
