@@ -22,7 +22,6 @@ public:
 	void finishLevel();
 	bool isFinished();
 	void posArrayBarAdd(float); // calls equivalent method in Bar class - useful to update the posArray of the bar directly in main.cpp
-	std::vector<int> getPosArrayBar(); // calls equivalent method in Bar class
 
 private:
 	// Bricks array
