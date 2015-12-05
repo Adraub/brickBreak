@@ -1,0 +1,59 @@
+#include <iostream>
+#include <gtest/gtest.h>
+#include "Ball.h"
+#include "Brick.h"
+#include "Score.h"
+
+TEST(ball, creation)
+{
+	Ball ball=Ball(sf::Vector2f(2,4), 0.50f, sf::Vector2f(2, 15), sf::Color::Yellow);
+	EXPECT_EQ(0.50f, ball.getRadius());
+	EXPECT_EQ(sf::Vector2f(2, 15), ball.getSpeed());
+	EXPECT_EQ(sf::Vector2f(2, 4), ball.getPosition());
+	ball.setSpeed(sf::Vector2f(15.33f, 140.33f));
+	EXPECT_EQ(sf::Vector2f(15.33f, 140.33f), ball.getSpeed());
+	ball.setSpeed(sf::Vector2f(500, 501));
+	EXPECT_EQ(sf::Vector2f(15.33f, 140.33f), ball.getSpeed());
+	EXPECT_EQ(sf::Color::Yellow, ball.getColor());
+	EXPECT_EQ(true, ball.isColliding(ball));
+}
+
+TEST(brick, creation)
+{
+	Brick brick=Brick(sf::Vector2f(2, 4), sf::Vector2f(15, 15), sf::Color::Blue);
+	EXPECT_EQ(sf::Vector2f(2, 4), brick.getPos());
+	EXPECT_EQ(sf::Vector2f(15, 15), brick.getDim());
+	EXPECT_EQ(sf::Color::Blue, brick.getColor());
+	EXPECT_EQ(1, brick.getTanBrick());
+	EXPECT_EQ(1, brick.getHits());
+}
+
+TEST(bar, creation)
+{
+	Bar bar = Bar(sf::Vector2f(2, 4), sf::Vector2f(15, 15), sf::Color::Blue, true);
+	EXPECT_EQ(sf::Vector2f(2, 4), bar.getPos());
+	EXPECT_EQ(sf::Vector2f(15, 15), bar.getDim());
+	EXPECT_EQ(1, bar.getTanBar());
+	EXPECT_EQ(true, bar.isBall());
+}
+
+TEST(handler, creation)
+{
+	BallsHandler ballshandler=BallsHandler();
+	ballshandler.newBall(sf::Vector2f(2, 4), 0.50f, sf::Color::Yellow);
+	EXPECT_EQ(1, ballshandler.aliveBalls());
+}
+
+TEST(score, creation)
+{
+	Score score(0);
+	EXPECT_EQ(0, score.getScore());
+	score.initialize();
+	EXPECT_EQ(3, score.getScore());
+}
+
+int main(int argc, char **argv)
+{
+	::testing::InitGoogleTest(&argc, argv);
+	RUN_ALL_TESTS();
+}
