@@ -10,7 +10,6 @@ Bar::Bar(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris, bool 
 	pos = position;
 	color = coloris;
 	ball = isball;
-	for (int i = 0; i < 10; ++i) { Bar::posArray.push_back(0); }
 }
 
 
@@ -104,7 +103,7 @@ int Bar::upCollision(sf::Vector2f& speed, sf::Vector2f& ballPos)
 	float diffractionRate(0.08f);
 	float speedBoostCoef(1.4f);
 	speed.y = -speed.y; //the rebound itself
-	if ((std::find(posArray.begin(), posArray.end(), 1) != posArray.end()) && (realSpeed < 13)) // if there is a 1 in posArray, it means that V was pressed in the previous 166660 millisec
+	if ((getColor()==sf::Color::Blue) && (realSpeed < 13)) 
 	{
 		if (speed.x * xToCenter > 0) //  = cases where ball moves from left to right and bounces on left side or from right to left and on right side
 		{
@@ -158,15 +157,13 @@ int Bar::upCollision(sf::Vector2f& speed, sf::Vector2f& ballPos)
 	return 1;
 }
 
-
-int Bar::posArrayPushBack(int pos)
+int Bar::setColor(sf::Color coloris)
 {
-	Bar::posArray.push_back(pos); // push back before erase so that we don't loop on less than 10 elements
-	Bar::posArray.erase(posArray.begin());
+	color = coloris;
 	return 1;
 }
 
-std::vector<int> Bar::getPosArray()
+sf::Color Bar::getColor()
 {
-	return posArray;
+	return color;
 }

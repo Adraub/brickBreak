@@ -85,18 +85,16 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& men
 		}
 		bar.addBall();
 	}
-	// implement the V bounce
+	// when the bar is blue (V pressed), it gives the ball a speedboost
 	int loop(0);
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::V)) && (loop == 0))
 	{
-		if (getBarPositionY() <= resolution.y -15) setBarPositionY(getBarPositionY() + 15);
-		posArrayBarAdd(1);
+		bar.setColor(sf::Color::Blue);
 		loop = 1;
 	}
 	else if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::V))) 
 	{
-		setBarPositionY(resolution.y - 35);
-		posArrayBarAdd(0);
+		bar.setColor(sf::Color::Red);
 		loop = 0;
 	}
 	//check bar position
@@ -114,19 +112,9 @@ void Level::setBarPosition(float barpos)
 	bar.setPosx(barpos);
 }
 
-void Level::setBarPositionY(float barpos)
-{
-	bar.setPosy(barpos);
-}
-
 float Level::getBarPosition()
 {
 	return bar.getPos().x;
-}
-
-float Level::getBarPositionY()
-{
-	return bar.getPos().y;
 }
 
 void Level::createBricks(int level)
@@ -244,8 +232,4 @@ void Level::finishLevel()
 bool Level::isFinished()
 {
 	return levelFinished;
-}
-void Level::posArrayBarAdd(int posy)
-{
-	bar.posArrayPushBack(posy);
 }
