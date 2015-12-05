@@ -5,8 +5,7 @@
 
 class BallBrick : public Brick {
 public:
-	BallBrick(sf::Vector2f, sf::Vector2f, sf::Color);
-	virtual void draw(sf::RenderWindow&);
+	BallBrick(sf::Vector2f, sf::Vector2f, sf::Texture*&);
 	virtual bool BallBrick::isDestroyed(std::vector<Ball>&,std::vector<Particle>&);
 
 };

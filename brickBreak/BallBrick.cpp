@@ -1,18 +1,8 @@
 #include "BallBrick.h"
 
-BallBrick::BallBrick(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris) : Brick(position, dimension, coloris)
+BallBrick::BallBrick(sf::Vector2f position, sf::Vector2f dimension, sf::Texture*& texture) : Brick(position, dimension, texture)
 {
 	hits = 1;
-}
-
-
-void BallBrick::draw(sf::RenderWindow& window)
-{
-	Brick::draw(window);
-	sf::CircleShape trappedBall(10);
-	trappedBall.setPosition(sf::Vector2f((pos.x + dim.x / 2) - 10, (pos.y + dim.y / 2) - 10));
-	trappedBall.setFillColor(sf::Color::Red);
-	window.draw(trappedBall);
 }
 
 bool BallBrick::isDestroyed(std::vector<Ball>& ref, std::vector<Particle>& ParticleVector)

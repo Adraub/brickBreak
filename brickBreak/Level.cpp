@@ -118,64 +118,132 @@ void Level::createBricks(int level)
 {
 
 	float cpt_x = 0, cpt_y = 0;
-	//creation of the bricks depending on the level selected
+	// Creation of the bricks depending on the level selected
 	if (level == 0)
 	{
+		// Load level textures
+		sf::Texture* normalTexture = new sf::Texture;
+		if (!(*normalTexture).loadFromFile("normalTexture.jpg"))
+		{
+			std::puts("error loading normal texture\n");
+		}
+
+		sf::Texture* ballTexture = new sf::Texture;
+		if (!(*ballTexture).loadFromFile("ballTexture.jpg"))
+		{
+			std::puts("error loading ball texture\n");
+		}
+
+		sf::Texture* strong3Texture = new sf::Texture;
+		if (!(*strong3Texture).loadFromFile("strong3Texture.jpg"))
+		{
+			std::puts("error loading strong texture\n");
+		}
+		
+		// Create bricks
 		for (cpt_y = 0; cpt_y < 5; cpt_y++) {
 			for (cpt_x = 0; cpt_x < 6; cpt_x++) {
-				myBricks.push_back(new Brick(sf::Vector2f(300 + 2 * cpt_x * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+				myBricks.push_back(new Brick(sf::Vector2f(300 + 2 * cpt_x * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), normalTexture));
 				if (cpt_x < 5) {
 					if (cpt_y == 0 || cpt_y == 2 || cpt_y == 4) {
-						myBricks.push_back(new BonusBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), ballTexture));
 					}
 					else {
-						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow, 3));
+						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), strong3Texture, 3));
 
 					}
 				}
 			}
 		}
 	}
+
 	else if (level==1)
 	{
+		// Load level textures
+		sf::Texture* normalTexture = new sf::Texture;
+		if (!(*normalTexture).loadFromFile("normalTexture.jpg"))
+		{
+			std::puts("error loading normal texture\n");
+		}
+
+		sf::Texture* bonusTexture = new sf::Texture;
+		if (!(*bonusTexture).loadFromFile("bonusTexture.jpg"))
+		{
+			std::puts("error loading bonus texture\n");
+		}
+
+		sf::Texture* undestroyableTexture = new sf::Texture;
+		if (!(*undestroyableTexture).loadFromFile("undestroyableTexture.jpg"))
+		{
+			std::puts("error loading undestroyable texture\n");
+		}
+
+		// Create bricks
 		for (cpt_y = 0; cpt_y < 5; cpt_y++) {
 			for (cpt_x = 0; cpt_x < 6; cpt_x++) {
-				myBricks.push_back(new Brick(sf::Vector2f(300 + 2 * cpt_x * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+				myBricks.push_back(new Brick(sf::Vector2f(300 + 2 * cpt_x * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), normalTexture));
 				if (cpt_x < 5) {
 					if (cpt_y == 0 || cpt_y == 2 || cpt_y == 4) {
-						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Transparent, -1));
+						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), undestroyableTexture, -1));
 					}
 					else {
-						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+						myBricks.push_back(new BonusBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), bonusTexture));
 					}
 				}
 			}
 		}
 	}
+
 	else
 	{
+		// Load level textures
+		sf::Texture* normalTexture = new sf::Texture;
+		if (!(*normalTexture).loadFromFile("normalTexture.jpg"))
+		{
+			std::puts("error loading normal texture\n");
+		}
+
+		sf::Texture* undestroyableTexture = new sf::Texture;
+		if (!(*undestroyableTexture).loadFromFile("undestroyableTexture.jpg"))
+		{
+			std::puts("error loading undestroyable texture\n");
+		}
+
+		sf::Texture* strong3Texture = new sf::Texture;
+		if (!(*strong3Texture).loadFromFile("strong3Texture.jpg"))
+		{
+			std::puts("error loading strong texture\n");
+		}
+
+		sf::Texture* ballTexture = new sf::Texture;
+		if (!(*ballTexture).loadFromFile("ballTexture.jpg"))
+		{
+			std::puts("error loading ball texture\n");
+		}
+
+		// Create bricks
 		for (cpt_y = 0; cpt_y < 5; cpt_y++) {
 			for (cpt_x = 0; cpt_x < 6; cpt_x++) {
 				if (cpt_y == 0 || cpt_y == 2 || cpt_y == 4)
 				{
-					myBricks.push_back(new Brick(sf::Vector2f(300 + 2 * cpt_x * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+					myBricks.push_back(new Brick(sf::Vector2f(300 + 2 * cpt_x * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), normalTexture));
 				}
 				else
 				{
-					myBricks.push_back(new StrongBrick(sf::Vector2f(300 + 2 * cpt_x * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow, 3));
+					myBricks.push_back(new StrongBrick(sf::Vector2f(300 + 2 * cpt_x * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), strong3Texture, 3));
 				}
 				if (cpt_x < 5) {
 					if (cpt_y == 0 || cpt_y == 2 || cpt_y == 4)
 					{
-						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Transparent, -1));
+						myBricks.push_back(new StrongBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), undestroyableTexture, -1));
 					}
 					else if (cpt_x == 0 || cpt_x == 2 || cpt_x == 4)
 					{
-						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+						myBricks.push_back(new BallBrick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), ballTexture));
 					}
 					else
 					{
-						myBricks.push_back(new Brick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), sf::Color::Yellow));
+						myBricks.push_back(new Brick(sf::Vector2f(300 + (2 * cpt_x + 1) * 120, 200 + cpt_y * 60), sf::Vector2f(100, 40), normalTexture));
 					}
 				}
 			}
