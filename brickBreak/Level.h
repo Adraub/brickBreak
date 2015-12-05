@@ -21,7 +21,7 @@ public:
 	bool isOver();
 	void finishLevel();
 	bool isFinished();
-	void posArrayBarAdd(float); // calls equivalent method in Bar class - useful to update the posArray of the bar directly in main.cpp
+	void posArrayBarAdd(int); // calls equivalent method in Bar class
 
 private:
 	// Bricks array
