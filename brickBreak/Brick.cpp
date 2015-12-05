@@ -3,11 +3,12 @@
 #include "BallsHandler.h"
 
 
-Brick::Brick(sf::Vector2f position, sf::Vector2f dimension, sf::Color coloris)
+Brick::Brick(sf::Vector2f position, sf::Vector2f dimension, sf::Texture*& texture)
 {
 	dim = dimension;
 	pos = position;
-	color = coloris;
+	tex = texture;
+	(*tex).setSmooth(true);
 }
 
 
@@ -15,7 +16,7 @@ void Brick::draw(sf::RenderWindow& window)
 {
 	sf::RectangleShape brick(dim);
 	brick.setPosition(pos);
-	brick.setFillColor(color);
+	brick.setTexture(tex);
 	window.draw(brick);
 }
 
@@ -29,9 +30,9 @@ sf::Vector2f Brick::getPos() const
 	return pos;
 }
 
-sf::Color Brick::getColor() const
+sf::Texture* Brick::getTexture() const
 {
-	return color;
+	return tex;
 }
 
 int Brick::onCollision()
@@ -39,13 +40,23 @@ int Brick::onCollision()
 	if (hits > 0)
 	{
 		hits--;
-		if (color == sf::Color::Yellow)
+		if (hits == 2)
+		// Set adapted texture
 		{
-			color = sf::Color::Blue;
+			tex = new sf::Texture;
+			if (!(*tex).loadFromFile("strong2Texture.jpg"))
+			{
+				std::puts("error loading strong texture\n");
+			}
 		}
-		else
+		else if (hits == 1)
+		// Set adapted texture
 		{
-			color = sf::Color::Yellow;
+			tex = new sf::Texture;
+			if (!(*tex).loadFromFile("normalTexture.jpg"))
+			{
+				std::puts("error loading normal texture\n");
+			}
 		}
 	}
 	
