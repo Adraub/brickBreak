@@ -19,7 +19,7 @@ public:
 	bool setSpeed(sf::Vector2f& vitesse);
 	sf::Color getColor() const;
 
-protected:
+private:
 	float radius;
 	sf::Vector2f speed;
 	sf::Vector2f pos;

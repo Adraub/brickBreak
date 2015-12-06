@@ -17,7 +17,7 @@ public:
 	void draw(sf::RenderWindow&);
 	sf::Vector2f getPosition() const;
 
-protected:
+private:
 	float radius;
 	sf::Vector2f speed;
 	sf::Vector2f pos;

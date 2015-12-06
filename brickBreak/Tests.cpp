@@ -20,10 +20,15 @@ TEST(ball, creation)
 
 TEST(brick, creation)
 {
-	Brick brick=Brick(sf::Vector2f(2, 4), sf::Vector2f(15, 15), sf::Color::Blue);
+	sf::Texture* normalTexture = new sf::Texture;
+	if (!(*normalTexture).loadFromFile("normalTexture.jpg"))
+	{
+		std::puts("error loading normal texture\n");
+	}
+	Brick brick=Brick(sf::Vector2f(2, 4), sf::Vector2f(15, 15), normalTexture);
 	EXPECT_EQ(sf::Vector2f(2, 4), brick.getPos());
 	EXPECT_EQ(sf::Vector2f(15, 15), brick.getDim());
-	EXPECT_EQ(sf::Color::Blue, brick.getColor());
+	EXPECT_EQ(normalTexture, brick.getTexture());
 	EXPECT_EQ(1, brick.getTanBrick());
 	EXPECT_EQ(1, brick.getHits());
 }
