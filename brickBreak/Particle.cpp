@@ -1,8 +1,5 @@
 #include "Particle.h"
-#include "Ball.h"
-#include "Brick.h"
-#include "bar.h"
-#include "Score.h"
+
 
 Particle::Particle(sf::Vector2f position, float rayon, sf::Vector2f vitesse, sf::Color coloris)
 {
@@ -71,15 +68,15 @@ int Particle::giveBonus(BallsHandler& ball, Bar& bar, Score& score)
 		if (alea < 2) {
 			choice = 1;
 		}
-		if (alea>=3 & alea<4 & bar_width!=0) {
+		if (alea>=3 && alea<4 && bar_width!=0) {
 			choice = 2;
 			--bar_width;
 		}
-		if (alea >= 5 & alea<6 & bar_width!=4) {
+		if (alea >= 5 && alea<6 && bar_width!=4) {
 			choice = 3;
 			++bar_width;
 		}
-		if (alea >= 7 & alea<8) {
+		if (alea >= 7 && alea<8) {
 			choice = 4;
 		}
 	} while (choice == precedent_choice);
@@ -108,7 +105,7 @@ int Particle::giveBonus(BallsHandler& ball, Bar& bar, Score& score)
 		}
 		case 4:
 		{
-			score.increaseScore();
+			score.addLife();
 			break;
 		}
 	}

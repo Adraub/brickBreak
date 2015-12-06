@@ -229,6 +229,7 @@ sf::Color Ball::getColor() const
 bool Ball::setSpeed(sf::Vector2f& vitesse) {
   if (pow(vitesse.x, 2) + pow(vitesse.y, 2) < pow(maxSpeed.x, 2) + pow(maxSpeed.y, 2))
   {
+	 /*limited ball speed*/
   	speed = vitesse;
   	return true;
   }

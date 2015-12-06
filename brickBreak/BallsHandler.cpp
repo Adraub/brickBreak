@@ -57,7 +57,7 @@ void BallsHandler::bricksCollision(std::vector<Brick*>& myBricks)
 }
 
 
-int BallsHandler::newBall(sf::Vector2f position, float radius, sf::Color color)
+unsigned int BallsHandler::newBall(sf::Vector2f position, float radius, sf::Color color)
 {
 	Ball newBall = Ball(position, radius, standardBallSpeed, color);
 	myBalls.push_back(newBall);
@@ -65,7 +65,7 @@ int BallsHandler::newBall(sf::Vector2f position, float radius, sf::Color color)
 
 }
 
-int BallsHandler::aliveBalls()
+unsigned int BallsHandler::aliveBalls()
 {
 	return myBalls.size();
 }

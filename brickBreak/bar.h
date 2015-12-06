@@ -3,28 +3,32 @@
 
 #include <SFML/Graphics.hpp>
 
+/*Moving bar commanded with mouse/keyboard that repels the balls on collision, and capture particles*/
+
 class Bar {
 public:
 	Bar();
 	Bar(sf::Vector2f, sf::Vector2f, sf::Color, bool);
-	int isInsideScreen(sf::Vector2f&);
-	sf::Vector2f getDim() const;
-	sf::Vector2f getPos() const;
-	double getTanBar() const;
-	int setPosx(float);
-	int setDim(sf::Vector2f);
+
+	void isInsideScreen(sf::Vector2f&);
 	void draw(sf::RenderWindow&);
 	void addBall();
 	void launchedBall();
-	bool isBall();
+	bool isBall() const;
 	int Bar::upCollision(sf::Vector2f&, sf::Vector2f&);
-	int setColor(sf::Color);
-	sf::Color getColor();
+	void setColor(sf::Color);
+	void setPosx(float);
+	void setDim(sf::Vector2f);
+	sf::Color getColor() const;
+	sf::Vector2f getDim() const;
+	sf::Vector2f getPos() const;
+	double getTanBar() const;
+
 private:
-	sf::Vector2f pos;
-	sf::Vector2f dim;
+	sf::Vector2f pos; /*position of its up middle*/
+	sf::Vector2f dim; /*dimensions*/
 	sf::Color color;
-	bool ball;
+	bool ball; /*has a ball ready to be launched*/
 
 };
 

@@ -16,7 +16,7 @@ Menu::Menu()
 
 void Menu::forward(sf::RenderWindow& window)
 {
-	
+	/*handle user selection*/
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 		if (loop > 3)
@@ -47,7 +47,7 @@ void Menu::draw(sf::RenderWindow& window, sf::Vector2f& resolution)
 	{
 		forward(window);
 	}
-	
+	/*write title*/
 	sf::Text text;
 	std::stringstream convert;
 	convert << title;
@@ -61,7 +61,7 @@ void Menu::draw(sf::RenderWindow& window, sf::Vector2f& resolution)
 		textRect.top + textRect.height / 2.0f);
 	text.setPosition(sf::Vector2f(resolution.x / 2, resolution.y / 2 - 400));
 	window.draw(text);
-
+	/*write each levels*/
 	for (unsigned int i = 0; i < items.size(); i++)
 	{
 		sf::Text text;
@@ -86,7 +86,7 @@ bool Menu::isChoiceMade()
 	return choiceMade;
 }
 
-unsigned int Menu::getSelectedItem()
+unsigned int Menu::getSelectedItem() const
 {
 	return selectedItem;
 }

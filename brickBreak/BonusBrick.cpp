@@ -2,7 +2,7 @@
 
 BonusBrick::BonusBrick(sf::Vector2f position, sf::Vector2f dimension, sf::Texture*& texture) : Brick(position, dimension, texture)
 {
-	hits = 1;
+	
 }
 
 bool BonusBrick::isDestroyed(std::vector<Ball>& ref, std::vector<Particle>& ParticleVector)

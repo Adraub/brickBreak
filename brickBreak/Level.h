@@ -7,32 +7,33 @@
 #include "Menu.h"
 #include "Particle.h"
 
+/*Class that handles every stuff related to a particular level during the game. Created and destroyed for each level*/
+
 class Level
 {
 public:
 	Level(sf::Vector2f, int, Score&);
+
 	void forward(sf::Vector2f,sf::RenderWindow&, Menu&);
-	void setBarPosition(float);
-	float getBarPosition();
 	void createBricks(int level);
 	void deleteDestroyedBricks();
 	void drawComponents(sf::RenderWindow&, sf::Vector2f&);
-	bool isOver();
+	void checkParticleStates();
 	void finishLevel();
 	bool isFinished();
-	int checkParticleStates();
+	bool isOver();
+	void setBarPosition(float);
+	float getBarPosition() const;
 
 private:
 	// Bricks array
-	std::vector<Brick*> myBricks;
-	BallsHandler balls= BallsHandler();
-	std::vector<Particle> myParticles;
+	std::vector<Brick*> myBricks; /*bricks array*/
+	BallsHandler balls= BallsHandler(); /*Balls array with behaviour simplified*/
+	std::vector<Particle> myParticles; /*particles array*/
 	Bar bar;
-	Score score;
-	// Keyboard sensibility
-	int keyboardSensibility;
-	// Level status
-	bool levelFinished;
+	Score score; /*user current lives*/
+	int keyboardSensibility=20; /* regulates bar moving speed using keyboard */
+	bool levelFinished; /* Level status */
 };
 
 #endif

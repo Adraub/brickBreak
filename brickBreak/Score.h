@@ -5,20 +5,23 @@
 #include <sstream>
 #include <SFML/Graphics.hpp>
 
+
+/*Handles users remaining lives*/
+
+
 class Score
 {
 public:
 	Score();
 	Score(int);
 	int initialize();
-	int reduceScore();
-	int increaseScore();
-	int getScore();
+	int reduceLives();
+	int addLife();
+	int getLives();
 	void draw(sf::Vector2f&, sf::RenderWindow&);
 
 private:
-	unsigned int init;
-	unsigned int score;
+	unsigned int lives; /*current remaining lives*/
 	sf::Font* font;
 };
 

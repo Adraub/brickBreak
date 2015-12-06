@@ -5,8 +5,6 @@
 Level::Level(sf::Vector2f resolution, int number, Score& scoring)
 {
 
-	/*keyboard sensibility*/
-	keyboardSensibility=20;
 	//creation of the ball
 	bar=Bar(sf::Vector2f((resolution.x - 350) / 2, resolution.y - 35), sf::Vector2f(350, 25), sf::Color::Red,false);
 	bar.addBall();
@@ -18,8 +16,9 @@ Level::Level(sf::Vector2f resolution, int number, Score& scoring)
 void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& menu)
 {
 	// test null score
-	if (score.getScore() == 0)
+	if (score.getLives() == 0)
 	{
+		/*display game over screen*/
 		sf::Font* font = new sf::Font;
 		if (!(*font).loadFromFile("arial.ttf"))
 		{
@@ -42,6 +41,7 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& men
 	// test null bricks
 	if (isOver())
 	{
+		/*display level success screen*/
 		sf::Font* font = new sf::Font;
 		if (!(*font).loadFromFile("arial.ttf"))
 		{
@@ -79,8 +79,8 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& men
 	// test to reduce score 
 	if (balls.aliveBalls() == 0 && !bar.isBall())
 	{
-		score.reduceScore();
-		if (score.getScore() < 0)
+		score.reduceLives();
+		if (score.getLives() < 0)
 		{
 			window.close();
 		}
@@ -120,37 +120,49 @@ void Level::setBarPosition(float barpos)
 	bar.setPosx(barpos);
 }
 
-float Level::getBarPosition()
+float Level::getBarPosition() const
 {
 	return bar.getPos().x;
 }
 
 void Level::createBricks(int level)
 {
+	// Load level textures
+	sf::Texture* normalTexture = new sf::Texture;
+	if (!(*normalTexture).loadFromFile("normalTexture.jpg"))
+	{
+		std::puts("error loading normal texture\n");
+	}
+
+	sf::Texture* undestroyableTexture = new sf::Texture;
+	if (!(*undestroyableTexture).loadFromFile("undestroyableTexture.jpg"))
+	{
+		std::puts("error loading undestroyable texture\n");
+	}
+
+	sf::Texture* strong3Texture = new sf::Texture;
+	if (!(*strong3Texture).loadFromFile("strong3Texture.jpg"))
+	{
+		std::puts("error loading strong texture\n");
+	}
+
+	sf::Texture* ballTexture = new sf::Texture;
+	if (!(*ballTexture).loadFromFile("ballTexture.jpg"))
+	{
+		std::puts("error loading ball texture\n");
+	}
+
+	sf::Texture* bonusTexture = new sf::Texture;
+	if (!(*bonusTexture).loadFromFile("bonusTexture.jpg"))
+	{
+		std::puts("error loading bonus texture\n");
+	}
 
 	float cpt_x = 0, cpt_y = 0;
 	// Creation of the bricks depending on the level selected
 	if (level == 0)
 	{
-		// Load level textures
-		sf::Texture* normalTexture = new sf::Texture;
-		if (!(*normalTexture).loadFromFile("normalTexture.jpg"))
-		{
-			std::puts("error loading normal texture\n");
-		}
-
-		sf::Texture* ballTexture = new sf::Texture;
-		if (!(*ballTexture).loadFromFile("ballTexture.jpg"))
-		{
-			std::puts("error loading ball texture\n");
-		}
-
-		sf::Texture* strong3Texture = new sf::Texture;
-		if (!(*strong3Texture).loadFromFile("strong3Texture.jpg"))
-		{
-			std::puts("error loading strong texture\n");
-		}
-		
+				
 		// Create bricks
 		for (cpt_y = 0; cpt_y < 5; cpt_y++) {
 			for (cpt_x = 0; cpt_x < 6; cpt_x++) {
@@ -170,24 +182,6 @@ void Level::createBricks(int level)
 
 	else if (level==1)
 	{
-		// Load level textures
-		sf::Texture* normalTexture = new sf::Texture;
-		if (!(*normalTexture).loadFromFile("normalTexture.jpg"))
-		{
-			std::puts("error loading normal texture\n");
-		}
-
-		sf::Texture* bonusTexture = new sf::Texture;
-		if (!(*bonusTexture).loadFromFile("bonusTexture.jpg"))
-		{
-			std::puts("error loading bonus texture\n");
-		}
-
-		sf::Texture* undestroyableTexture = new sf::Texture;
-		if (!(*undestroyableTexture).loadFromFile("undestroyableTexture.jpg"))
-		{
-			std::puts("error loading undestroyable texture\n");
-		}
 
 		// Create bricks
 		for (cpt_y = 0; cpt_y < 5; cpt_y++) {
@@ -207,30 +201,7 @@ void Level::createBricks(int level)
 
 	else
 	{
-		// Load level textures
-		sf::Texture* normalTexture = new sf::Texture;
-		if (!(*normalTexture).loadFromFile("normalTexture.jpg"))
-		{
-			std::puts("error loading normal texture\n");
-		}
-
-		sf::Texture* undestroyableTexture = new sf::Texture;
-		if (!(*undestroyableTexture).loadFromFile("undestroyableTexture.jpg"))
-		{
-			std::puts("error loading undestroyable texture\n");
-		}
-
-		sf::Texture* strong3Texture = new sf::Texture;
-		if (!(*strong3Texture).loadFromFile("strong3Texture.jpg"))
-		{
-			std::puts("error loading strong texture\n");
-		}
-
-		sf::Texture* ballTexture = new sf::Texture;
-		if (!(*ballTexture).loadFromFile("ballTexture.jpg"))
-		{
-			std::puts("error loading ball texture\n");
-		}
+		
 
 		// Create bricks
 		for (cpt_y = 0; cpt_y < 5; cpt_y++) {
@@ -314,12 +285,13 @@ bool Level::isFinished()
 	return levelFinished;
 }
 
-int Level::checkParticleStates()
+void Level::checkParticleStates()
 {
 	for (unsigned int i = 0; i < myParticles.size(); i++)
 	{
 		if (myParticles[i].isLost())
-		{
+		{ 
+			/* delete particles out of the screen*/
 			myParticles.erase(myParticles.begin() + i);
 		}
 		else {
@@ -330,6 +302,5 @@ int Level::checkParticleStates()
 			}
 		}
 	}
-	return 1;
 }
 

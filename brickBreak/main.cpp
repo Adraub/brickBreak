@@ -17,6 +17,7 @@ int main()
 	Score score(0);
 	score.initialize();
 	
+	/*draw star wallpaper*/
 	sf::Texture texture;
 	texture.loadFromFile("wallpaper.jpg");
 
@@ -33,6 +34,7 @@ int main()
 		ratio = 0.95f;
 	}
 	sf::RenderWindow window(sf::VideoMode((unsigned int)resolution.x, (unsigned int)resolution.y), "Awesome brick breaker", sf::Style::Fullscreen);
+	/*Set window to fit screen size*/
 	window.setSize(sf::Vector2u(sf::VideoMode::getDesktopMode().width, (unsigned int)(sf::VideoMode::getDesktopMode().height*ratio)));
 	//force rendering to screen framerate
 	window.setVerticalSyncEnabled(true);
@@ -41,8 +43,6 @@ int main()
 	Menu menu;
 
 	Level level(resolution, 2, score);
-	/*time between each graphical loop*/
-	sf::Time loopTime = sf::microseconds(16666);
 	/*Graphical loop*/
 	while (window.isOpen())
 	{
@@ -54,16 +54,18 @@ int main()
 			if (event.type == sf::Event::Closed || 
 				(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
 				window.close();
-			// capture mouse movement
+			
 			else if (event.type == sf::Event::MouseMoved && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
 				&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
-				//Convert window size to world size
+				/* capture mouse movement*/
+				/*Convert window size to world size*/
 				sf::Vector2f mouse=window.mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y), window.getView());
 				level.setBarPosition(mouse.x);
 			}
 			else if (event.type == sf::Event::Resized)
 			{
+				/*allow responsive design*/
 				sf::View view(sf::FloatRect(-(event.size.width - resolution.x) / 2.0f, -(event.size.height - resolution.y) / 2.0f
 					, (float)event.size.width, (float)event.size.height));
 				float zoom = std::max(resolution.x/ event.size.width, resolution.y/ event.size.height);

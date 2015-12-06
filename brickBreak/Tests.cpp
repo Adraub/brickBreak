@@ -52,9 +52,9 @@ TEST(handler, creation)
 TEST(score, creation)
 {
 	Score score(0);
-	EXPECT_EQ(0, score.getScore());
+	EXPECT_EQ(0, score.getLives());
 	score.initialize();
-	EXPECT_EQ(3, score.getScore());
+	EXPECT_EQ(3, score.getLives());
 }
 
 int main(int argc, char **argv)

@@ -7,7 +7,7 @@ Score::Score()
 
 Score::Score(int current)
 {
-	score = current;
+	lives = current;
 	font = new sf::Font;
 	if (!(*font).loadFromFile("arial.ttf"))
 	{
@@ -18,33 +18,34 @@ Score::Score(int current)
 int Score::initialize()
 {
 	unsigned int initial = 3;
-	score = initial;
+	lives = initial;
 	return 1;
 }
 
-int Score::reduceScore()
+int Score::reduceLives()
 {
-	--score;
-	return score;
+	--lives;
+	return lives;
 }
 
-int Score::increaseScore()
+int Score::addLife()
 {
-	++score;
-	return score;
+	++lives;
+	return lives;
 }
 
-int Score::getScore()
+int Score::getLives()
 {
-	return score;
+	return lives;
 }
 
 
 void Score::draw(sf::Vector2f& resolution, sf::RenderWindow& window)
 {
+	/*draw remaining lives on the screen*/
 	sf::Text text;
 	std::stringstream convert;
-	convert << "Lives: " << score;
+	convert << "Lives: " << lives;
 	text.setFont(*font);
 	text.setString(convert.str());
 	text.setCharacterSize(36);

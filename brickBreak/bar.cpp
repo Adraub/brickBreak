@@ -19,7 +19,7 @@ sf::Vector2f Bar::getDim() const
 	return dim;
 }
 
-int Bar::isInsideScreen(sf::Vector2f& resolution)
+void Bar::isInsideScreen(sf::Vector2f& resolution)
 {
 	if (pos.x + dim.x/2 > resolution.x)
 	{
@@ -31,7 +31,6 @@ int Bar::isInsideScreen(sf::Vector2f& resolution)
 		// bar on the left of the window
 		pos.x = dim.x / 2;
 	}
-	return 1;
 }
 
 sf::Vector2f Bar::getPos() const
@@ -45,17 +44,15 @@ double Bar::getTanBar() const
 	return dim.y / dim.x;
 }
 
-int Bar::setPosx(float posx)
+void Bar::setPosx(float posx)
 {
 	pos.x = posx;
-	return 1;
 }
 
 
-int Bar::setDim(sf::Vector2f newdim)
+void Bar::setDim(sf::Vector2f newdim)
 {
 	dim = newdim;
-	return 1;
 }
 
 
@@ -81,7 +78,7 @@ void Bar::draw(sf::RenderWindow& window)
 	}
 }
 
-bool Bar::isBall()
+bool Bar::isBall() const
 {
 	return ball;
 }
@@ -159,13 +156,12 @@ int Bar::upCollision(sf::Vector2f& speed, sf::Vector2f& ballPos)
 	return 1;
 }
 
-int Bar::setColor(sf::Color coloris)
+void Bar::setColor(sf::Color coloris)
 {
 	color = coloris;
-	return 1;
 }
 
-sf::Color Bar::getColor()
+sf::Color Bar::getColor() const
 {
 	return color;
 }
