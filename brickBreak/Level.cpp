@@ -88,7 +88,18 @@ void Level::forward(sf::Vector2f resolution, sf::RenderWindow& window, Menu& men
 	}
 	//check destroyed particles
 	Level::checkParticleStates();
-
+	// when the bar is blue (V pressed), it gives the ball a speedboost
+	int loop(0);
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::V)) && (loop == 0))
+	{
+		bar.setColor(sf::Color::Blue);
+		loop = 1;
+	}
+	else if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::V))) 
+	{
+		bar.setColor(sf::Color::Red);
+		loop = 0;
+	}
 	//check bar position
 	bar.isInsideScreen(resolution);
 

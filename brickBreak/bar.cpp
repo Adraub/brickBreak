@@ -99,19 +99,47 @@ void Bar::launchedBall()
 
 int Bar::upCollision(sf::Vector2f& speed, sf::Vector2f& ballPos)
 {
-	double constantSpeedAdjust(1);
-	double xToCenter = getPos().x - ballPos.x;
-	double realSpeed = sqrt(speed.x*speed.x + speed.y*speed.y); // to be kept constant
-	double diffractionRate(0.08);
+	float constantSpeedAdjust(1);
+	float xToCenter = getPos().x - ballPos.x;
+	float realSpeed = sqrt(speed.x*speed.x + speed.y*speed.y); // to be kept constant
+	float diffractionRate(0.08f);
+	float speedBoostCoef(1.4f);
 	speed.y = -speed.y; //the rebound itself
-
-	if (speed.x * xToCenter > 0) //  = cases where ball moves from left to right and bounces on left side or from right to left and on right side
+	if ((color==sf::Color::Blue) && (realSpeed < 13)) 
 	{
-		if (abs(xToCenter) >= (3*getDim().x/8))
+		if (speed.x * xToCenter > 0) //  = cases where ball moves from left to right and bounces on left side or from right to left and on right side
 		{
-			speed.x = -speed.x;
+			if (abs(xToCenter) >= (3 * getDim().x / 8))
+			{
+				speed.x = -speed.x;
+			}
+			else speed.y -= abs(xToCenter)*diffractionRate;
+
 		}
-		else speed.y -= abs(xToCenter)*diffractionRate;
+		else if (speed.x * xToCenter < 0)
+		{
+			if (speed.x > 0) speed.x += abs(xToCenter)*diffractionRate;
+			else speed.x -= abs(xToCenter)*diffractionRate;
+		}
+		else if ((speed.x * xToCenter == 0) && (xToCenter != 0)) // special case where we still want the ball to be difracted
+		{
+			if (xToCenter > 0) speed.x -= abs(xToCenter)*diffractionRate;// ball on the left
+			else speed.x += abs(xToCenter)*diffractionRate;
+		}
+		constantSpeedAdjust = realSpeed / (sqrt(speed.x*speed.x + speed.y*speed.y));
+		speed.x = speedBoostCoef*constantSpeedAdjust*speed.x;
+		speed.y = speedBoostCoef*constantSpeedAdjust*speed.y;
+
+	}
+	else
+	{
+		if (speed.x * xToCenter > 0) //  = cases where ball moves from left to right and bounces on left side or from right to left and on right side
+		{
+			if (abs(xToCenter) >= (3 * getDim().x / 8))
+			{
+				speed.x = -speed.x;
+			}
+			else speed.y -= abs(xToCenter)*diffractionRate;
 
 	}
 	else if (speed.x * xToCenter < 0)
@@ -127,5 +155,17 @@ int Bar::upCollision(sf::Vector2f& speed, sf::Vector2f& ballPos)
 	constantSpeedAdjust = realSpeed / (sqrt(speed.x*speed.x + speed.y*speed.y));
 	speed.x = constantSpeedAdjust*speed.x;
 	speed.y = constantSpeedAdjust*speed.y;
+}
 	return 1;
+}
+
+int Bar::setColor(sf::Color coloris)
+{
+	color = coloris;
+	return 1;
+}
+
+sf::Color Bar::getColor()
+{
+	return color;
 }

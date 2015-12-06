@@ -18,7 +18,8 @@ public:
 	void launchedBall();
 	bool isBall();
 	int Bar::upCollision(sf::Vector2f&, sf::Vector2f&);
-
+	int setColor(sf::Color);
+	sf::Color getColor();
 private:
 	sf::Vector2f pos;
 	sf::Vector2f dim;

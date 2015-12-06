@@ -28,16 +28,28 @@ bool Ball::isInsideScreen(sf::Vector2f& resolution)
 	{
 		/*ball reflected on the top of the window*/
 		speed.y = -speed.y;
+		if (speed.y == 0)
+		{
+			speed.y = 1;
+		}
 	}
 	if (pos.x + radius * 2 >= resolution.x)
 	{
 		/*Ball reflected on the right corner*/
 		speed.x = -speed.x;
+		if (speed.x == 0)
+		{
+			speed.x = -1;
+		}
 	}
 	else if (pos.x <= 0)
 	{
 		/*ball reflected on the left corner*/
 		speed.x = -speed.x;
+		if (speed.x == 0)
+		{
+			speed.x = 1;
+		}
 	}
 	return true;
 }
@@ -62,6 +74,11 @@ bool Ball::isColliding(class Brick& brick)
 						brick.onCollision();
 						return true;
 					}
+					else if (speed.y == 0)
+					{
+						speed.y = 1;
+						return true;
+					}
 				}
 				else
 				{
@@ -70,6 +87,11 @@ bool Ball::isColliding(class Brick& brick)
 					{
 						speed.x = -speed.x;
 						brick.onCollision();
+						return true;
+					}
+					else if (speed.x == 0)
+					{
+						speed.x = -1;
 						return true;
 					}
 				}
@@ -85,6 +107,11 @@ bool Ball::isColliding(class Brick& brick)
 						brick.onCollision();
 						return true;
 					}
+					else if (speed.x == 0)
+					{
+						speed.x = 1;
+						return true;
+					}
 				}
 				else
 				{
@@ -93,6 +120,11 @@ bool Ball::isColliding(class Brick& brick)
 					{
 						speed.y = -speed.y;
 						brick.onCollision();
+						return true;
+					}
+					else if (speed.y == 0)
+					{
+						speed.y = -1;
 						return true;
 					}
 				}
