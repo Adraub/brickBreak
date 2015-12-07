@@ -44,7 +44,7 @@ void Brick::onCollision()
 		// Set adapted texture
 		{
 			tex = new sf::Texture;
-			if (!(*tex).loadFromFile("strong2Texture.jpg"))
+			if (!(*tex).loadFromFile("img/strong2Texture.jpg"))
 			{
 				std::puts("error loading strong texture\n");
 			}
@@ -53,7 +53,7 @@ void Brick::onCollision()
 		// Set adapted texture
 		{
 			tex = new sf::Texture;
-			if (!(*tex).loadFromFile("normalTexture.jpg"))
+			if (!(*tex).loadFromFile("img/normalTexture.jpg"))
 			{
 				std::puts("error loading normal texture\n");
 			}

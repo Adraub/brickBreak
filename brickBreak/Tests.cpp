@@ -21,7 +21,7 @@ TEST(ball, creation)
 TEST(brick, creation)
 {
 	sf::Texture* normalTexture = new sf::Texture;
-	if (!(*normalTexture).loadFromFile("normalTexture.jpg"))
+	if (!(*normalTexture).loadFromFile("img/normalTexture.jpg"))
 	{
 		std::puts("error loading normal texture\n");
 	}

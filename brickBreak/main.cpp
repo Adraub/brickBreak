@@ -19,7 +19,7 @@ int main()
 	
 	/*draw star wallpaper*/
 	sf::Texture texture;
-	texture.loadFromFile("wallpaper.jpg");
+	texture.loadFromFile("img/wallpaper.jpg");
 
 	/*Size of the space used to draw*/
 	sf::Vector2f resolution(1920,1080);

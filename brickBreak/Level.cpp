@@ -129,31 +129,31 @@ void Level::createBricks(int level)
 {
 	// Load level textures
 	sf::Texture* normalTexture = new sf::Texture;
-	if (!(*normalTexture).loadFromFile("normalTexture.jpg"))
+	if (!(*normalTexture).loadFromFile("img/normalTexture.jpg"))
 	{
 		std::puts("error loading normal texture\n");
 	}
 
 	sf::Texture* undestroyableTexture = new sf::Texture;
-	if (!(*undestroyableTexture).loadFromFile("undestroyableTexture.jpg"))
+	if (!(*undestroyableTexture).loadFromFile("img/undestroyableTexture.jpg"))
 	{
 		std::puts("error loading undestroyable texture\n");
 	}
 
 	sf::Texture* strong3Texture = new sf::Texture;
-	if (!(*strong3Texture).loadFromFile("strong3Texture.jpg"))
+	if (!(*strong3Texture).loadFromFile("img/strong3Texture.jpg"))
 	{
 		std::puts("error loading strong texture\n");
 	}
 
 	sf::Texture* ballTexture = new sf::Texture;
-	if (!(*ballTexture).loadFromFile("ballTexture.jpg"))
+	if (!(*ballTexture).loadFromFile("img/ballTexture.jpg"))
 	{
 		std::puts("error loading ball texture\n");
 	}
 
 	sf::Texture* bonusTexture = new sf::Texture;
-	if (!(*bonusTexture).loadFromFile("bonusTexture.jpg"))
+	if (!(*bonusTexture).loadFromFile("img/bonusTexture.jpg"))
 	{
 		std::puts("error loading bonus texture\n");
 	}
