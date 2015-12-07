@@ -29,10 +29,10 @@ bool Particle::isColliding(class Bar& bar)
 
 	if (bar.getPos().y <= (pos.y + 2 * radius) && pos.y <= (bar.getPos().y + bar.getDim().y))
 	{
-		/*ball inside horizontal limits of the bar*/
+		/*Particle inside horizontal limits of the bar*/
 		if ((bar.getPos().x - bar.getDim().x / 2) <= (pos.x + 2 * radius) && pos.x <= (bar.getPos().x + bar.getDim().x / 2))
 		{
-			/*ball inside vertical limits of the bar*/
+			/*Particle inside vertical limits of the bar*/
 			if (!(pos.y + radius >= bar.getPos().y + (pos.x + radius - (bar.getPos().x - bar.getDim().x / 2))*bar.getTanBar()))
 			{
 				if (!(pos.y + radius >= bar.getPos().y + bar.getDim().y - (pos.x + radius - (bar.getPos().x - bar.getDim().x / 2))*bar.getTanBar()))
@@ -63,6 +63,7 @@ int Particle::giveBonus(BallsHandler& ball, Bar& bar, Score& score)
 	static int choice=0,precedent_choice=0;
 	static int bar_width = 2;
 	
+	//definition of a random bonus
 	do {
 		alea = rand() % 8;
 		if (alea < 2) {
@@ -84,11 +85,13 @@ int Particle::giveBonus(BallsHandler& ball, Bar& bar, Score& score)
 	switch (choice)
 	{
 		case 1: {
+			//bonus: new ball
 			ball.launchBall(bar);
 			break;
 		}
 		case 2:
 		{
+			//bonus: bar width divided by 2
 			sf::Vector2f newdim;
 			newdim.x = bar.getDim().x / 2;
 			newdim.y = bar.getDim().y;
@@ -97,6 +100,7 @@ int Particle::giveBonus(BallsHandler& ball, Bar& bar, Score& score)
 		}
 		case 3:
 		{
+			//bonus: bar multiplied by 2
 			sf::Vector2f newdim;
 			newdim.x = bar.getDim().x * 2;
 			newdim.y = bar.getDim().y;
@@ -105,6 +109,7 @@ int Particle::giveBonus(BallsHandler& ball, Bar& bar, Score& score)
 		}
 		case 4:
 		{
+			//bonus: one life more
 			score.addLife();
 			break;
 		}
